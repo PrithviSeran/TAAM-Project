@@ -15,8 +15,8 @@
         android:layout_marginBottom="10dp"
         android:text="@string/username"
         app:layout_constraintBottom_toBottomOf="@+id/usernameEditText"
-        app:layout_constraintEnd_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/loginTitle"
+        app:layout_constraintTop_toBottomOf="@+id/loginTitle"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_marginBottom="10dp"
         android:text="@string/password"
         app:layout_constraintBottom_toBottomOf="@+id/passwordEditText"
-        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/loginTitle"
         app:layout_constraintTop_toBottomOf="@+id/usernameLabel"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -43,7 +43,7 @@
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/usernameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/loginTitle"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/usernameEditText" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="151dp"
@@ -87,6 +87,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="textView3,usernameEditText,usernameLabel,passwordLabel,passwordEditText" />
+        app:constraint_referenced_ids="loginTitle,usernameEditText,usernameLabel,passwordLabel,passwordEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

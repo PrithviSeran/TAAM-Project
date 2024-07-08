@@ -9,6 +9,10 @@
     <string name="scroller">Scroller</string>
     <string name="spinner">Spinner</string>
     <string name="manage_items">Manage Items</string>
+    <string name="submit">Submit</string>
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
+    <string name="loginTitle">TAAM Collection System Login</string>
 
     <string-array name="categories_array">
         <item>Books</item>

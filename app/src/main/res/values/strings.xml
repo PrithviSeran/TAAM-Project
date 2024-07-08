@@ -9,6 +9,13 @@
     <string name="scroller">Scroller</string>
     <string name="spinner">Spinner</string>
     <string name="manage_items">Manage Items</string>
+    <string name="TAAM">TAAM Collections Management</string>
+    <string name="mainpage_title">Mainpage</string>
+    <string name="bg_style">Background Style</string>
+    <string name="search_text">Search Item</string>
+    <string name="extra_feature">Extra Feature</string>
+    <string name="admin_text">Admin Log-in</string>
+    <string name="collections_text">View Collection</string>
 
     <string-array name="categories_array">
         <item>Books</item>

@@ -8,12 +8,13 @@
 
     <TextView
         android:id="@+id/usernameLabel"
-        android:layout_width="71dp"
-        android:layout_height="19dp"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="-20dp"
+        android:layout_marginEnd="-100dp"
         android:layout_marginBottom="10dp"
         android:text="@string/username"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/usernameEditText"
         app:layout_constraintEnd_toStartOf="@+id/loginTitle"
         app:layout_constraintTop_toBottomOf="@+id/loginTitle"
@@ -21,14 +22,14 @@
 
     <TextView
         android:id="@+id/passwordLabel"
-        android:layout_width="71dp"
-        android:layout_height="19dp"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
         android:layout_marginTop="85dp"
-        android:layout_marginEnd="-20dp"
         android:layout_marginBottom="10dp"
         android:text="@string/password"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/passwordEditText"
-        app:layout_constraintEnd_toStartOf="@+id/loginTitle"
+        app:layout_constraintStart_toStartOf="@+id/usernameLabel"
         app:layout_constraintTop_toBottomOf="@+id/usernameLabel"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -36,13 +37,14 @@
         android:id="@+id/usernameEditText"
         android:layout_width="160dp"
         android:layout_height="48dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="-180dp"
         android:layout_marginTop="18dp"
         android:layout_marginBottom="535dp"
         android:ems="10"
+        android:hint="@string/usernameHint"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/usernameLabel"
+        app:layout_constraintStart_toEndOf="@+id/loginTitle"
         app:layout_constraintTop_toBottomOf="@+id/loginTitle"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -50,12 +52,12 @@
         android:id="@+id/passwordEditText"
         android:layout_width="160dp"
         android:layout_height="48dp"
-        android:layout_marginStart="50dp"
         android:layout_marginTop="55dp"
         android:ems="10"
+        android:hint="@string/passwordHint"
         android:inputType="textPassword"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/passwordLabel"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/usernameEditText"
         app:layout_constraintTop_toBottomOf="@+id/usernameEditText" />
 
     <TextView
@@ -66,6 +68,7 @@
         android:layout_marginTop="26dp"
         android:layout_marginEnd="152dp"
         android:text="@string/loginTitle"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -78,6 +81,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="152dp"
         android:text="@string/submit"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier2" />

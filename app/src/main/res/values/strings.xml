@@ -11,7 +11,9 @@
     <string name="manage_items">Manage Items</string>
     <string name="submit">Submit</string>
     <string name="username">Username:</string>
+    <string name="usernameHint">Enter username</string>
     <string name="password">Password:</string>
+    <string name="passwordHint">Enter password</string>
     <string name="loginTitle">TAAM Collection System Login</string>
 
     <string-array name="categories_array">

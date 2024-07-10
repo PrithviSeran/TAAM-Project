@@ -17,10 +17,17 @@ public class SpinnerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_spinner, container, false);
 
         Spinner spinner = view.findViewById(R.id.spinner);
+        Spinner spinner2 = view.findViewById(R.id.spinner2);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.categories_array, android.R.layout.simple_spinner_item);
+                R.array.categories_list, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getContext(),
+                R.array.periods_list, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adapter2);
 
         return view;
     }

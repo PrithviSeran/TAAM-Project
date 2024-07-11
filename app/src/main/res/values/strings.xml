@@ -9,6 +9,12 @@
     <string name="scroller">Scroller</string>
     <string name="spinner">Spinner</string>
     <string name="manage_items">Manage Items</string>
+    <string name="submit">Submit</string>
+    <string name="username">Username:</string>
+    <string name="usernameHint">Enter username</string>
+    <string name="password">Password:</string>
+    <string name="passwordHint">Enter password</string>
+    <string name="loginTitle">TAAM Collection System Login</string>
     <string name="TAAM">TAAM Collections Management</string>
     <string name="mainpage_title">Mainpage</string>
     <string name="bg_style">Background Style</string>
@@ -16,6 +22,7 @@
     <string name="extra_feature">Extra Feature</string>
     <string name="admin_text">Admin Log-in</string>
     <string name="collections_text">View Collection</string>
+
 
     <string-array name="categories_array">
         <item>Books</item>

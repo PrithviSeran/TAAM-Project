@@ -22,11 +22,27 @@
     <string name="extra_feature">Extra Feature</string>
     <string name="admin_text">Admin Log-in</string>
     <string name="collections_text">View Collection</string>
+    <string name="lot_number">Lot Number:</string>
+    <string name="name">Name:</string>
+    <string name="category">Category:</string>
+    <string name="period">Period:</string>
+    <string name="description">Description:</string>
+    <string name="picture_video">Picture/Video:</string>
+    <string name="submit">Submit</string>
 
     <string-array name="categories_array">
-        <item>Books</item>
-        <item>Movies</item>
+        <item>Jade</item>
+        <item>Paintings</item>
+        <item>Calligraphy</item>
+        <item>Rubbings</item>
+        <item>Bronze</item>
+        <item>Brass and Copper</item>
+        <item>Gold and Silvers</item>
+        <item>Lacquer</item>
+        <item>Enamels</item>
     </string-array>
+
+    <string-array name="periods_array">
 
     <string-array name="categories_list">
         <item>Jade</item>
@@ -61,4 +77,3 @@
         <item>Modern</item>
     </string-array>
 </resources>
-

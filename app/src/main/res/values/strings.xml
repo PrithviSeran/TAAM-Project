@@ -40,17 +40,6 @@
         <item>Enamels</item>
     </string-array>
 
-    <string-array name="categories_list">
-        <item>Jade</item>
-        <item>Paintings</item>
-        <item>Calligraphy</item>
-        <item>Rubbings</item>
-        <item>Bronze, Brass, and Copper</item>
-        <item>Gold and Silvers</item>
-        <item>Lacquer</item>
-        <item>Enamels</item>
-    </string-array>
-  
     <string-array name="periods_list">
         <item>Xia</item>
         <item>Shang</item>

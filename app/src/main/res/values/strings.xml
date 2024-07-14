@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">TAAM Collections Management App</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delete_item">Delete Item</string>
     <string name="add_item">Add Item</string>
     <string name="back">Back</string>
@@ -28,6 +26,7 @@
     <string name="period">Period:</string>
     <string name="description">Description:</string>
     <string name="picture_video">Picture/Video:</string>
+    <string name="picture_optional">Picture (Optional):</string>
 
     <string-array name="categories_array">
         <item>Jade</item>

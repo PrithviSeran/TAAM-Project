@@ -1,5 +1,6 @@
 package com.example.b07demosummer2024;
 
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AddItemFragment extends Fragment {
-    private EditText editTextTitle, editTextAuthor, editTextGenre, editTextDescription;
-    private Spinner spinnerCategory;
+    private EditText editTextLotNum, editTextName, editTextDescription, editTextPic;
+    private Spinner spinnerCategory, spinnerPeriod;
     private Button buttonAdd;
-
     private FirebaseDatabase db;
     private DatabaseReference itemsRef;
 
@@ -29,12 +29,13 @@ public class AddItemFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_item, container, false);
 
-        editTextTitle = view.findViewById(R.id.editTextTitle);
-        editTextAuthor = view.findViewById(R.id.editTextAuthor);
-        editTextGenre = view.findViewById(R.id.editTextGenre);
-        editTextDescription = view.findViewById(R.id.editTextDescription);
-        spinnerCategory = view.findViewById(R.id.spinnerCategory);
-        buttonAdd = view.findViewById(R.id.buttonAdd);
+        editTextLotNum = view.findViewById(R.id.editTextText1);
+        editTextName = view.findViewById(R.id.editTextText2);
+        spinnerCategory = view.findViewById(R.id.spinner);
+        spinnerPeriod= view.findViewById(R.id.spinner2);
+        editTextDescription = view.findViewById(R.id.editTextText3);
+        editTextPic = view.findViewById(R.id.editTextText4);
+        buttonAdd = view.findViewById(R.id.button);
 
         db = FirebaseDatabase.getInstance("https://b07-demo-summer-2024-default-rtdb.firebaseio.com/");
 
@@ -43,6 +44,11 @@ public class AddItemFragment extends Fragment {
                 R.array.categories_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
+
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getContext(),
+                R.array.periods_array, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPeriod.setAdapter(adapter2);
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,20 +61,21 @@ public class AddItemFragment extends Fragment {
     }
 
     private void addItem() {
-        String title = editTextTitle.getText().toString().trim();
-        String author = editTextAuthor.getText().toString().trim();
-        String genre = editTextGenre.getText().toString().trim();
+        String lotNum = editTextLotNum.getText().toString().trim();
+        String name = editTextName.getText().toString().trim();
+        String category = spinnerCategory.getSelectedItem().toString().trim();
+        String period = spinnerCategory.getSelectedItem().toString().trim();
         String description = editTextDescription.getText().toString().trim();
-        String category = spinnerCategory.getSelectedItem().toString().toLowerCase();
+        String pic = editTextPic.getText().toString().trim();
 
-        if (title.isEmpty() || author.isEmpty() || genre.isEmpty() || description.isEmpty()) {
+        if (lotNum.isEmpty() || name.isEmpty() || category.isEmpty() || period.isEmpty() || description.isEmpty() || pic.isEmpty()){
             Toast.makeText(getContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
         itemsRef = db.getReference("categories/" + category);
         String id = itemsRef.push().getKey();
-        Item item = new Item(id, title, author, genre, description);
+        Item item = new Item(lotNum, name, category, period, description, pic);
 
         itemsRef.child(id).setValue(item).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -76,6 +83,7 @@ public class AddItemFragment extends Fragment {
             } else {
                 Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 }

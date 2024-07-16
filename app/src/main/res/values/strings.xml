@@ -27,6 +27,10 @@
     <string name="description">Description:</string>
     <string name="picture_video">Picture/Video:</string>
     <string name="picture_optional">Picture (Optional):</string>
+    <string name="remove_item">Remove Item</string>
+    <string name="confirm_deletion">Confirm deletion of selected item:</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 
     <string-array name="categories_array">
         <item>Jade</item>

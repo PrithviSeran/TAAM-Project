@@ -1,8 +1,7 @@
 package com.example.b07demosummer2024;
 
-
 import static android.content.ContentValues.TAG;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +36,7 @@ public class AddItemFragment extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
     private DatabaseReference itemsRef;
 
+    //@SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

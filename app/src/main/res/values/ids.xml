@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="editTextAuthor" type="id" />
+<<<<<<< HEAD
     <item name="editTextGenre" type="id" />
     <item name="editTextDescription" type="id" />
     <item name="buttonAdd" type="id" />
+=======
+>>>>>>> feature/ALL-VISUALS
 </resources>

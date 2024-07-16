@@ -27,7 +27,6 @@ public class AddItemFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_item, container, false);
 
         editTextLotNum = view.findViewById(R.id.editTextText1);
         editTextName = view.findViewById(R.id.editTextText2);
@@ -35,7 +34,6 @@ public class AddItemFragment extends Fragment {
         spinnerPeriod= view.findViewById(R.id.spinner2);
         editTextDescription = view.findViewById(R.id.editTextText3);
         editTextPic = view.findViewById(R.id.editTextText4);
-        buttonAdd = view.findViewById(R.id.button);
 
         db = FirebaseDatabase.getInstance("https://b07-demo-summer-2024-default-rtdb.firebaseio.com/");
 

@@ -16,6 +16,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
 
+
         ImageButton buttonSearch = view.findViewById(R.id.imageButton1);
         ImageButton buttonFeature = view.findViewById(R.id.imageButton2);
         ImageButton buttonAdmin = view.findViewById(R.id.imageButton3);

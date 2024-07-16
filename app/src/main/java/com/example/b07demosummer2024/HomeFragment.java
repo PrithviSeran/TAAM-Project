@@ -11,6 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class HomeFragment extends Fragment {
     @Nullable
     @Override
@@ -45,7 +48,9 @@ public class HomeFragment extends Fragment {
 
         buttonTable.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { loadFragment(new AdminVisuals());}
+            public void onClick(View v) {
+                loadFragment(new AddItemFragment());
+            }
         });
 
         return view;

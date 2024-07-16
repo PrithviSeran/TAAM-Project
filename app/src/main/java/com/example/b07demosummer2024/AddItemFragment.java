@@ -1,7 +1,10 @@
 package com.example.b07demosummer2024;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +16,25 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddItemFragment extends Fragment {
 
     private EditText editTextLotNum, editTextName, editTextDescription, editTextPic;
     private Spinner spinnerCategory, spinnerPeriod;
     private Button buttonAdd;
-    private FirebaseDatabase db;
+    //FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
     private DatabaseReference itemsRef;
 
     @Nullable
@@ -31,14 +43,16 @@ public class AddItemFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_add_item, container, false);
 
+
         editTextLotNum = view.findViewById(R.id.editTextText1);
         editTextName = view.findViewById(R.id.editTextText2);
         spinnerCategory = view.findViewById(R.id.spinner);
         spinnerPeriod= view.findViewById(R.id.spinner2);
         editTextDescription = view.findViewById(R.id.editTextText3);
         editTextPic = view.findViewById(R.id.editTextText4);
+        buttonAdd = view.findViewById(R.id.button);
 
-        db = FirebaseDatabase.getInstance("https://b07-demo-summer-2024-default-rtdb.firebaseio.com/");
+
 
         // Set up the spinner with categories
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
@@ -51,12 +65,19 @@ public class AddItemFragment extends Fragment {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPeriod.setAdapter(adapter2);
 
+
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addItem();
             }
         });
+
+
+
+
+
+
 
         return view;
     }
@@ -73,8 +94,31 @@ public class AddItemFragment extends Fragment {
             Toast.makeText(getContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
             return;
         }
+        /*
+        Map<String, Object> user = new HashMap<>();
+        user.put("first", "Ada");
+        user.put("last", "Lovelace");
+        user.put("born", 1815);
 
-        itemsRef = db.getReference("categories/" + category);
+        // Add a new document with a generated ID
+        db.collection("users")
+        .add(user)
+        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error adding document", e);
+            }
+        });
+         */
+
+
+        itemsRef = database.getReference("categories/" + category);
         String id = itemsRef.push().getKey();
         Item item = new Item(lotNum, name, category, period, description, pic);
 
@@ -86,5 +130,8 @@ public class AddItemFragment extends Fragment {
             }
 
         });
+
+
+
     }
 }

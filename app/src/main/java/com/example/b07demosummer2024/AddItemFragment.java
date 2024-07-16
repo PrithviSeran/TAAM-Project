@@ -1,5 +1,6 @@
 package com.example.b07demosummer2024;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ public class AddItemFragment extends Fragment {
     private FirebaseDatabase db;
     private DatabaseReference itemsRef;
 
+    //@SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

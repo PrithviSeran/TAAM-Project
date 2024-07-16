@@ -26,7 +26,6 @@ public class AddItemFragment extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
     private DatabaseReference itemsRef;
 
-    //@SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,8 +39,7 @@ public class AddItemFragment extends Fragment {
         spinnerPeriod= view.findViewById(R.id.spinner2);
         editTextDescription = view.findViewById(R.id.editTextText3);
         editTextPic = view.findViewById(R.id.editTextText4);
-        buttonAdd = view.findViewById(R.id.button);
-
+        buttonAdd = view.findViewById(R.id.addItemButton);
 
 
         // Set up the spinner with categories
@@ -74,33 +72,10 @@ public class AddItemFragment extends Fragment {
         String description = editTextDescription.getText().toString().trim();
         String pic = editTextPic.getText().toString().trim();
 
-        if (lotNum.isEmpty() || name.isEmpty() || category.isEmpty() || period.isEmpty() || description.isEmpty() || pic.isEmpty()){
+        if (lotNum.isEmpty() || name.isEmpty() || category.isEmpty() || period.isEmpty() || description.isEmpty() || pic.isEmpty()) {
             Toast.makeText(getContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
             return;
         }
-        /*
-        Map<String, Object> user = new HashMap<>();
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
-
-        // Add a new document with a generated ID
-        db.collection("users")
-        .add(user)
-        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-            }
-        })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error adding document", e);
-            }
-        });
-         */
-
 
         itemsRef = database.getReference("categories/" + category);
         String id = itemsRef.push().getKey();

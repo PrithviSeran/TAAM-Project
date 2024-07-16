@@ -35,11 +35,8 @@ public class HomeFragment extends Fragment {
         buttonFeature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
-                loadFragment(new AdminVisuals());
-=======
+
                 loadFragment(new AddItemFragment());
->>>>>>> dac6294bf58c41caba00a1c40eda7e24f23749ea
             }
         });
 

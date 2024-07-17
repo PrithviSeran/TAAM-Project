@@ -101,7 +101,6 @@ public class AddItemFragment extends Fragment {
         });
          */
 
-
         itemsRef = database.getReference("categories/" + category);
         String id = itemsRef.push().getKey();
         Item item = new Item(lotNum, name, category, period, description, pic);
@@ -114,8 +113,5 @@ public class AddItemFragment extends Fragment {
             }
 
         });
-
-
-
     }
 }

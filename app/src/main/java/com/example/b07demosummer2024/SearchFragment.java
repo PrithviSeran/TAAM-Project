@@ -14,12 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 public class SearchFragment extends Fragment {
     private EditText editTextLotNum, editTextName;
-    private Spinner spinner, spinner2;
+    private Spinner spinnerCategory, spinnerPeriod;
     private ImageButton imageButton;
     private Button submitButton;
     private CheckBox reportCheckBox;
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
 
     @Nullable
     @Override
@@ -35,22 +38,30 @@ public class SearchFragment extends Fragment {
         submitButton = view.findViewById(R.id.button);
 
         // Spinners
-        spinner = view.findViewById(R.id.spinner);
-        spinner2 = view.findViewById(R.id.spinner2);
+        spinnerCategory = view.findViewById(R.id.spinner);
+        spinnerPeriod = view.findViewById(R.id.spinner2);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.categories_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        spinnerCategory.setAdapter(adapter);
 
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getContext(),
                 R.array.periods_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(adapter2);
+        spinnerPeriod.setAdapter(adapter2);
 
         // CheckBox
         reportCheckBox = view.findViewById(R.id.checkBox);
 
         return view;
+    }
+
+    private void searchItem(){
+        String lotNum = editTextLotNum.getText().toString().trim();
+        String name = editTextName.getText().toString().trim();
+        String category = spinnerCategory.getSelectedItem().toString().trim();
+        String period = spinnerPeriod.getSelectedItem().toString().trim();
+
     }
 }

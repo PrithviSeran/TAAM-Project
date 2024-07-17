@@ -36,6 +36,10 @@
         android:layout_marginBottom="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+<<<<<<< HEAD
+=======
+        app:layout_constraintHorizontal_bias="1.0"
+>>>>>>> a22d1a1 (edits)
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -50,11 +54,59 @@
             <TableRow>
 
 
+<<<<<<< HEAD
                 <TextView
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0" />
+=======
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="8dp"
+                android:text="Name" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="8dp"
+                android:text="Category" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="8dp"
+                android:text="Period" />
+
+        </TableRow>
+
+        <!-- Dynamic Rows -->
+        <TableRow>
+
+            <RadioGroup
+                android:id="@+id/radioGroup1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:ignore="DuplicateIds">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/lot1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="8dp"
+                android:text="1" />
+>>>>>>> a22d1a1 (edits)
 
                 <TextView
                     android:layout_width="0dp"
@@ -89,6 +141,7 @@
             <!-- Dynamic Rows -->
             <TableRow>
 
+<<<<<<< HEAD
 
                 <RadioButton
                     android:id="@+id/radioButton1"
@@ -383,6 +436,9 @@
 
         </TableLayout>
     </RadioGroup>
+=======
+    </TableLayout>
+>>>>>>> a22d1a1 (edits)
 
     <Button
         android:id="@+id/button7"

@@ -3,6 +3,7 @@ package com.example.b07demosummer2024;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -40,6 +41,7 @@ public class AdminVisuals extends Fragment {
     private TextView lotNum, itemName, itemCategory, itemPeriod;
     private RadioButton firstRadioButtonTest;
 
+    /*
     public AdminVisuals() {
         // Required empty public constructor
     }
@@ -51,7 +53,7 @@ public class AdminVisuals extends Fragment {
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment AdminVisuals.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static AdminVisuals newInstance(String param1, String param2) {
         AdminVisuals fragment = new AdminVisuals();
@@ -70,10 +72,11 @@ public class AdminVisuals extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    */
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
 
         View view = inflater.inflate(R.layout.fragment_admin_visuals, container, false);
 
@@ -82,8 +85,9 @@ public class AdminVisuals extends Fragment {
         itemCategory = view.findViewById(R.id.category1);
         itemPeriod= view.findViewById(R.id.description1);
 
+
         //firstRadioButtonTest = view.findViewById(R.id.radiobutton1);
-        //firstRadioButtonTest.setChecked(true);
+
 
 
 

@@ -33,4 +33,7 @@ public class Item {
     public void setDescription(String description) { this.description = description; }
     public String getPic() { return picURL; }
     public void setPic(String picURL) { this.picURL= picURL; }
+
+
+
 }

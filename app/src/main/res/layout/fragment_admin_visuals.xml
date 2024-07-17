@@ -130,7 +130,7 @@
         <TableRow>
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radioGroup2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -175,7 +175,7 @@
         <TableRow>
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radioGroup3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -220,7 +220,7 @@
         <TableRow>
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radioGroup4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -265,7 +265,7 @@
         <TableRow>
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radioGroup5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -310,7 +310,7 @@
         <TableRow>
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radioGroup6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -355,7 +355,7 @@
         <TableRow>
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radioGroup7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -401,7 +401,7 @@
         <TableRow>
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radioGroup8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

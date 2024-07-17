@@ -1,14 +1,18 @@
 package com.example.b07demosummer2024;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeFragment extends Fragment {
     @Nullable
@@ -16,35 +20,37 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
 
-        Button buttonRecyclerView = view.findViewById(R.id.buttonRecyclerView);
-        Button buttonScroller = view.findViewById(R.id.buttonScroller);
-        Button buttonSpinner = view.findViewById(R.id.buttonSpinner);
-        Button buttonManageItems = view.findViewById(R.id.buttonManageItems);
+        ImageButton buttonSearch = view.findViewById(R.id.imageButton1);
+        ImageButton buttonFeature = view.findViewById(R.id.imageButton2);
+        ImageButton buttonAdmin = view.findViewById(R.id.imageButton3);
+        ImageButton buttonTable = view.findViewById(R.id.imageButton4);
 
-        buttonRecyclerView.setOnClickListener(new View.OnClickListener() {
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new RecyclerViewFragment());
+                loadFragment(new AddItemFragment());
             }
         });
 
-        buttonScroller.setOnClickListener(new View.OnClickListener() {
+        buttonFeature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new ScrollerFragment());
+                loadFragment(new AddItemFragment());
             }
         });
 
-        buttonSpinner.setOnClickListener(new View.OnClickListener() {
+        buttonAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new SpinnerFragment());
+                loadFragment(new AddItemFragment());
             }
         });
 
-        buttonManageItems.setOnClickListener(new View.OnClickListener() {
+        buttonTable.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { loadFragment(new ManageItemsFragment());}
+            public void onClick(View v) {
+                loadFragment(new AddItemFragment());
+            }
         });
 
         return view;
@@ -57,3 +63,5 @@ public class HomeFragment extends Fragment {
         transaction.commit();
     }
 }
+
+

@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment {
         buttonFeature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 loadFragment(new AddItemFragment());
             }
         });
@@ -52,6 +53,8 @@ public class HomeFragment extends Fragment {
                 loadFragment(new AddItemFragment());
             }
         });
+
+
 
         return view;
     }

@@ -68,7 +68,7 @@ public class AddItemFragment extends Fragment {
         String lotNum = editTextLotNum.getText().toString().trim();
         String name = editTextName.getText().toString().trim();
         String category = spinnerCategory.getSelectedItem().toString().trim();
-        String period = spinnerCategory.getSelectedItem().toString().trim();
+        String period = spinnerPeriod.getSelectedItem().toString().trim();
         String description = editTextDescription.getText().toString().trim();
         String pic = editTextPic.getText().toString().trim();
 

@@ -26,425 +26,363 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.184" />
 
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="79dp"
-        android:layout_marginBottom="148dp"
-        android:padding="16dp"
-        android:stretchColumns="1"
+
+    <RadioGroup
+        android:layout_width="400dp"
+        android:layout_height="456dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-        <!-- Header Row -->
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TableRow>
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:stretchColumns="1">
+            <!-- Header Row -->
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:text="" />
+            <TableRow>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:text="Lot #" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="Name" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="Category" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="Period" />
-
-        </TableRow>
-
-        <!-- Dynamic Rows -->
-        <TableRow>
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <RadioButton
+                <TextView
+                    android:id="@+id/textView9"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RadioGroup>
-      
-            <TextView
-                android:id="@+id/lot1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:text="1" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0" />
 
-            <TextView
-                android:id="@+id/name1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="A Ming Dynasty Jade Display" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="Lot #" />
 
-            <TextView
-                android:id="@+id/category1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="Jade" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="Name" />
 
-            <TextView
-                android:id="@+id/description1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="Ming" />
-        </TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="Category" />
 
-        <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="Period" />
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            </TableRow>
+
+            <!-- Dynamic Rows -->
+            <TableRow>
+
+
                 <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RadioGroup>
+                    android:id="@+id/radioButton1"
+                    android:layout_width="21dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0" />
 
-            <TextView
-                android:id="@+id/lot2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:text="2" />
+                <TextView
+                    android:id="@+id/lot1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="1" />
 
-            <TextView
-                android:id="@+id/name2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/name1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="A Ming Dynasty Jade Display" />
 
-            <TextView
-                android:id="@+id/category2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/category1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="Jade" />
 
-            <TextView
-                android:id="@+id/description2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/description1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="Ming" />
+            </TableRow>
 
-        <TableRow>
+            <TableRow>
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+
                 <RadioButton
+                    android:id="@+id/radioButton2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RadioGroup>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0" />
 
-            <TextView
-                android:id="@+id/lot3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:text="3" />
+                <TextView
+                    android:id="@+id/lot2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="2" />
 
-            <TextView
-                android:id="@+id/name3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/name2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/category3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/category2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/description3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/description2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
+            </TableRow>
 
-        <TableRow>
+            <TableRow>
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+
                 <RadioButton
+                    android:id="@+id/radioButton3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RadioGroup>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0" />
 
-            <TextView
-                android:id="@+id/lot4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:text="4" />
+                <TextView
+                    android:id="@+id/lot3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="3" />
 
-            <TextView
-                android:id="@+id/name4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/name3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/category4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/category3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/description4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/description3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
+            </TableRow>
 
-        <TableRow>
+            <TableRow>
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+
                 <RadioButton
+                    android:id="@+id/radioButton4"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RadioGroup>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0" />
 
-            <TextView
-                android:id="@+id/lot5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:text="5" />
+                <TextView
+                    android:id="@+id/lot4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="4" />
 
-            <TextView
-                android:id="@+id/name5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/name4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/category5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/category4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/description5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/description4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
+            </TableRow>
 
-        <TableRow>
+            <TableRow>
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+
                 <RadioButton
+                    android:id="@+id/radioButton5"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RadioGroup>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0" />
 
-            <TextView
-                android:id="@+id/lot6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:text="6" />
+                <TextView
+                    android:id="@+id/lot5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="5" />
 
-            <TextView
-                android:id="@+id/name6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/name5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/category6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/category5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/description6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/description5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
+            </TableRow>
 
-        <TableRow>
+            <TableRow>
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+
                 <RadioButton
+                    android:id="@+id/radioButton6"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RadioGroup>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0" />
 
-            <TextView
-                android:id="@+id/lot7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:text="7" />
+                <TextView
+                    android:id="@+id/lot6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="6" />
 
-            <TextView
-                android:id="@+id/name7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/name6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/category7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/category6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/description7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/description6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
+            </TableRow>
 
-        </TableRow>
+            <TableRow>
 
-        <TableRow>
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
                 <RadioButton
+                    android:id="@+id/radioButton7"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RadioGroup>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0" />
 
-            <TextView
-                android:id="@+id/lot8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:text="8" />
+                <TextView
+                    android:id="@+id/lot7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="7" />
 
-            <TextView
-                android:id="@+id/name8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/name7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/category8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/category7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/description8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="8dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/description7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="8dp"
+                    android:text="" />
 
-        </TableRow>
+            </TableRow>
 
-    </TableLayout>
+        </TableLayout>
+    </RadioGroup>
 
     <Button
         android:id="@+id/button7"
@@ -562,4 +500,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
- </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

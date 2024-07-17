@@ -82,8 +82,8 @@ public class AdminVisuals extends Fragment {
         itemCategory = view.findViewById(R.id.category1);
         itemPeriod= view.findViewById(R.id.description1);
 
-        firstRadioButtonTest = view.findViewById(R.id.radioButton1);
-        firstRadioButtonTest.setChecked(true);
+        //firstRadioButtonTest = view.findViewById(R.id.radiobutton1);
+        //firstRadioButtonTest.setChecked(true);
 
 
 

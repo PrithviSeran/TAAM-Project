@@ -83,6 +83,7 @@
 
         <!-- Dynamic Rows -->
         <TableRow>
+
             <RadioGroup
                 android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
@@ -92,6 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RadioGroup>
+      
             <TextView
                 android:id="@+id/lot1"
                 android:layout_width="0dp"
@@ -547,7 +549,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<<<<<<< HEAD
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"

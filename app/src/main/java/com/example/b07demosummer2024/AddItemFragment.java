@@ -87,10 +87,6 @@ public class AddItemFragment extends Fragment {
             } else {
                 Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
             }
-
         });
-
-
-
     }
 }

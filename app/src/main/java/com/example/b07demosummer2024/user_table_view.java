@@ -51,6 +51,7 @@ public class user_table_view extends Fragment {
 
         itemsRef = database.getReference("TestBranch");
 
+
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
             public void onComplete(@NonNull Task<DataSnapshot> task) {

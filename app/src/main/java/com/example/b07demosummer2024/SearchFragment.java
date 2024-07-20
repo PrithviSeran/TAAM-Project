@@ -89,8 +89,8 @@ public class SearchFragment extends Fragment {
         String category = (spinnerCategory.getSelectedItem().toString().trim()).toLowerCase();
         String period = (spinnerPeriod.getSelectedItem().toString().trim()).toLowerCase();
 
-        if (lotNum.isEmpty() || name.isEmpty() || category.isEmpty() || period.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
+        if (lotNum.isEmpty() && name.isEmpty()) {
+            Toast.makeText(getContext(), "Please fill in at least one field", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -101,7 +101,8 @@ public class SearchFragment extends Fragment {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     Item item = snapshot.getValue(Item.class);
 
-                    if (lotNum.equals(item.getLotNum().toLowerCase()) && name.equals(item.getName().toLowerCase()) && category.equals(item.getCategory().toLowerCase()) && period.equals(item.getPeriod().toLowerCase())) {
+                    if ((name.isEmpty() && lotNum.equals(item.getLotNum().toLowerCase()) && category.equals(item.getCategory().toLowerCase()) && period.equals(item.getPeriod().toLowerCase()))
+                            || lotNum.isEmpty() && name.equals(item.getName().toLowerCase()) && category.equals(item.getCategory().toLowerCase()) && period.equals(item.getPeriod().toLowerCase())) {
                         // perform result of search
                         // ...
                         // ...

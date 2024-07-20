@@ -32,7 +32,6 @@ public class AddItemFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_add_item, container, false);
 
-
         editTextLotNum = view.findViewById(R.id.editTextText1);
         editTextName = view.findViewById(R.id.editTextText2);
         spinnerCategory = view.findViewById(R.id.spinner);
@@ -40,7 +39,6 @@ public class AddItemFragment extends Fragment {
         editTextDescription = view.findViewById(R.id.editTextText3);
         editTextPic = view.findViewById(R.id.editTextText4);
         buttonAdd = view.findViewById(R.id.addItemButton);
-
 
         // Set up the spinner with categories
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
@@ -77,11 +75,11 @@ public class AddItemFragment extends Fragment {
             return;
         }
 
-        itemsRef = database.getReference("categories/" + category);
-        String id = itemsRef.push().getKey();
+        itemsRef = database.getReference("Items");
+        //String id = itemsRef.push().getKey();
         Item item = new Item(lotNum, name, category, period, description, pic);
 
-        itemsRef.child(id).setValue(item).addOnCompleteListener(task -> {
+        itemsRef.child(name).setValue(item).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
             } else {
@@ -89,8 +87,6 @@ public class AddItemFragment extends Fragment {
             }
 
         });
-
-
 
     }
 }

@@ -27,7 +27,7 @@ public class Item {
     public String getCategory() { return Category; }
     public void setCategory(String category) { this.Category = category; }
     public String getPeriod() { return Period; }
-    public void setGenre(String period) { this.Period = period; }
+    public void setPeriod(String period) { this.Period = period; }
     public String getDescription() { return Description; }
     public void setDescription(String description) { this.Description = description; }
     public String getPic() { return PicURL; }

@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new AddItemFragment());
+                loadFragment(new SearchFragment());
             }
         });
 
@@ -43,14 +43,14 @@ public class HomeFragment extends Fragment {
         buttonAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new AddItemFragment());
+                loadFragment(new LoginFragment());
             }
         });
 
         buttonTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new AddItemFragment());
+                loadFragment(new user_table_view());
             }
         });
 

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -15,24 +14,22 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class SearchFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class SearchFragment extends TAAMSFragment {
+
     private EditText editTextLotNum, editTextName;
     private Spinner spinnerCategory, spinnerPeriod;
-    private ImageButton imageButton;
     private Button submitButton;
     private CheckBox reportCheckBox;
     private TextView errorMsg;
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
-    private DataSnapshot itemsSnap;
-    private DatabaseReference itemsRef;
+
+    private final String blankOption = "Not selected";
 
     @Nullable
     @Override
@@ -40,43 +37,32 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_search, container, false);
 
         // EditTexts
-        editTextLotNum = view.findViewById(R.id.editTextText);
-        editTextName = view.findViewById(R.id.editTextText2);
+        editTextLotNum = view.findViewById(R.id.editTextLotNumber);
+        editTextName = view.findViewById(R.id.editTextName);
 
         // Buttons
-        imageButton = view.findViewById(R.id.imageButton);
-        submitButton = view.findViewById(R.id.button);
+        submitButton = view.findViewById(R.id.submitConfirm);
 
         // Spinners
-        spinnerCategory = view.findViewById(R.id.spinner);
-        spinnerPeriod = view.findViewById(R.id.spinner2);
+        spinnerCategory = view.findViewById(R.id.categorySpinner);
+        spinnerPeriod = view.findViewById(R.id.periodSpinner);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.categories_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategory.setAdapter(adapter);
-
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getContext(),
-                R.array.periods_array, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPeriod.setAdapter(adapter2);
+        initializeSpinner(R.array.categories_array, spinnerCategory);
+        initializeSpinner(R.array.periods_array, spinnerPeriod);
 
         // CheckBox
-        reportCheckBox = view.findViewById(R.id.checkBox);
+        reportCheckBox = view.findViewById(R.id.reportConfirm);
 
         // Error Msg
         errorMsg = view.findViewById(R.id.errorMsg);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Do not generate report
-                if (!reportCheckBox.isChecked())
-                    searchItem();
-                // generate report
-                else{
-                    // report code here
-                }
+        submitButton.setOnClickListener(v -> {
+            // Do not generate report
+            if (!reportCheckBox.isChecked())
+                searchItem();
+            // generate report
+            else {
+
             }
         });
 
@@ -84,43 +70,68 @@ public class SearchFragment extends Fragment {
     }
 
     private void searchItem(){
-        String lotNum = (editTextLotNum.getText().toString().trim()).toLowerCase();
-        String name = (editTextName.getText().toString().trim()).toLowerCase();
-        String category = (spinnerCategory.getSelectedItem().toString().trim()).toLowerCase();
-        String period = (spinnerPeriod.getSelectedItem().toString().trim()).toLowerCase();
+        String lotNum = normalize(editTextLotNum.getText().toString());
+        String name = normalize(editTextName.getText().toString());
+        String category = normalize(spinnerCategory.getSelectedItem().toString());
+        String period = normalize(spinnerPeriod.getSelectedItem().toString());
 
-        if (lotNum.isEmpty() && name.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill in at least one field", Toast.LENGTH_SHORT).show();
+        if (isAllBlankInput(lotNum, name, category, period)) {
+            Toast.makeText(getContext(), "Please fill in at least one field!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         itemsRef = database.getReference();
-        itemsRef.child("Items").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+        itemsRef.child("Items").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DataSnapshot itemsList = task.getResult();
+                for (DataSnapshot snapshot : itemsList.getChildren()) {
                     Item item = snapshot.getValue(Item.class);
 
-                    if ((name.isEmpty() && lotNum.equals(item.getLotNum().toLowerCase()) && category.equals(item.getCategory().toLowerCase()) && period.equals(item.getPeriod().toLowerCase()))
-                            || lotNum.isEmpty() && name.equals(item.getName().toLowerCase()) && category.equals(item.getCategory().toLowerCase()) && period.equals(item.getPeriod().toLowerCase())) {
+                    // if the fields are blank, compare() should return true anyways
+                    if (compare(lotNum, item.getLotNum()) && compare(name, item.getName()) && compare(category, item.getCategory()) && compare(period, item.getPeriod())) {
                         // perform result of search
                         // ...
                         // ...
                         errorMsg.setText("Successful Search");
                         return;
                     }
-
                 }
                 errorMsg.setText("Cannot find item");
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            } else {
+                // error handling code
             }
         });
+    }
 
+    private void initializeSpinner(int arrayId, Spinner spinner) {
+        List<CharSequence> resList = new ArrayList<>(Arrays.asList(getResources().getStringArray(arrayId)));
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, resList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.insert(blankOption, 0);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(0);
+    }
 
+    private String normalize(String s) {
+        return s.trim().toLowerCase();
+    }
+
+    private boolean compare(String input, String compareTo) {
+        if (!isBlankInput(input)) {
+            return input.equals(compareTo.toLowerCase());
         }
+        return true; // if isBlankInput is true, then there is basically no input to check
+    }
+
+    private boolean isBlankInput(String s) {
+        return s == null || s.isEmpty() || s.equals(blankOption.toLowerCase());
+    }
+
+    private boolean isAllBlankInput(String ... a) {
+        for (String s : a) {
+            if (!isBlankInput(s)) {return false;}
+        }
+        return true;
+    }
 }

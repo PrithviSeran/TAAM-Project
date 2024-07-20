@@ -20,7 +20,6 @@ public class Item {
         this.PicURL = picURL;
     }
 
-    // Getters and setters
     public String getLotNum() { return LotNum; }
     public void setLotNum(String lotNum) { this.LotNum= lotNum; }
     public String getName() { return Name; }

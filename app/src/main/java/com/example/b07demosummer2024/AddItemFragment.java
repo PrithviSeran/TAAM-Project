@@ -76,7 +76,6 @@ public class AddItemFragment extends Fragment {
         }
 
         itemsRef = database.getReference("Items");
-        //String id = itemsRef.push().getKey();
         Item item = new Item(lotNum, name, category, period, description, pic);
 
         itemsRef.child(name).setValue(item).addOnCompleteListener(task -> {
@@ -85,8 +84,6 @@ public class AddItemFragment extends Fragment {
             } else {
                 Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
             }
-
         });
-
     }
 }

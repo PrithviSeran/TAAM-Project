@@ -2,11 +2,28 @@ package com.example.b07demosummer2024;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,50 +32,87 @@ import android.view.ViewGroup;
  */
 public class user_table_view extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private TableRow tableRow1;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private TextView textView1, textView2, textView3, textView4;
+    private CheckBox checkBox;
+    private Button viewItem;
 
-    public user_table_view() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment user_table_view.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static user_table_view newInstance(String param1, String param2) {
-        user_table_view fragment = new user_table_view();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
+    private DatabaseReference itemsRef;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
+
+        TableLayout tableLayout1 = view.findViewById(R.id.tableLayout);
+
+        itemsRef = database.getReference("TestBranch");
+
+
+        itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+
+                    Log.d("Class", String.valueOf(task.getResult().getValue().getClass()));
+
+
+
+                    for (Object entry1 : ((HashMap)task.getResult().getValue()).entrySet()) {
+                        tableRow1 = new TableRow(getActivity());
+                        checkBox = new CheckBox(getActivity());
+
+                        tableRow1.addView(checkBox);
+
+                        for (Object entry2 : ((HashMap)((Map.Entry)entry1).getValue()).entrySet()) {
+                            System.out.println("Key: " + ((Map.Entry)entry2).getKey() + ", Value: " + ((Map.Entry)entry2).getValue());
+
+                            // Create new TextView
+                            textView1 = new TextView(getActivity());
+                            textView1.setText(String.valueOf(((Map.Entry)entry2).getValue()));
+
+
+                            tableRow1.addView(textView1);
+
+
+                        }
+                        viewItem = new Button(getActivity());
+                        viewItem.setText("View Item");
+
+                        viewItem.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // Handle the button click
+                                // loadFragment(new ViewItem( .... ));
+                            }
+                        });
+
+                        tableRow1.addView(viewItem);
+
+
+                        tableLayout1.addView(tableRow1);
+                    }
+
+
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                }
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_table_view, container, false);
+        return view;
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

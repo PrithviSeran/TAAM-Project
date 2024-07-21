@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,7 +15,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends TAAMSFragment {
+
+    private TextView title;
+    private String name;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -25,17 +30,24 @@ public class HomeFragment extends Fragment {
         ImageButton buttonAdmin = view.findViewById(R.id.imageButton3);
         ImageButton buttonTable = view.findViewById(R.id.imageButton4);
 
+        title = view.findViewById(R.id.homeTittle);
+
+        if (user != null){
+            name = user.getDisplayName();
+
+            title.setText("Hello, " + name);
+        }
+
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new AddItemFragment());
+                loadFragment(new SearchFragment());
             }
         });
 
         buttonFeature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 loadFragment(new AddItemFragment());
             }
         });
@@ -43,27 +55,24 @@ public class HomeFragment extends Fragment {
         buttonAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new AddItemFragment());
+                loadFragment(new LoginFragment());
             }
         });
 
         buttonTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new AddItemFragment());
+
+                if (user != null){
+                    loadFragment(new AdminVisuals());
+                }
+                else{
+                    loadFragment(new user_table_view());
+                }
             }
         });
 
-
-
         return view;
-    }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 }
 

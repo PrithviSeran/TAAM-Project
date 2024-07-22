@@ -14,12 +14,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class SearchFragment extends TAAMSFragment {
 
@@ -58,8 +61,16 @@ public class SearchFragment extends TAAMSFragment {
 
         submitButton.setOnClickListener(v -> {
             // Do not generate report
-            if (!reportCheckBox.isChecked())
-                searchItem();
+            if (!reportCheckBox.isChecked()) {
+                List<Item> items = searchItem();
+                if (items != null && !items.isEmpty()) {
+                    errorMsg.setText("Successful Search!");
+                    loadFragment(new SearchResult(items));
+                }
+                else {
+                    errorMsg.setText("Cannot find item!");
+                }
+            }
             // generate report
             else {
 
@@ -69,7 +80,7 @@ public class SearchFragment extends TAAMSFragment {
         return view;
     }
 
-    private void searchItem(){
+    private List<Item> searchItem() {
         String lotNum = normalize(editTextLotNum.getText().toString());
         String name = normalize(editTextName.getText().toString());
         String category = normalize(spinnerCategory.getSelectedItem().toString());
@@ -77,9 +88,9 @@ public class SearchFragment extends TAAMSFragment {
 
         if (isAllBlankInput(lotNum, name, category, period)) {
             Toast.makeText(getContext(), "Please fill in at least one field!", Toast.LENGTH_SHORT).show();
-            return;
+            return null;
         }
-
+        List<Item> items = new ArrayList<Item>();
         itemsRef = database.getReference();
         itemsRef.child("Items").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -90,17 +101,16 @@ public class SearchFragment extends TAAMSFragment {
                     // if the fields are blank, compare() should return true anyways
                     if (compare(lotNum, item.getLotNum()) && compare(name, item.getName()) && compare(category, item.getCategory()) && compare(period, item.getPeriod())) {
                         // perform result of search
-                        // ...
-                        // ...
-                        errorMsg.setText("Successful Search");
-                        return;
+                        items.add(item);
                     }
                 }
-                errorMsg.setText("Cannot find item");
-            } else {
+            }
+
+            else {
                 // error handling code
             }
         });
+        return items;
     }
 
     private void initializeSpinner(int arrayId, Spinner spinner) {
@@ -133,5 +143,12 @@ public class SearchFragment extends TAAMSFragment {
             if (!isBlankInput(s)) {return false;}
         }
         return true;
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

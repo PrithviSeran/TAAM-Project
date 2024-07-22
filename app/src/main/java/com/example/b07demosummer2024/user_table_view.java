@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
@@ -37,6 +38,7 @@ public class user_table_view extends Fragment {
     private TextView textView1, textView2, textView3, textView4;
     private CheckBox checkBox;
     private Button viewItem;
+    private Button backButton;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
     private DatabaseReference itemsRef;
@@ -48,9 +50,20 @@ public class user_table_view extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
 
         TableLayout tableLayout1 = view.findViewById(R.id.tableLayout);
+        backButton = view.findViewById(R.id.backButtonTable);
 
-        itemsRef = database.getReference("TestBranch");
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the button click
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                if (fragmentManager != null) {
+                    fragmentManager.popBackStack();
+                }
+            }
+        });
 
+        itemsRef = database.getReference("Items");
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
@@ -60,28 +73,17 @@ public class user_table_view extends Fragment {
                 }
                 else {
 
-                    Log.d("Class", String.valueOf(task.getResult().getValue().getClass()));
-
-
-
                     for (Object entry1 : ((HashMap)task.getResult().getValue()).entrySet()) {
                         tableRow1 = new TableRow(getActivity());
                         checkBox = new CheckBox(getActivity());
 
                         tableRow1.addView(checkBox);
 
-                        for (Object entry2 : ((HashMap)((Map.Entry)entry1).getValue()).entrySet()) {
-                            System.out.println("Key: " + ((Map.Entry)entry2).getKey() + ", Value: " + ((Map.Entry)entry2).getValue());
+                        textView1 = new TextView(getActivity());
+                        textView1.setText(String.valueOf(((Map.Entry)entry1).getKey()));
 
-                            // Create new TextView
-                            textView1 = new TextView(getActivity());
-                            textView1.setText(String.valueOf(((Map.Entry)entry2).getValue()));
+                        tableRow1.addView(textView1);
 
-
-                            tableRow1.addView(textView1);
-
-
-                        }
                         viewItem = new Button(getActivity());
                         viewItem.setText("View Item");
 
@@ -89,18 +91,14 @@ public class user_table_view extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 // Handle the button click
-                                // loadFragment(new ViewItem( .... ));
+                                loadFragment(new ViewItem(String.valueOf(((Map.Entry)entry1).getKey())));
                             }
                         });
 
                         tableRow1.addView(viewItem);
 
-
                         tableLayout1.addView(tableRow1);
                     }
-
-
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
                 }
             }
         });

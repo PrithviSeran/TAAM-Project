@@ -16,7 +16,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.List;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SearchResult extends user_table_view {
     private TableRow tableRow1;

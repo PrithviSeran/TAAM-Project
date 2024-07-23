@@ -1,5 +1,7 @@
 package com.example.b07demosummer2024;
 
+import androidx.annotation.NonNull;
+
 public class Item {
 
     private String LotNum;
@@ -27,9 +29,17 @@ public class Item {
     public String getCategory() { return Category; }
     public void setCategory(String category) { this.Category = category; }
     public String getPeriod() { return Period; }
-    public void setGenre(String period) { this.Period = period; }
+    public void setPeriod(String period) { this.Period = period; }
     public String getDescription() { return Description; }
     public void setDescription(String description) { this.Description = description; }
     public String getPic() { return PicURL; }
     public void setPic(String picURL) { this.PicURL = picURL; }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format("Lot Num: %s, Name: %s, Category: %s," +
+                " Period: %s, Description: %s, Pic: %s",
+                LotNum, Name, Category, Period, Description, PicURL);
+    }
 }

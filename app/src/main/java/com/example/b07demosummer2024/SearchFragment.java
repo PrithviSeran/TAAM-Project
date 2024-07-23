@@ -1,126 +1,175 @@
 package com.example.b07demosummer2024;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class SearchFragment extends Fragment {
-    private EditText editTextLotNum, editTextName;
-    private Spinner spinnerCategory, spinnerPeriod;
-    private ImageButton imageButton;
+
+    protected interface SearchResultCallback {
+        void onSuccess(List<Item> results);
+        void onFailure(String message);
+    }
+
+    private EditText editTextLotNum;
+    private EditText editTextName;
+    private Spinner spinnerCategory;
+    private Spinner spinnerPeriod;
     private Button submitButton;
-    private CheckBox reportCheckBox;
-    private TextView errorMsg;
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
-    private DataSnapshot itemsSnap;
-    private DatabaseReference itemsRef;
+    private TextView title;
+
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance(
+            "https://login-taam-bo7-default-rtdb.firebaseio.com/");
+
+    private final String activityTitle;
+    private final View.OnClickListener submissionListener;
+
+    private final String blankOption = "Not selected";
+
+    public SearchFragment() {
+        this.activityTitle = "Search for items";
+        this.submissionListener = setSubmissionListener(new SearchResultCallback() {
+            @Override
+            public void onSuccess(List<Item> results) {
+                // search result here
+                loadFragment(new SearchResult(results));
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
+    }
+
+    protected SearchFragment(String title, SearchResultCallback searchResponse) {
+        this.activityTitle = title;
+        this.submissionListener = setSubmissionListener(searchResponse);
+    }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_search, container, false);
-
-        // EditTexts
-        editTextLotNum = view.findViewById(R.id.editTextText);
-        editTextName = view.findViewById(R.id.editTextText2);
-
-        // Buttons
-        imageButton = view.findViewById(R.id.imageButton);
-        submitButton = view.findViewById(R.id.button);
-
-        // Spinners
-        spinnerCategory = view.findViewById(R.id.spinner);
-        spinnerPeriod = view.findViewById(R.id.spinner2);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.categories_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategory.setAdapter(adapter);
-
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getContext(),
-                R.array.periods_array, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPeriod.setAdapter(adapter2);
-
-        // CheckBox
-        reportCheckBox = view.findViewById(R.id.checkBox);
-
-        // Error Msg
-        errorMsg = view.findViewById(R.id.errorMsg);
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Do not generate report
-                if (!reportCheckBox.isChecked())
-                    searchItem();
-                // generate report
-                else{
-                    // report code here
-                }
-            }
-        });
-
-        return view;
+    public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_search, container, false);
     }
 
-    private void searchItem(){
-        String lotNum = (editTextLotNum.getText().toString().trim()).toLowerCase();
-        String name = (editTextName.getText().toString().trim()).toLowerCase();
-        String category = (spinnerCategory.getSelectedItem().toString().trim()).toLowerCase();
-        String period = (spinnerPeriod.getSelectedItem().toString().trim()).toLowerCase();
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        // Title
+        title = view.findViewById(R.id.searchActivityTitle);
+        title.setText(activityTitle);
 
-        if (lotNum.isEmpty() && name.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill in at least one field", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        // EditTexts
+        editTextLotNum = view.findViewById(R.id.editTextLotNumber);
+        editTextName = view.findViewById(R.id.editTextName);
 
-        itemsRef = database.getReference();
-        itemsRef.child("Items").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    Item item = snapshot.getValue(Item.class);
+        // Buttons
+        submitButton = view.findViewById(R.id.submitConfirm);
+        submitButton.setOnClickListener(submissionListener);
 
-                    if ((name.isEmpty() && lotNum.equals(item.getLotNum().toLowerCase()) && category.equals(item.getCategory().toLowerCase()) && period.equals(item.getPeriod().toLowerCase()))
-                            || lotNum.isEmpty() && name.equals(item.getName().toLowerCase()) && category.equals(item.getCategory().toLowerCase()) && period.equals(item.getPeriod().toLowerCase())) {
-                        // perform result of search
-                        // ...
-                        // ...
-                        errorMsg.setText("Successful Search");
-                        return;
-                    }
+        // Spinners
+        spinnerCategory = view.findViewById(R.id.categorySpinner);
+        spinnerPeriod = view.findViewById(R.id.periodSpinner);
 
-                }
-                errorMsg.setText("Cannot find item");
+        initializeSpinner(R.array.categories_array, spinnerCategory);
+        initializeSpinner(R.array.periods_array, spinnerPeriod);
+    }
 
-            }
+    private View.OnClickListener setSubmissionListener(SearchResultCallback callback) {
+        return (v -> {
+            String lotNum = normalize(editTextLotNum.getText().toString());
+            String name = normalize(editTextName.getText().toString());
+            String category = normalize(spinnerCategory.getSelectedItem().toString());
+            String period = normalize(spinnerPeriod.getSelectedItem().toString());
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            if (isAllBlankInput(lotNum, name, category, period)) {
+                Toast.makeText(getContext(), "Please fill in at least one field!", Toast.LENGTH_SHORT).show();
+            } else {
+                searchItems(callback, lotNum, name, category, period);
             }
         });
+    }
 
+    protected void searchItems(SearchResultCallback callback, String lotNum, String name,
+                               String category, String period) {
+        List<Item> searchResults = new ArrayList<>();
+        DatabaseReference itemsRef = database.getReference();
+        itemsRef.child("Items").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DataSnapshot itemsList = task.getResult();
+                for (DataSnapshot snapshot : itemsList.getChildren()) {
+                    Item item = snapshot.getValue(Item.class);
 
+                    // if the fields are blank, compare() should return true anyways
+                    if (item != null && compare(lotNum, item.getLotNum()) && compare(name, item.getName())
+                            && compare(category, item.getCategory()) && compare(period, item.getPeriod())) {
+                        searchResults.add(item);
+                    }
+                }
+                callback.onSuccess(searchResults);
+            } else {
+                callback.onFailure(Objects.toString(task.getException(), "No message available"));
+            }
+        });
+    }
+
+    private void initializeSpinner(int arrayId, Spinner spinner) {
+        List<CharSequence> resList = new ArrayList<>(Arrays.asList(getResources().getStringArray(arrayId)));
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, resList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.insert(blankOption, 0);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(0);
+    }
+
+    private String normalize(String s) {
+        return s.trim().toLowerCase();
+    }
+
+    private boolean compare(String input, String compareTo) {
+        if (!isBlankInput(input) && compareTo != null) {
+            return input.equals(compareTo.toLowerCase());
         }
+        return true; // if isBlankInput is true, then there is basically no input to check
+    }
+
+    private boolean isBlankInput(String s) {
+        return s == null || s.isEmpty() || s.equals(blankOption.toLowerCase());
+    }
+
+    private boolean isAllBlankInput(String ... a) {
+        for (String s : a) {
+            if (!isBlankInput(s)) {return false;}
+        }
+        return true;
+    }
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

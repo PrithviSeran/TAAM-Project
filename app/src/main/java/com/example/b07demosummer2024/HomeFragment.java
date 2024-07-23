@@ -62,13 +62,7 @@ public class HomeFragment extends TAAMSFragment {
         buttonTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (user != null){
-                    loadFragment(new AdminVisuals());
-                }
-                else{
-                    loadFragment(new user_table_view());
-                }
+                loadFragment(new user_table_view());
             }
         });
 

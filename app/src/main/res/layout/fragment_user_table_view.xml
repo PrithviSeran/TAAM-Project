@@ -9,7 +9,7 @@
     android:scaleY="1"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".user_table_view">
-    
+
     <TextView
         android:id="@+id/homeTittle"
         android:layout_width="178dp"

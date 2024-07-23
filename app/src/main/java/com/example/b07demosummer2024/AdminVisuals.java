@@ -35,7 +35,7 @@ import java.util.Map;
  * Use the {@link AdminVisuals#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AdminVisuals extends Fragment {
+public class AdminVisuals extends TAAMSFragment {
 
 
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
@@ -103,8 +103,6 @@ public class AdminVisuals extends Fragment {
 
                         tableLayout1.addView(tableRow1);
                     }
-
-                    Log.d("CheckBoxes", String.valueOf(leftOfCheckBoxes));
                 }
             }
         });
@@ -134,11 +132,5 @@ public class AdminVisuals extends Fragment {
         // Inflate the layout for this fragment
         return view;
 
-    }
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 }

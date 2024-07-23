@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/homeTittle"
         android:layout_width="215dp"
         android:layout_height="37dp"
         android:fontFamily="sans-serif-medium"

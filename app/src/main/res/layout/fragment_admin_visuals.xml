@@ -11,7 +11,7 @@
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/homeTittle"
         android:layout_width="178dp"
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
@@ -174,7 +174,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button12"
+        android:id="@+id/backButtonTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

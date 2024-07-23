@@ -1,6 +1,7 @@
 package com.example.b07demosummer2024;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,36 +9,77 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class SearchFragment extends TAAMSFragment {
+public class SearchFragment extends Fragment {
 
-    private EditText editTextLotNum, editTextName;
-    private Spinner spinnerCategory, spinnerPeriod;
+    protected interface SearchResultCallback {
+        void onSuccess(List<Item> results);
+        void onFailure(String message);
+    }
+
+    private EditText editTextLotNum;
+    private EditText editTextName;
+    private Spinner spinnerCategory;
+    private Spinner spinnerPeriod;
     private Button submitButton;
-    private CheckBox reportCheckBox;
-    private TextView errorMsg;
+    private TextView title;
+
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance(
+            "https://login-taam-bo7-default-rtdb.firebaseio.com/");
+
+    private final String activityTitle;
+    private final View.OnClickListener submissionListener;
 
     private final String blankOption = "Not selected";
 
+    public SearchFragment() {
+        this.activityTitle = "Search for items";
+        this.submissionListener = setSubmissionListener(new SearchResultCallback() {
+            @Override
+            public void onSuccess(List<Item> results) {
+                for (Item i : results) {
+                    Log.i("Results", i.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
+    }
+
+    protected SearchFragment(String title, SearchResultCallback searchResponse) {
+        this.activityTitle = title;
+        this.submissionListener = setSubmissionListener(searchResponse);
+    }
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_search, container, false);
+    public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_search, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        // Title
+        title = view.findViewById(R.id.searchActivityTitle);
+        title.setText(activityTitle);
 
         // EditTexts
         editTextLotNum = view.findViewById(R.id.editTextLotNumber);
@@ -45,6 +87,7 @@ public class SearchFragment extends TAAMSFragment {
 
         // Buttons
         submitButton = view.findViewById(R.id.submitConfirm);
+        submitButton.setOnClickListener(submissionListener);
 
         // Spinners
         spinnerCategory = view.findViewById(R.id.categorySpinner);
@@ -52,46 +95,27 @@ public class SearchFragment extends TAAMSFragment {
 
         initializeSpinner(R.array.categories_array, spinnerCategory);
         initializeSpinner(R.array.periods_array, spinnerPeriod);
-
-        // CheckBox
-        reportCheckBox = view.findViewById(R.id.reportConfirm);
-
-        // Error Msg
-        errorMsg = view.findViewById(R.id.errorMsg);
-
-        submitButton.setOnClickListener(v -> {
-            // Do not generate report
-            if (!reportCheckBox.isChecked()) {
-                List<Item> items = searchItem();
-                if (items != null && !items.isEmpty()) {
-                    errorMsg.setText("Successful Search!");
-                    loadFragment(new SearchResult(items));
-                }
-                else {
-                    errorMsg.setText("Cannot find item!");
-                }
-            }
-            // generate report
-            else {
-
-            }
-        });
-
-        return view;
     }
 
-    private List<Item> searchItem() {
-        String lotNum = normalize(editTextLotNum.getText().toString());
-        String name = normalize(editTextName.getText().toString());
-        String category = normalize(spinnerCategory.getSelectedItem().toString());
-        String period = normalize(spinnerPeriod.getSelectedItem().toString());
+    private View.OnClickListener setSubmissionListener(SearchResultCallback callback) {
+        return (v -> {
+            String lotNum = normalize(editTextLotNum.getText().toString());
+            String name = normalize(editTextName.getText().toString());
+            String category = normalize(spinnerCategory.getSelectedItem().toString());
+            String period = normalize(spinnerPeriod.getSelectedItem().toString());
 
-        if (isAllBlankInput(lotNum, name, category, period)) {
-            Toast.makeText(getContext(), "Please fill in at least one field!", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        List<Item> items = new ArrayList<Item>();
-        itemsRef = database.getReference();
+            if (isAllBlankInput(lotNum, name, category, period)) {
+                Toast.makeText(getContext(), "Please fill in at least one field!", Toast.LENGTH_SHORT).show();
+            } else {
+                searchItems(callback, lotNum, name, category, period);
+            }
+        });
+    }
+
+    protected void searchItems(SearchResultCallback callback, String lotNum, String name,
+                               String category, String period) {
+        List<Item> searchResults = new ArrayList<>();
+        DatabaseReference itemsRef = database.getReference();
         itemsRef.child("Items").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DataSnapshot itemsList = task.getResult();
@@ -99,18 +123,16 @@ public class SearchFragment extends TAAMSFragment {
                     Item item = snapshot.getValue(Item.class);
 
                     // if the fields are blank, compare() should return true anyways
-                    if (compare(lotNum, item.getLotNum()) && compare(name, item.getName()) && compare(category, item.getCategory()) && compare(period, item.getPeriod())) {
-                        // perform result of search
-                        items.add(item);
+                    if (item != null && compare(lotNum, item.getLotNum()) && compare(name, item.getName())
+                            && compare(category, item.getCategory()) && compare(period, item.getPeriod())) {
+                        searchResults.add(item);
                     }
                 }
-            }
-
-            else {
-                // error handling code
+                callback.onSuccess(searchResults);
+            } else {
+                callback.onFailure(Objects.toString(task.getException(), "No message available"));
             }
         });
-        return items;
     }
 
     private void initializeSpinner(int arrayId, Spinner spinner) {
@@ -128,7 +150,7 @@ public class SearchFragment extends TAAMSFragment {
     }
 
     private boolean compare(String input, String compareTo) {
-        if (!isBlankInput(input)) {
+        if (!isBlankInput(input) && compareTo != null) {
             return input.equals(compareTo.toLowerCase());
         }
         return true; // if isBlankInput is true, then there is basically no input to check
@@ -143,12 +165,5 @@ public class SearchFragment extends TAAMSFragment {
             if (!isBlankInput(s)) {return false;}
         }
         return true;
-    }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 }

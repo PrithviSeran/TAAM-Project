@@ -1,5 +1,6 @@
 package com.example.b07demosummer2024;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +13,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONArray;
 
@@ -24,7 +29,6 @@ public class ViewItem extends TAAMSFragment {
     private TextView itemCategory;
     private TextView itemPeriod;
     private TextView itemDescription;
-
 
     public ViewItem(String item){
         this.item = item;
@@ -51,13 +55,22 @@ public class ViewItem extends TAAMSFragment {
                  }
                  else {
 
-                     System.out.println(String.valueOf(task.getResult()));
-
                      itemCategory.setText(String.valueOf(task.getResult().child("category").getValue()));
                      itemPeriod.setText(String.valueOf(task.getResult().child("period").getValue()));
                      itemDescription.setText(String.valueOf(task.getResult().child("description").getValue()));
 
                  }
+                 storageRef = FirebaseStorage.getInstance("gs://login-taam-bo7.appspot.com").getReference();
+
+                 storageReference.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                     @Override
+                     public void onSuccess(ListResult listResult) {
+                         for (StorageReference fileRef : listResult.getItems()) {
+
+                             System.out.println("Download URL: " + fileRef.getDownloadUrl());
+                         }
+                     }
+                 });
              }
         });
 

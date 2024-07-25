@@ -37,6 +37,7 @@ public class DeleteItemFragment extends Fragment {
 
     public DeleteItemFragment(ArrayList<String> itemsToDelete){
         this.itemsToDelete = itemsToDelete;
+        System.out.println(itemsToDelete);
     }
 
     @Nullable
@@ -49,6 +50,14 @@ public class DeleteItemFragment extends Fragment {
         goBack = view.findViewById(R.id.goBackItems);
 
         LinearLayout tableLayout1 = view.findViewById(R.id.linearLayoutDelete);
+        for (int i = 0; i < tableLayout1.getChildCount(); i++) {
+            View child = tableLayout1.getChildAt(i);
+
+            System.out.println("You are a genius");
+
+            // Check the type of the child if necessary
+            // Add more instances if you have other child types like ImageView, EditText, etc.
+        }
 
         for (String item : itemsToDelete){
             individualItems = new TextView(getActivity());
@@ -61,7 +70,7 @@ public class DeleteItemFragment extends Fragment {
                 @Override
                 public void onClick(View v){
                     for (String item : itemsToDelete) {
-                        itemsRef = database.getReference("TestBranch/" + item);
+                        itemsRef = database.getReference("Items/" + item);
                         //itemsRef.removeValue();
                     }
                     goPreviousFragment();

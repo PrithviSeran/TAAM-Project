@@ -14,8 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class AddItemFragment extends Fragment {
 
@@ -76,14 +80,57 @@ public class AddItemFragment extends Fragment {
         }
 
         itemsRef = database.getReference("Items");
-        Item item = new Item(lotNum, name, category, period, description, pic);
 
-        itemsRef.child(name).setValue(item).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
+        itemsRef.orderByChild("lotNum").equalTo(lotNum).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    Item item = new Item(lotNum, name, category, period, description, pic);
+
+                    // add the item to the database
+                    itemsRef.child(name).setValue(item).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else{
+                    Toast.makeText(getContext(), "Lot# already exists!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
+
+
+/*
+        // checks if the name is already used
+        itemsRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (!(task.getResult().child(name).exists())) {
+                    Item item = new Item(lotNum, name, category, period, description, pic);
+
+                    itemsRef.child(name).setValue(item).addOnCompleteListener(addTask -> {
+                        if (addTask.isSuccessful()) {
+                            Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(getContext(), "Item with Name or Lot# already exists!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Failed to access database", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+ */
     }
+
 }

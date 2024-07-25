@@ -22,8 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.bumptech.glide.Glide;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -38,6 +37,8 @@ public class AddItemFragment extends TAAMSFragment {
     private Intent intent;
     private ImageView imageView;
     private Uri image;
+    private String lotNum, name, category, period, description;
+
 
 
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -109,12 +110,11 @@ public class AddItemFragment extends TAAMSFragment {
     }
 
     private void addItem() {
-        String lotNum = editTextLotNum.getText().toString().trim();
-        String name = editTextName.getText().toString().trim();
-        String category = spinnerCategory.getSelectedItem().toString().trim();
-        String period = spinnerPeriod.getSelectedItem().toString().trim();
-        String description = editTextDescription.getText().toString().trim();
-        //String pic = editTextPic.getText().toString().trim();
+        lotNum = editTextLotNum.getText().toString().trim();
+        name = editTextName.getText().toString().trim();
+        category = spinnerCategory.getSelectedItem().toString().trim();
+        period = spinnerPeriod.getSelectedItem().toString().trim();
+        description = editTextDescription.getText().toString().trim();
 
         if (lotNum.isEmpty() || name.isEmpty() || category.isEmpty() || period.isEmpty() || description.isEmpty()) {
             Toast.makeText(getContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
@@ -134,7 +134,7 @@ public class AddItemFragment extends TAAMSFragment {
     }
 
     private void uploadImage(Uri image){
-        storageRef = storageReference.child("Item Name");
+        storageRef = storageReference.child(name);
         storageRef.putFile(image);
     }
 

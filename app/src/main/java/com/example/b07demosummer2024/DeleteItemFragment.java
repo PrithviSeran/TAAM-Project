@@ -37,7 +37,6 @@ public class DeleteItemFragment extends Fragment {
 
     public DeleteItemFragment(ArrayList<String> itemsToDelete){
         this.itemsToDelete = itemsToDelete;
-        System.out.println(itemsToDelete);
     }
 
     @Nullable
@@ -53,10 +52,6 @@ public class DeleteItemFragment extends Fragment {
         for (int i = 0; i < tableLayout1.getChildCount(); i++) {
             View child = tableLayout1.getChildAt(i);
 
-            System.out.println("You are a genius");
-
-            // Check the type of the child if necessary
-            // Add more instances if you have other child types like ImageView, EditText, etc.
         }
 
         for (String item : itemsToDelete){

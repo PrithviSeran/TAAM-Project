@@ -8,13 +8,14 @@
     <string name="spinner">Spinner</string>
     <string name="manage_items">Manage Items</string>
     <string name="submit">Submit</string>
+    <string name="sign_in">Sign In</string>
     <string name="username">Username:</string>
     <string name="usernameHint">Enter username</string>
     <string name="password">Password:</string>
     <string name="passwordHint">Enter password</string>
-    <string name="loginTitle">TAAM Collection System Login</string>
+    <string name="loginTitle">TAAM System Login</string>
     <string name="TAAM">TAAM Collections Management</string>
-    <string name="mainpage_title">Mainpage</string>
+    <string name="mainpage_title">MAINPAGE</string>
     <string name="bg_style">Background Style</string>
     <string name="search_text">Search Item</string>
     <string name="extra_feature">Extra Feature</string>
@@ -25,12 +26,17 @@
     <string name="category">Category:</string>
     <string name="period">Period:</string>
     <string name="description">Description:</string>
-    <string name="picture_video">Picture/Video:</string>
+    <string name="picture_video">Image/Video:</string>
     <string name="picture_optional">Picture (Optional):</string>
     <string name="remove_item">Remove Item</string>
     <string name="confirm_deletion">Confirm deletion of selected item:</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_taam_collection">Search Collection</string>
+    <string name="search">Search</string>
+    <string name="e_g_musician_figures">e.g Musician Figures</string>
+    <string name="e_g_10102">e.g 10102</string>
 
     <string-array name="categories_array">
         <item>Jade</item>
@@ -65,5 +71,5 @@
         <item>Modern</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

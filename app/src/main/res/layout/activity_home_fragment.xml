@@ -18,139 +18,154 @@
 
         <ImageButton
             android:id="@+id/imageButton1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="160dp"
+            android:layout_height="185dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/button_view"
-            android:backgroundTint="#bfbfbf"
+            android:backgroundTint="@color/dark_gold"
             android:contentDescription="@string/search_text"
             android:scaleType="fitCenter"
             android:src="@drawable/search_image"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintHorizontal_bias="0.615"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.451" />
 
         <ImageButton
             android:id="@+id/imageButton2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="160dp"
+            android:layout_height="185dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/button_view"
-            android:backgroundTint="#bfbfbf"
+            android:backgroundTint="@color/dark_gold"
             android:contentDescription="@string/extra_feature"
             android:scaleType="fitCenter"
             android:src="@drawable/question_image"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.259"
             app:layout_constraintStart_toEndOf="@+id/guideline5"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.451" />
 
         <ImageButton
             android:id="@+id/imageButton3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="160dp"
+            android:layout_height="185dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/button_view"
-            android:backgroundTint="#bfbfbf"
+            android:backgroundTint="@color/dark_gold"
             android:contentDescription="@string/collections_text"
             android:scaleType="fitCenter"
             android:src="@drawable/admin_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.27"
             app:layout_constraintStart_toEndOf="@+id/guideline5"
-            app:layout_constraintTop_toTopOf="@+id/guideline6" />
+            app:layout_constraintTop_toTopOf="@+id/guideline6"
+            app:layout_constraintVertical_bias="0.45" />
 
         <ImageButton
             android:id="@+id/imageButton4"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="160dp"
+            android:layout_height="185dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/button_view"
-            android:backgroundTint="#bfbfbf"
+            android:backgroundTint="@color/dark_gold"
             android:contentDescription="@string/admin_text"
             android:scaleType="fitCenter"
             android:src="@drawable/chart_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintHorizontal_bias="0.615"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline6" />
+            app:layout_constraintTop_toTopOf="@+id/guideline6"
+            app:layout_constraintVertical_bias="0.45" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="127dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
             android:gravity="center"
             android:text="@string/search_text"
-            android:textColor="#9966CB"
-            android:textSize="20sp"
+            android:textColor="@color/shaded_white"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageButton1"
             app:layout_constraintEnd_toEndOf="@+id/imageButton1"
-            app:layout_constraintHorizontal_bias="0.499"
+            app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="@+id/imageButton1"
             app:layout_constraintTop_toTopOf="@+id/imageButton1"
-            app:layout_constraintVertical_bias="0.98" />
+            app:layout_constraintVertical_bias="0.041" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="126dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
             android:gravity="center"
             android:text="@string/extra_feature"
-            android:textColor="#9966CB"
-            android:textSize="20sp"
+            android:textColor="@color/shaded_white"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageButton1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.98" />
+            app:layout_constraintHorizontal_bias="0.22"
+            app:layout_constraintStart_toStartOf="@+id/imageButton2"
+            app:layout_constraintTop_toTopOf="@+id/imageButton2"
+            app:layout_constraintVertical_bias="0.04" />
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="151dp"
-            android:layout_height="wrap_content"
+            android:layout_width="146dp"
+            android:layout_height="47dp"
+            android:fontFamily="@font/lato"
             android:gravity="center"
             android:text="@string/collections_text"
-            android:textColor="#9966CB"
-            android:textSize="20sp"
+            android:textColor="@color/shaded_white"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageButton4"
             app:layout_constraintEnd_toEndOf="@+id/imageButton4"
+            app:layout_constraintHorizontal_bias="0.47"
             app:layout_constraintStart_toStartOf="@+id/imageButton4"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton1"
-            app:layout_constraintVertical_bias="0.98" />
+            app:layout_constraintTop_toTopOf="@+id/imageButton4"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="131dp"
-            android:layout_height="37dp"
+            android:layout_width="133dp"
+            android:layout_height="43dp"
+            android:fontFamily="@font/lato"
             android:gravity="center"
             android:text="@string/admin_text"
-            android:textColor="#9966CB"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/shaded_white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
+            app:layout_constraintEnd_toEndOf="@+id/imageButton3"
+            app:layout_constraintHorizontal_bias="0.394"
             app:layout_constraintStart_toStartOf="@+id/imageButton3"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton2"
-            app:layout_constraintVertical_bias="0.98" />
+            app:layout_constraintTop_toTopOf="@+id/imageButton3"
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="206dp" />
+            app:layout_constraintGuide_begin="196dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"
@@ -158,12 +173,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="264dp"
+        android:layout_width="410dp"
+        android:layout_height="219dp"
         android:contentDescription="@string/bg_style"
         android:src="@drawable/bg_view"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
@@ -174,35 +190,34 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="247dp"
-        android:layout_height="59dp"
-        android:fontFamily="sans-serif-medium"
+        android:layout_width="283dp"
+        android:layout_height="44dp"
+        android:fontFamily="@font/lato"
         android:gravity="center"
         android:text="@string/TAAM"
         android:textColor="@color/shaded_white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.009" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/homeTittle"
         android:layout_width="379dp"
         android:layout_height="116dp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/lato_bold"
         android:gravity="center"
         android:text="@string/mainpage_title"
         android:textColor="@color/shaded_white"
-        android:textSize="34sp"
+        android:textSize="45sp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.502" />
+        app:layout_constraintVertical_bias="0.614" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

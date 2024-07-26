@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="109dp"
+        android:layout_width="397dp"
+        android:layout_height="129dp"
         android:contentDescription="@string/bg_style"
         android:src="@drawable/bg_view"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
@@ -29,9 +29,10 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintVertical_bias="0.065" />
 
     <TextView
         android:id="@+id/homeTittle"

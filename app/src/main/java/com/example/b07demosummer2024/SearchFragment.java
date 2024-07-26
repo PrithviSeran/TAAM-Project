@@ -49,7 +49,7 @@ public class SearchFragment extends Fragment {
     private final String blankOption = "Not selected";
 
     public SearchFragment() {
-        this.activityTitle = "Search for items";
+        this.activityTitle = "Search Collection";
         this.submissionListener = setSubmissionListener(new SearchResultCallback() {
             @Override
             public void onSuccess(List<Item> results) {

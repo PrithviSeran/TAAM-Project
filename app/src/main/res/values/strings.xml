@@ -8,7 +8,9 @@
     <string name="spinner">Spinner</string>
     <string name="manage_items">Manage Items</string>
     <string name="submit">Submit</string>
-    <string name="sign_in">Sign In</string>
+    <string name="nameHint">Enter name</string>
+    <string name="email">Email:</string>
+    <string name="emailHint">Enter email</string>
     <string name="username">Username:</string>
     <string name="usernameHint">Enter username</string>
     <string name="password">Password:</string>

@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 public class ViewImageAdapter extends RecyclerView.Adapter<ViewImageAdapter.ViewHolder> {
 
     private ArrayList<String> images;
-    private Context context;
+    private Context context;    //Useful?
 
     public ViewImageAdapter(ArrayList<String> imageList, Context context) {
         this.images = imageList;

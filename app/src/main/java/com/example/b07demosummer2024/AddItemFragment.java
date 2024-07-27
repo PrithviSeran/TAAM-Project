@@ -23,9 +23,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.net.URI;
 
@@ -124,16 +128,32 @@ public class AddItemFragment extends TAAMSFragment {
         }
 
         itemsRef = database.getReference("Items");
-        Item item = new Item(lotNum, name, category, period, description, "Nope");
 
-        itemsRef.child(name).setValue(item).addOnCompleteListener(task -> {
+        Item item = new Item(lotNum, name, category, period, description);
+
+
+        itemsRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
+                if (!(task.getResult().child(lotNum).exists())) {
+                    Item item = new Item(lotNum, name, category, period, description, pic);
+
+                    itemsRef.child(lotNum).setValue(item).addOnCompleteListener(addTask -> {
+                        if (addTask.isSuccessful()) {
+                            Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(getContext(), "Item with Lot# already exists!", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Failed to access database", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
     private void uploadImage(Uri image){
         storageRef = storageReference.child(name);

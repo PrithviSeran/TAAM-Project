@@ -39,6 +39,7 @@
     <string name="search">Search</string>
     <string name="e_g_musician_figures">e.g Musician Figures</string>
     <string name="e_g_10102">e.g 10102</string>
+    <string name="sign_in"> Sign In</string>
 
     <string-array name="categories_array">
         <item>Jade</item>
@@ -72,6 +73,5 @@
         <item>Qing</item>
         <item>Modern</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

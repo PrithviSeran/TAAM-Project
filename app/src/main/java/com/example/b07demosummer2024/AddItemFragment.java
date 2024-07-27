@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -32,7 +33,8 @@ public class AddItemFragment extends TAAMSFragment {
 
     private EditText editTextLotNum, editTextName, editTextDescription;
     private Spinner spinnerCategory, spinnerPeriod;
-    private Button buttonAdd, addImageButton;
+    private Button buttonAdd;
+    private ImageButton addImageButton;
     private DatabaseReference itemsRef;
     private Intent intent;
     private ImageView imageView;
@@ -68,9 +70,9 @@ public class AddItemFragment extends TAAMSFragment {
         spinnerCategory = view.findViewById(R.id.spinner);
         spinnerPeriod= view.findViewById(R.id.spinner2);
         editTextDescription = view.findViewById(R.id.editTextText3);
-        addImageButton = view.findViewById(R.id.addImageButton);
+        addImageButton = view.findViewById(R.id.imagesearch);
         buttonAdd = view.findViewById(R.id.addItemButton);
-        imageView = view.findViewById(R.id.addItemViewImage);
+        imageView = view.findViewById(R.id.imageView2);
 
 
         // Set up the spinner with categories

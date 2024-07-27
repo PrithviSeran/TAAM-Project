@@ -36,9 +36,7 @@ public class LoginFragment extends TAAMSFragment {
 
         Button loginButton = view.findViewById(R.id.button);
 
-        TextView name = view.findViewById(R.id.nameEditText);
-
-        TextView email = view.findViewById(R.id.emailEditText);
+        TextView email = view.findViewById(R.id.usernameEditText);
 
         TextView password = view.findViewById(R.id.passwordEditText);
 

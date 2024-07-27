@@ -61,10 +61,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.003"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.054" />
+        app:layout_constraintVertical_bias="0.129" />
 
     <TextView
         android:id="@+id/textView8"
@@ -209,8 +209,8 @@
 
     <EditText
         android:id="@+id/editTextText3"
-        android:layout_width="338dp"
-        android:layout_height="142dp"
+        android:layout_width="342dp"
+        android:layout_height="140dp"
         android:autofillHints="Description"
         android:background="@drawable/edit_text_style"
         android:ems="10"
@@ -220,10 +220,10 @@
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.392"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.053"
+        app:layout_constraintVertical_bias="0.035"
         tools:ignore="LabelFor" />
 
     <Button
@@ -244,31 +244,31 @@
 
     <ImageButton
         android:id="@+id/imagesearch"
-        android:layout_width="112dp"
-        android:layout_height="38dp"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
         android:background="@drawable/button_view"
         android:backgroundTint="@color/dark_gold"
         android:scaleType="fitCenter"
         android:src="@drawable/image_view"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.889"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView8"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/editTextText4"
-        android:layout_width="205dp"
-        android:layout_height="45dp"
-        android:autofillHints="Name"
-        android:background="@drawable/edit_text_style"
-        android:ems="10"
-        android:fontFamily="@font/roboto"
-        android:hint="e.g. Jade Palace"
-        android:inputType="text"
-        tools:ignore="LabelFor"
-        tools:layout_editor_absoluteX="172dp"
-        tools:layout_editor_absoluteY="699dp" />
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="114dp"
+        android:layout_height="123dp"
+        android:layout_marginEnd="28dp"
+        android:background="@android:drawable/editbox_background"
+        app:layout_constraintBottom_toTopOf="@+id/editTextText3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.823"
+        app:layout_constraintStart_toEndOf="@+id/imagesearch"
+        app:layout_constraintTop_toBottomOf="@+id/spinner2"
+        app:layout_constraintVertical_bias="0.26"
+        tools:src="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

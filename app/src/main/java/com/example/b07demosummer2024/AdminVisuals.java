@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -30,12 +31,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AdminVisuals#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AdminVisuals extends TAAMSFragment {
+public class AdminVisuals extends Fragment {
 
 
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
@@ -103,6 +105,7 @@ public class AdminVisuals extends TAAMSFragment {
 
                         tableLayout1.addView(tableRow1);
                     }
+                    Log.d("CheckBoxes", String.valueOf(leftOfCheckBoxes));
                 }
             }
         });
@@ -132,5 +135,11 @@ public class AdminVisuals extends TAAMSFragment {
         // Inflate the layout for this fragment
         return view;
 
+    }
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

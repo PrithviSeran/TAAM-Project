@@ -96,7 +96,6 @@ public class AddItemFragment extends TAAMSFragment {
             public void onClick(View v) {
 
                 addItem();
-                uploadImage(image);
             }
         });
 
@@ -129,17 +128,16 @@ public class AddItemFragment extends TAAMSFragment {
 
         itemsRef = database.getReference("Items");
 
-        Item item = new Item(lotNum, name, category, period, description);
-
 
         itemsRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (!(task.getResult().child(lotNum).exists())) {
-                    Item item = new Item(lotNum, name, category, period, description, pic);
+                    Item item = new Item(lotNum, name, category, period, description);
 
                     itemsRef.child(lotNum).setValue(item).addOnCompleteListener(addTask -> {
                         if (addTask.isSuccessful()) {
                             Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
+                            uploadImage(image);
                         } else {
                             Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
                         }
@@ -156,7 +154,7 @@ public class AddItemFragment extends TAAMSFragment {
 
 
     private void uploadImage(Uri image){
-        storageRef = storageReference.child(name);
+        storageRef = storageReference.child(lotNum);
         storageRef.putFile(image);
     }
 

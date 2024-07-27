@@ -28,6 +28,7 @@
 
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="400dp"
         android:layout_height="456dp"
         android:layout_marginStart="6dp"
@@ -48,20 +49,20 @@
             android:stretchColumns="1">
             <!-- Header Row -->
 
-            <TableRow/>
+            <TableRow />
 
-        <!-- Dynamic Rows -->
-        <TableRow>
+            <!-- Dynamic Rows -->
+            <TableRow>
 
-            <RadioGroup
-                android:id="@+id/radioGroup1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                tools:ignore="DuplicateIds"/>
+                <RadioGroup
+                    android:id="@+id/radioGroup1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    tools:ignore="DuplicateIds" />
 
 
-            <TextView
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -69,25 +70,11 @@
                     android:text="Lot #" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="217dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:padding="8dp"
                     android:text="Name" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:padding="8dp"
-                    android:text="Category" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:padding="8dp"
-                    android:text="Period" />
 
             </TableRow>
 
@@ -95,20 +82,6 @@
 
         </TableLayout>
     </RadioGroup>
-
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="593dp"
-        android:layout_marginEnd="307dp"
-        android:layout_marginBottom="90dp"
-        android:text="View"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -140,8 +113,10 @@
         android:text="+"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button10"
@@ -163,55 +138,11 @@
         android:id="@+id/button11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="593dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="90dp"
         android:text="Report!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/backButtonTable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="667dp"
-        android:layout_marginEnd="307dp"
-        android:layout_marginBottom="16dp"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="307dp"
-        android:layout_marginTop="667dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="95dp"
-        android:layout_marginStart="155dp"
-        android:layout_marginTop="642dp"
-        android:layout_marginEnd="156dp"
-        android:src="@drawable/dragon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.835" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

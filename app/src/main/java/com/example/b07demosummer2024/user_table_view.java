@@ -50,18 +50,6 @@ public class user_table_view extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
 
         TableLayout tableLayout1 = view.findViewById(R.id.tableLayout);
-        backButton = view.findViewById(R.id.backButtonTable);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle the button click
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                if (fragmentManager != null) {
-                    fragmentManager.popBackStack();
-                }
-            }
-        });
 
         itemsRef = database.getReference("Items");
 

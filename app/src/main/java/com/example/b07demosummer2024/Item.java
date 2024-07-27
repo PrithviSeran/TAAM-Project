@@ -12,7 +12,7 @@ public class Item {
 
     public Item() {}
 
-    public Item(String lotNum, String name, String category, String period, String description, String picURL) {
+    public Item(String lotNum, String name, String category, String period, String description) {
         this.LotNum = lotNum;
         this.Name = name;
         this.Category = category;

@@ -115,7 +115,6 @@ public class AdminVisuals extends TAAMSFragment {
                     for (Object box : leftOfCheckBoxes.entrySet()) {
 
                         if (((CheckBox)((Map.Entry) box).getKey()).isChecked()){
-                            System.out.println(String.valueOf(((Map.Entry) box).getValue()));
                             itemsToDelete.add(String.valueOf(((Map.Entry) box).getValue()));
                         }
                     }

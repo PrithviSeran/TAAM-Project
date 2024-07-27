@@ -37,7 +37,7 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
 
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
         tableLayout1 = view.findViewById(R.id.tableLayout);
-
+        displayItems();
         return view;
     }
 

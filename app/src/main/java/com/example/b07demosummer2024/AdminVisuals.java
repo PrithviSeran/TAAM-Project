@@ -73,6 +73,8 @@ public class AdminVisuals extends TAAMSFragment {
                 }
                 else {
 
+                    leftOfCheckBoxes.clear();
+
                     Log.d("Class", String.valueOf(task.getResult().getValue().getClass()));
 
                     for (Object entry1 : ((HashMap)task.getResult().getValue()).entrySet()) {

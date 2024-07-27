@@ -19,14 +19,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SearchResult extends user_table_view {
+public class SearchResult extends TAAMSFragment implements ViewItemsTable {
     private TableRow tableRow1;
 
-    private TextView textView1, textView2, textView3, textView4;
+    private TextView textView1;
     private CheckBox checkBox;
     private Button viewItem;
-    private Button backButton;
     private List<Item> items;
+    private TableLayout tableLayout1;
 
     public SearchResult(List<Item> items) {
         this.items = items;
@@ -36,8 +36,13 @@ public class SearchResult extends user_table_view {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
+        tableLayout1 = view.findViewById(R.id.tableLayout);
 
-        TableLayout tableLayout1 = view.findViewById(R.id.tableLayout);
+        return view;
+    }
+
+    @Override
+    public void displayItems(){
 
         for (Item item: items) {
             tableRow1 = new TableRow(getActivity());
@@ -65,14 +70,6 @@ public class SearchResult extends user_table_view {
             tableLayout1.addView(tableRow1);
         }
 
-        return view;
-    }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
 }

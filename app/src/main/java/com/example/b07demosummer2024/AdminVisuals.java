@@ -35,11 +35,7 @@ import java.util.Map;
  * Use the {@link AdminVisuals#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AdminVisuals extends TAAMSFragment {
-
-
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
-    private DatabaseReference itemsRef;
+public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
 
     private TableRow tableRow1;
 
@@ -48,6 +44,7 @@ public class AdminVisuals extends TAAMSFragment {
     private Button viewItem;
     private Button deleteButton;
     private Button addItem;
+    private TableLayout tableLayout1;
 
     private HashMap<CheckBox, String> leftOfCheckBoxes = new HashMap<CheckBox, String>();
     private ArrayList<String> itemsToDelete = new ArrayList<String>();
@@ -58,12 +55,48 @@ public class AdminVisuals extends TAAMSFragment {
 
         View view = inflater.inflate(R.layout.fragment_admin_visuals, container, false);
 
-        TableLayout tableLayout1 = view.findViewById(R.id.tableLayout);
+        tableLayout1 = view.findViewById(R.id.tableLayout);
 
         itemsRef = database.getReference("Items");
 
         deleteButton = view.findViewById(R.id.button10);
         addItem = view.findViewById(R.id.addItemButton);
+
+        displayItems();
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v){
+
+                    itemsToDelete.clear();
+
+                    for (Object box : leftOfCheckBoxes.entrySet()) {
+
+                        if (((CheckBox)((Map.Entry) box).getKey()).isChecked()){
+                            itemsToDelete.add(String.valueOf(((Map.Entry) box).getValue()));
+                        }
+                    }
+                    loadFragment(new DeleteItemFragment(itemsToDelete));
+                }
+            }
+        );
+
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFragment(new AddItemFragment());
+            }
+        });
+
+        // Inflate the layout for this fragment
+        return view;
+
+    }
+
+    @Override
+    public void displayItems(){
+
+        leftOfCheckBoxes.clear();
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
@@ -72,8 +105,6 @@ public class AdminVisuals extends TAAMSFragment {
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
-
-                    leftOfCheckBoxes.clear();
 
                     Log.d("Class", String.valueOf(task.getResult().getValue().getClass()));
 
@@ -109,29 +140,7 @@ public class AdminVisuals extends TAAMSFragment {
             }
         });
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v){
-                    for (Object box : leftOfCheckBoxes.entrySet()) {
-
-                        if (((CheckBox)((Map.Entry) box).getKey()).isChecked()){
-                            itemsToDelete.add(String.valueOf(((Map.Entry) box).getValue()));
-                        }
-                    }
-                    loadFragment(new DeleteItemFragment(itemsToDelete));
-                }
-            }
-        );
-
-        addItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadFragment(new AddItemFragment());
-            }
-        });
-
-        // Inflate the layout for this fragment
-        return view;
-
     }
+
+
 }

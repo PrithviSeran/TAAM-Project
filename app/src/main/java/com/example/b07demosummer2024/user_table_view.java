@@ -31,17 +31,13 @@ import java.util.Map;
  * Use the {@link user_table_view#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class user_table_view extends Fragment {
+public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
     private TableRow tableRow1;
-
-    private TextView textView1, textView2, textView3, textView4;
-    private CheckBox checkBox;
+    private TextView textView1;
     private Button viewItem;
-    private Button backButton;
+    private TableLayout tableLayout1;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
-    private DatabaseReference itemsRef;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,8 +45,16 @@ public class user_table_view extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
 
-        TableLayout tableLayout1 = view.findViewById(R.id.tableLayout);
+        tableLayout1 = view.findViewById(R.id.tableLayout);
 
+        displayItems();
+
+        // Inflate the layout for this fragment
+        return view;
+    }
+
+    @Override
+    public void displayItems(){
         itemsRef = database.getReference("Items");
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -63,9 +67,6 @@ public class user_table_view extends Fragment {
 
                     for (Object entry1 : ((HashMap)task.getResult().getValue()).entrySet()) {
                         tableRow1 = new TableRow(getActivity());
-                        checkBox = new CheckBox(getActivity());
-
-                        tableRow1.addView(checkBox);
 
                         textView1 = new TextView(getActivity());
                         textView1.setText(String.valueOf(((Map.Entry)entry1).getKey()));
@@ -91,14 +92,6 @@ public class user_table_view extends Fragment {
             }
         });
 
-        // Inflate the layout for this fragment
-        return view;
-    }
 
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 }

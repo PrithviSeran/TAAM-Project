@@ -25,15 +25,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class DeleteItemFragment extends Fragment {
+public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
-    private DatabaseReference itemsRef;
     private ArrayList<String> itemsToDelete;
     private TextView individualItems;
-
     private Button confirmDelete;
     private Button goBack;
+    private LinearLayout tableLayout1;
 
     public DeleteItemFragment(ArrayList<String> itemsToDelete){
         this.itemsToDelete = itemsToDelete;
@@ -48,28 +46,13 @@ public class DeleteItemFragment extends Fragment {
         confirmDelete = view.findViewById(R.id.proceedWithDelete);
         goBack = view.findViewById(R.id.goBackItems);
 
-        LinearLayout tableLayout1 = view.findViewById(R.id.linearLayoutDelete);
-        for (int i = 0; i < tableLayout1.getChildCount(); i++) {
-            View child = tableLayout1.getChildAt(i);
+        tableLayout1 = view.findViewById(R.id.linearLayoutDelete);
 
-        }
-
-        for (String item : itemsToDelete){
-            individualItems = new TextView(getActivity());
-            individualItems.setText(item);
-
-            tableLayout1.addView(individualItems);
-        }
+        displayItems();
 
         confirmDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
-                    for (String item : itemsToDelete) {
-                        itemsRef = database.getReference("Items/" + item);
-                        //itemsRef.removeValue();
-                    }
-                    goPreviousFragment();
-                }
+                public void onClick(View v){ deleteItems(); }
             }
         );
 
@@ -89,5 +72,23 @@ public class DeleteItemFragment extends Fragment {
         if (fragmentManager != null) {
             fragmentManager.popBackStack();
         }
+    }
+
+    @Override
+    public void displayItems(){
+        for (String item : itemsToDelete){
+            individualItems = new TextView(getActivity());
+            individualItems.setText(item);
+
+            tableLayout1.addView(individualItems);
+        }
+    }
+
+    private void deleteItems(){
+        for (String lotNum : itemsToDelete) {
+            itemsRef = database.getReference("Items/" + lotNum);
+            //itemsRef.removeValue();
+        }
+        goPreviousFragment();
     }
 }

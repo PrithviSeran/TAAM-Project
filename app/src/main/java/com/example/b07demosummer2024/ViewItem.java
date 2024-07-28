@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -68,8 +69,8 @@ public class ViewItem extends TAAMSFragment {
 
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
-                    Toast.makeText(getContext(), "Unexpected Error", Toast.LENGTH_SHORT).show();
                     Log.e("firebase", "Error getting data", task.getException());
+                    Toast.makeText(getContext(), "Error getting data", Toast.LENGTH_SHORT).show();
                 }
                 else {
 
@@ -106,6 +107,12 @@ public class ViewItem extends TAAMSFragment {
                         }
                     });
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("firebase", "Error retrieving data from storage", e);
+                Toast.makeText(getContext(), "Error retrieving data from storage", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -63,7 +63,7 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
-                    Toast.makeText(getContext(), "Unexpected Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Display Error", Toast.LENGTH_SHORT).show();
                 }
                 else {
 

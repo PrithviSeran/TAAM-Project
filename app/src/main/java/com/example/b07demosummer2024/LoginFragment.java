@@ -91,8 +91,9 @@ public class LoginFragment extends TAAMSFragment {
                         // Sign in success, update UI with the signed-in user's information
                         user = mAuth.getCurrentUser();
 
-                        //Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                        // Have commented out, discuss if needed later
+                        Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                        // Read that having success messages isn't necessary,
+                        // or good, discuss if needed later - Burhanuddin
 
                         loadFragment(new HomeFragment());
 

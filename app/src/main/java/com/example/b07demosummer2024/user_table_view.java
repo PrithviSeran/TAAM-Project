@@ -1,13 +1,17 @@
 package com.example.b07demosummer2024;
 
+import android.annotation.SuppressLint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +43,7 @@ public class user_table_view extends Fragment {
     private CheckBox checkBox;
     private Button viewItem;
     private Button backButton;
+    private Button searchItem;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
     private DatabaseReference itemsRef;
@@ -50,8 +55,10 @@ public class user_table_view extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
 
         TableLayout tableLayout1 = view.findViewById(R.id.tableLayout);
+        searchItem = view.findViewById(R.id.button12);
 
         itemsRef = database.getReference("Items");
+
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
@@ -61,25 +68,33 @@ public class user_table_view extends Fragment {
                 }
                 else {
 
-                    for (Object entry1 : ((HashMap)task.getResult().getValue()).entrySet()) {
+                    for (DataSnapshot entry1 : (task.getResult().getChildren())) {
                         tableRow1 = new TableRow(getActivity());
                         checkBox = new CheckBox(getActivity());
 
                         tableRow1.addView(checkBox);
 
                         textView1 = new TextView(getActivity());
-                        textView1.setText(String.valueOf(((Map.Entry)entry1).getKey()));
-
+                        textView1.setText(String.valueOf(entry1.child("lotNum").getValue()));
+                        setTextViewStyle(textView1);
+                        textView1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
                         tableRow1.addView(textView1);
 
+                        textView2 = new TextView(getActivity());
+                        textView2.setText(String.valueOf(entry1.child("name").getValue()));// Change to get name
+                        textView2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
+                        setTextViewStyle(textView2);
+                        tableRow1.addView(textView2);
+
                         viewItem = new Button(getActivity());
-                        viewItem.setText("View Item");
+                        viewItem.setText("View");
+                        setButtonStyle(viewItem);
 
                         viewItem.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 // Handle the button click
-                                loadFragment(new ViewItem(String.valueOf(((Map.Entry)entry1).getKey())));
+                                loadFragment(new ViewItem(String.valueOf(entry1.getKey())));
                             }
                         });
 
@@ -88,6 +103,13 @@ public class user_table_view extends Fragment {
                         tableLayout1.addView(tableRow1);
                     }
                 }
+            }
+        });
+
+        searchItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFragment(new SearchFragment());
             }
         });
 
@@ -100,5 +122,38 @@ public class user_table_view extends Fragment {
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    protected void setTextViewStyle(TextView textView) {
+        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
+        textView.setTypeface(typeface);
+
+        textView.setTextSize(15);
+
+        textView.setGravity(Gravity.CENTER);
+
+        textView.setTextColor(getResources().getColor(R.color.black, null));
+
+        textView.setBackground(getResources().getDrawable(R.drawable.border_square));
+
+        textView.setPadding(0,5,0,5);
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    protected void setButtonStyle(Button button){
+
+        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
+        button.setAllCaps(false);
+        button.setBackground(getResources().getDrawable(R.drawable.button_view));
+
+        button.setTextColor(getResources().getColor(R.color.shaded_white, null));
+
+        button.setTextSize(15);
+
+        button.setPadding(0,5,0,5);
+
+        TableRow.LayoutParams params = new TableRow.LayoutParams(150, 80);
+        button.setLayoutParams(params);
     }
 }

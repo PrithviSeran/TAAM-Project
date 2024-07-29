@@ -9,8 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="393dp"
+        android:layout_height="587dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,10 +71,10 @@
             android:src="@drawable/admin_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.27"
+            app:layout_constraintHorizontal_bias="0.259"
             app:layout_constraintStart_toEndOf="@+id/guideline5"
             app:layout_constraintTop_toTopOf="@+id/guideline6"
-            app:layout_constraintVertical_bias="0.45" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
             android:id="@+id/imageButton4"
@@ -94,13 +94,13 @@
             app:layout_constraintHorizontal_bias="0.615"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline6"
-            app:layout_constraintVertical_bias="0.45" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="127dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/lato"
+            android:fontFamily="@font/lato_bold"
             android:gravity="center"
             android:text="@string/search_text"
             android:textColor="@color/shaded_white"
@@ -116,23 +116,23 @@
             android:id="@+id/textView4"
             android:layout_width="126dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/lato"
+            android:fontFamily="@font/lato_bold"
             android:gravity="center"
             android:text="@string/extra_feature"
             android:textColor="@color/shaded_white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.22"
+            app:layout_constraintHorizontal_bias="0.305"
             app:layout_constraintStart_toStartOf="@+id/imageButton2"
             app:layout_constraintTop_toTopOf="@+id/imageButton2"
-            app:layout_constraintVertical_bias="0.04" />
+            app:layout_constraintVertical_bias="0.036" />
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="146dp"
-            android:layout_height="47dp"
-            android:fontFamily="@font/lato"
+            android:layout_width="140dp"
+            android:layout_height="42dp"
+            android:fontFamily="@font/lato_bold"
             android:gravity="center"
             android:text="@string/collections_text"
             android:textColor="@color/shaded_white"
@@ -146,16 +146,16 @@
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="133dp"
-            android:layout_height="43dp"
-            android:fontFamily="@font/lato"
+            android:layout_width="137dp"
+            android:layout_height="44dp"
+            android:fontFamily="@font/lato_bold"
             android:gravity="center"
             android:text="@string/admin_text"
             android:textColor="@color/shaded_white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
             app:layout_constraintEnd_toEndOf="@+id/imageButton3"
-            app:layout_constraintHorizontal_bias="0.394"
+            app:layout_constraintHorizontal_bias="0.407"
             app:layout_constraintStart_toStartOf="@+id/imageButton3"
             app:layout_constraintTop_toTopOf="@+id/imageButton3"
             app:layout_constraintVertical_bias="0.0" />
@@ -178,8 +178,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="410dp"
-        android:layout_height="219dp"
+        android:layout_width="400dp"
+        android:layout_height="230dp"
         android:contentDescription="@string/bg_style"
         android:src="@drawable/bg_view"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
@@ -190,8 +190,8 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="283dp"
-        android:layout_height="44dp"
+        android:layout_width="285dp"
+        android:layout_height="45dp"
         android:fontFamily="@font/lato"
         android:gravity="center"
         android:text="@string/TAAM"
@@ -217,7 +217,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.614" />
+        app:layout_constraintVertical_bias="0.605" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -84,7 +84,7 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
             System.out.println(item);
             individualItems = new TextView(getActivity());
             individualItems.setText(item);
-
+            setTextViewStyle(individualItems);
             tableLayout1.addView(individualItems);
         }
     }

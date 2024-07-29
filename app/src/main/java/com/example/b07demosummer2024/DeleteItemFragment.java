@@ -1,7 +1,9 @@
 package com.example.b07demosummer2024;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,11 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.graphics.Typeface;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -24,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable {
 
@@ -48,6 +53,7 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
 
         tableLayout1 = view.findViewById(R.id.linearLayoutDelete);
 
+
         displayItems();
 
         confirmDelete.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +70,22 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
         });
 
         return view;
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void setTextViewStyle(TextView textView) {
+        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
+        textView.setTypeface(typeface);
+
+        textView.setTextSize(22);
+
+        textView.setGravity(Gravity.CENTER);
+
+        textView.setTextColor(getResources().getColor(R.color.black, null));
+
+        textView.setBackground(getResources().getDrawable(R.drawable.border_square));
+
+        textView.setPadding(0,5,0,5);
     }
 
     public void goPreviousFragment(){

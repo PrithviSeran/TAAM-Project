@@ -78,8 +78,6 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
                 @Override
                 public void onClick(View v){
 
-                    System.out.println();
-
                     itemsToDelete.clear();
 
                     for (Object box : leftOfCheckBoxes.entrySet()) {
@@ -115,6 +113,8 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
     @Override
     public void displayItems(){
 
+        leftOfCheckBoxes.clear();
+
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -140,6 +140,7 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
 
                         textView2 = new TextView(getActivity());
                         textView2.setText(String.valueOf(entry1.child("name").getValue()));// Change to get name
+                        leftOfCheckBoxes.put(checkBox, String.valueOf(entry1.child("name").getValue()));
                         textView2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
                         setTextViewStyle(textView2);
                         tableRow1.addView(textView2);

@@ -35,18 +35,14 @@ import java.util.Map;
  * Use the {@link user_table_view#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class user_table_view extends Fragment {
+public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
     private TableRow tableRow1;
-
-    private TextView textView1, textView2, textView3, textView4;
-    private CheckBox checkBox;
+    private TextView textView1;
     private Button viewItem;
-    private Button backButton;
+    private TableLayout tableLayout1;
     private Button searchItem;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
-    private DatabaseReference itemsRef;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,9 +50,20 @@ public class user_table_view extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
 
-        TableLayout tableLayout1 = view.findViewById(R.id.tableLayout);
+        tableLayout1 = view.findViewById(R.id.tableLayout);
+
+        displayItems();
+
+        // Inflate the layout for this fragment
+        return view;
+    }
+
+
+    @Override
+    public void displayItems(){
 
         searchItem = view.findViewById(R.id.button12);
+
 
         itemsRef = database.getReference("Items");
 
@@ -71,9 +78,6 @@ public class user_table_view extends Fragment {
 
                     for (DataSnapshot entry1 : (task.getResult().getChildren())) {
                         tableRow1 = new TableRow(getActivity());
-                        checkBox = new CheckBox(getActivity());
-
-                        tableRow1.addView(checkBox);
 
                         textView1 = new TextView(getActivity());
                         textView1.setText(String.valueOf(entry1.child("lotNum").getValue()));
@@ -107,6 +111,7 @@ public class user_table_view extends Fragment {
             }
         });
 
+
         searchItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,11 +123,6 @@ public class user_table_view extends Fragment {
         return view;
     }
 
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

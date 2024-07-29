@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class ViewItem extends TAAMSFragment {
 
-    private String item;
+    private String identifier;
     private TextView itemName;
     private TextView itemCategory;
     private TextView itemPeriod;
@@ -38,8 +38,8 @@ public class ViewItem extends TAAMSFragment {
     private ArrayList<String> images = new ArrayList<String>();
     private ViewImageAdapter adapter = new ViewImageAdapter(images, getContext());
 
-    public ViewItem(String item){
-        this.item = item;
+    public ViewItem(String identifier){
+        this.identifier = identifier;
     }
 
     @Nullable
@@ -55,8 +55,14 @@ public class ViewItem extends TAAMSFragment {
         viewImage = view.findViewById(R.id.recycleViewImage);
         viewImage.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        popUp();
 
-        itemsRef = database.getReference("Items/" + item);
+        return view;
+
+    }
+
+    private void popUp(){
+        itemsRef = database.getReference("Items/" + identifier);
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
@@ -95,7 +101,30 @@ public class ViewItem extends TAAMSFragment {
              }
         });
 
-        return view;
+    }
+
+    private void retrieveFromStorage(){
+        storageRef = storageReference.child(identifier);
+
+        storageReference.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference fileRef : listResult.getItems()) {
+                    fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            images.add(uri.toString());
+                            Log.d("item", uri.toString());
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            viewImage.setAdapter(adapter);
+                        }
+                    });
+                }
+            }
+        });
 
     }
 }

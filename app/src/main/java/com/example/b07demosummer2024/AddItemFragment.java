@@ -45,8 +45,6 @@ public class AddItemFragment extends TAAMSFragment {
     private Uri image;
     private String lotNum, name, category, period, description;
 
-
-
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {

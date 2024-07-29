@@ -24,21 +24,20 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class LoginFragment extends TAAMSFragment {
 
-    private FirebaseAuth mAuth;
+    private Button loginButton;
+    private TextView email;
+    private TextView password;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_login, container, false);
 
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+        loginButton = view.findViewById(R.id.button);
 
-        Button loginButton = view.findViewById(R.id.button);
+        email = view.findViewById(R.id.usernameEditText);
 
-        TextView email = view.findViewById(R.id.usernameEditText);
-
-        TextView password = view.findViewById(R.id.passwordEditText);
+        password = view.findViewById(R.id.passwordEditText);
 
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override

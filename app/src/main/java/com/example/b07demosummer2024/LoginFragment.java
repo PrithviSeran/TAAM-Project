@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,7 +50,7 @@ public class LoginFragment extends TAAMSFragment {
         return view;
     }
 
-    private void RegisterAdmin(String email, String password ){
+    private void RegisterAdmin(String name, String email, String password ){
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -58,7 +59,7 @@ public class LoginFragment extends TAAMSFragment {
                         // Sign in success, update UI with the signed-in user's information
                         user = mAuth.getCurrentUser();
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName("John Dow")
+                            .setDisplayName(name)
                             .build();
 
                         user.updateProfile(profileUpdates)

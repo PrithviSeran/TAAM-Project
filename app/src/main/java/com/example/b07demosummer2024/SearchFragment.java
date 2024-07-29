@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends TAAMSFragment {
 
     protected interface SearchResultCallback {
         void onSuccess(List<Item> results);
@@ -49,7 +49,7 @@ public class SearchFragment extends Fragment {
     private final String blankOption = "Not selected";
 
     public SearchFragment() {
-        this.activityTitle = "Search for items";
+        this.activityTitle = "Search Collection";
         this.submissionListener = setSubmissionListener(new SearchResultCallback() {
             @Override
             public void onSuccess(List<Item> results) {
@@ -162,14 +162,10 @@ public class SearchFragment extends Fragment {
 
     private boolean isAllBlankInput(String ... a) {
         for (String s : a) {
-            if (!isBlankInput(s)) {return false;}
+            if (!isBlankInput(s)) {
+                return false;
+            }
         }
         return true;
-    }
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 }

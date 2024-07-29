@@ -9,17 +9,15 @@ public class Item {
     private String Category;
     private String Period;
     private String Description;
-    private String PicURL;
 
     public Item() {}
 
-    public Item(String lotNum, String name, String category, String period, String description, String picURL) {
+    public Item(String lotNum, String name, String category, String period, String description) {
         this.LotNum = lotNum;
         this.Name = name;
         this.Category = category;
         this.Period = period;
         this.Description = description;
-        this.PicURL = picURL;
     }
 
     public String getLotNum() { return LotNum; }
@@ -32,14 +30,13 @@ public class Item {
     public void setPeriod(String period) { this.Period = period; }
     public String getDescription() { return Description; }
     public void setDescription(String description) { this.Description = description; }
-    public String getPic() { return PicURL; }
-    public void setPic(String picURL) { this.PicURL = picURL; }
+
 
     @NonNull
     @Override
     public String toString() {
         return String.format("Lot Num: %s, Name: %s, Category: %s," +
                 " Period: %s, Description: %s, Pic: %s",
-                LotNum, Name, Category, Period, Description, PicURL);
+                LotNum, Name, Category, Period, Description);
     }
 }

@@ -1,7 +1,9 @@
 package com.example.b07demosummer2024;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,11 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.graphics.Typeface;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -24,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class DeleteItemFragment extends Fragment {
 
@@ -49,11 +54,15 @@ public class DeleteItemFragment extends Fragment {
         goBack = view.findViewById(R.id.goBackItems);
 
         LinearLayout tableLayout1 = view.findViewById(R.id.linearLayoutDelete);
+        for (int i = 0; i < tableLayout1.getChildCount(); i++) {
+            View child = tableLayout1.getChildAt(i);
+
+        }
 
         for (String item : itemsToDelete){
             individualItems = new TextView(getActivity());
             individualItems.setText(item);
-
+            setTextViewStyle(individualItems);
             tableLayout1.addView(individualItems);
         }
 
@@ -61,7 +70,7 @@ public class DeleteItemFragment extends Fragment {
                 @Override
                 public void onClick(View v){
                     for (String item : itemsToDelete) {
-                        itemsRef = database.getReference("TestBranch/" + item);
+                        itemsRef = database.getReference("Items/" + item);
                         //itemsRef.removeValue();
                     }
                     goPreviousFragment();
@@ -77,6 +86,22 @@ public class DeleteItemFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void setTextViewStyle(TextView textView) {
+        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
+        textView.setTypeface(typeface);
+
+        textView.setTextSize(22);
+
+        textView.setGravity(Gravity.CENTER);
+
+        textView.setTextColor(getResources().getColor(R.color.black, null));
+
+        textView.setBackground(getResources().getDrawable(R.drawable.border_square));
+
+        textView.setPadding(0,5,0,5);
     }
 
     public void goPreviousFragment(){

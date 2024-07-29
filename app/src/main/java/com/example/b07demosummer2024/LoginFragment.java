@@ -24,7 +24,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class LoginFragment extends TAAMSFragment {
 
-    private Button loginButton;
+    private Button loginButton;     // make local
     private TextView email;
     private TextView password;
 
@@ -65,14 +65,18 @@ public class LoginFragment extends TAAMSFragment {
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        System.out.println("Account Created!");
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(getContext(), "Unexpected Error", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getContext(), "Account Created", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
 
+                        loadFragment(new HomeFragment());
+
                     } else {
-                       System.out.println("Error Occurred");
+                        Toast.makeText(getContext(), "Unexpected Error", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -86,12 +90,16 @@ public class LoginFragment extends TAAMSFragment {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         user = mAuth.getCurrentUser();
-                        System.out.println("User is Signed In!");
+
+                        Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                        // Read that having success messages isn't necessary,
+                        // or good, discuss if needed later - Burhanuddin
+
                         loadFragment(new HomeFragment());
 
                     } else {
                         // If sign in fails, display a message to the user.
-                        System.out.println("Nope!");
+                        Toast.makeText(getContext(), "Email or Password incorrect", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

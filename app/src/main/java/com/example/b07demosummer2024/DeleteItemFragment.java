@@ -90,7 +90,6 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
 
     public void goPreviousFragment(){
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        System.out.println(fragmentManager);
         if (fragmentManager != null) {
             fragmentManager.popBackStack();
         }

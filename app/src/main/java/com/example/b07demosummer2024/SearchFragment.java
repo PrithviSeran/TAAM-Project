@@ -59,7 +59,7 @@ public class SearchFragment extends TAAMSFragment {
 
             @Override
             public void onFailure(String message) {
-
+                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -128,7 +128,11 @@ public class SearchFragment extends TAAMSFragment {
                         searchResults.add(item);
                     }
                 }
-                callback.onSuccess(searchResults);
+                if(searchResults.isEmpty()){
+                    Toast.makeText(getContext(), "No items match this description", Toast.LENGTH_SHORT).show();
+                } else {
+                    callback.onSuccess(searchResults);
+                }
             } else {
                 callback.onFailure(Objects.toString(task.getException(), "No message available"));
             }

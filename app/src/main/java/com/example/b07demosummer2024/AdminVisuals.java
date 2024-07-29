@@ -24,6 +24,7 @@ import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -48,9 +49,8 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
     private TextView textView1, textView2;
     private CheckBox checkBox;
     private Button viewItem;
-    private Button deleteButton;
-    private Button addItem;
-
+    private Button deleteButton;    //make local
+    private Button addItem;         //make local
     private TableLayout tableLayout1;
     private Button searchItem;
 
@@ -115,6 +115,7 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
+                    Toast.makeText(getContext(), "Unexpected Error", Toast.LENGTH_SHORT).show();
                 }
                 else {
 

@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -73,6 +74,7 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
+                    Toast.makeText(getContext(), "Display Error", Toast.LENGTH_SHORT).show();
                 }
                 else {
 

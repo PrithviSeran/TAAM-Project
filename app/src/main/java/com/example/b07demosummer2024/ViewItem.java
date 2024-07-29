@@ -33,6 +33,7 @@ public class ViewItem extends TAAMSFragment {
     private TextView itemCategory;
     private TextView itemPeriod;
     private TextView itemDescription;
+    private TextView itemLotNum;
     private RecyclerView viewImage;
     private ArrayList<String> images = new ArrayList<String>();
     private ViewImageAdapter adapter = new ViewImageAdapter(images, getContext());
@@ -46,13 +47,13 @@ public class ViewItem extends TAAMSFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_view_popup, container, false);
 
+        itemLotNum =view.findViewById(R.id.LotNum);
         itemName = view.findViewById(R.id.artTitle);
         itemCategory = view.findViewById(R.id.category);
         itemPeriod = view.findViewById(R.id.period);
         itemDescription = view.findViewById(R.id.descriptionText);
         viewImage = view.findViewById(R.id.recycleViewImage);
         viewImage.setLayoutManager(new LinearLayoutManager(getContext()));
-        itemName.setText(identifier);
 
         popUp();
 
@@ -65,21 +66,39 @@ public class ViewItem extends TAAMSFragment {
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
+             public void onComplete(@NonNull Task<DataSnapshot> task) {
+                 if (!task.isSuccessful()) {
+                     Log.e("firebase", "Error getting data", task.getException());
+                 }
+                 else {
+                     itemName.setText(String.valueOf(task.getResult().child("name").getValue()));
+                     itemCategory.setText(String.valueOf(task.getResult().child("category").getValue()));
+                     itemPeriod.setText(String.valueOf(task.getResult().child("period").getValue()));
+                     itemDescription.setText(String.valueOf(task.getResult().child("description").getValue()));
+                     itemLotNum.setText(String.valueOf(task.getResult().child("lotNum").getValue()));
+                 }
+                 storageRef = FirebaseStorage.getInstance("gs://login-taam-bo7.appspot.com").getReference().child(item);
 
-                    itemCategory.setText(String.valueOf(task.getResult().child("category").getValue()));
-                    itemPeriod.setText(String.valueOf(task.getResult().child("period").getValue()));
-                    itemDescription.setText(String.valueOf(task.getResult().child("description").getValue()));
-
-                }
-
-                retrieveFromStorage();
-
-            }
+                 storageReference.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                     @Override
+                     public void onSuccess(ListResult listResult) {
+                         for (StorageReference fileRef : listResult.getItems()) {
+                             fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                 @Override
+                                 public void onSuccess(Uri uri) {
+                                     images.add(uri.toString());
+                                     Log.d("item", uri.toString());
+                                 }
+                             }).addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                 @Override
+                                 public void onSuccess(Uri uri) {
+                                     viewImage.setAdapter(adapter);
+                                 }
+                             });
+                         }
+                     }
+                 });
+             }
         });
 
     }

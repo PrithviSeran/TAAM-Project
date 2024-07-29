@@ -23,7 +23,7 @@ import java.util.Map;
 public class SearchResult extends TAAMSFragment implements ViewItemsTable {
     private TableRow tableRow1;
 
-    private TextView textView1;
+    private TextView textView1, textView2;
     private CheckBox checkBox;
     private Button viewItem;
     private List<Item> items;

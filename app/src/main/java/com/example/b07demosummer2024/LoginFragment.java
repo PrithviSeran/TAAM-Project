@@ -42,6 +42,12 @@ public class LoginFragment extends TAAMSFragment {
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
+                if (email.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getContext(), "Please fill our all fields!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 LoginAdmin(email.getText().toString(), password.getText().toString());
             }
         });
@@ -83,6 +89,7 @@ public class LoginFragment extends TAAMSFragment {
     }
 
     private void LoginAdmin(String email, String password){
+
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override

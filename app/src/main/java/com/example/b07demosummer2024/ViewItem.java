@@ -80,7 +80,7 @@ public class ViewItem extends TAAMSFragment {
                      itemDescription.setText(String.valueOf(task.getResult().child("description").getValue()));
                      itemLotNum.setText(String.valueOf(task.getResult().child("lotNum").getValue()));
                  }
-                 storageRef = FirebaseStorage.getInstance("gs://login-taam-bo7.appspot.com").getReference().child(item);
+                 storageRef = storageReference.child(identifier);
 
                  storageReference.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
                      @Override

@@ -1,5 +1,13 @@
 package com.example.b07demosummer2024;
 
+import android.annotation.SuppressLint;
+import android.graphics.Typeface;
+import android.view.Gravity;
+import android.widget.Button;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -16,12 +24,45 @@ public abstract class TAAMSFragment extends Fragment {
     protected static FirebaseUser user;
     protected StorageReference storageReference = FirebaseStorage.getInstance("gs://login-taam-bo7.appspot.com").getReference();
     protected StorageReference storageRef;
-    protected FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    protected static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     protected void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    protected void setTextViewStyle(TextView textView) {
+        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
+        textView.setTypeface(typeface);
+
+        textView.setTextSize(15);
+
+        textView.setGravity(Gravity.CENTER);
+
+        textView.setTextColor(getResources().getColor(R.color.black, null));
+
+        textView.setBackground(getResources().getDrawable(R.drawable.border_square));
+
+        textView.setPadding(0,5,0,5);
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    protected void setButtonStyle(Button button){
+
+        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
+        button.setAllCaps(false);
+        button.setBackground(getResources().getDrawable(R.drawable.button_view));
+
+        button.setTextColor(getResources().getColor(R.color.shaded_white, null));
+
+        button.setTextSize(15);
+
+        button.setPadding(0,5,0,5);
+
+        TableRow.LayoutParams params = new TableRow.LayoutParams(150, 80);
+        button.setLayoutParams(params);
     }
 }

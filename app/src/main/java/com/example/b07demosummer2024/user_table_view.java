@@ -39,7 +39,7 @@ import java.util.Map;
 public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
     private TableRow tableRow1;
-    private TextView textView1;
+    private TextView textView1, textView2;
     private Button viewItem;
     private TableLayout tableLayout1;
     private Button searchItem;
@@ -53,6 +53,15 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
         tableLayout1 = view.findViewById(R.id.tableLayout);
 
+        searchItem = view.findViewById(R.id.button12);
+
+        searchItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFragment(new SearchFragment());
+            }
+        });
+
         displayItems();
 
         // Inflate the layout for this fragment
@@ -62,8 +71,6 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
     @Override
     public void displayItems(){
-
-        searchItem = view.findViewById(R.id.button12);
 
 
         itemsRef = database.getReference("Items");
@@ -112,51 +119,7 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
                 }
             }
         });
-
-
-        searchItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadFragment(new SearchFragment());
-            }
-        });
-
-        // Inflate the layout for this fragment
-        return view;
-    }
-
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    protected void setTextViewStyle(TextView textView) {
-        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
-        textView.setTypeface(typeface);
-
-        textView.setTextSize(15);
-
-        textView.setGravity(Gravity.CENTER);
-
-        textView.setTextColor(getResources().getColor(R.color.black, null));
-
-        textView.setBackground(getResources().getDrawable(R.drawable.border_square));
-
-        textView.setPadding(0,5,0,5);
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    protected void setButtonStyle(Button button){
-
-        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
-        button.setAllCaps(false);
-        button.setBackground(getResources().getDrawable(R.drawable.button_view));
-
-        button.setTextColor(getResources().getColor(R.color.shaded_white, null));
-
-        button.setTextSize(15);
-
-        button.setPadding(0,5,0,5);
-
-        TableRow.LayoutParams params = new TableRow.LayoutParams(150, 80);
-        button.setLayoutParams(params);
     }
 }
+
+

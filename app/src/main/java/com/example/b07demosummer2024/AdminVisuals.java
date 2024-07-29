@@ -67,15 +67,18 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
 
         itemsRef = database.getReference("Items");
 
+        searchItem = view.findViewById(R.id.button12);
+
         deleteButton = view.findViewById(R.id.button10);
         addItem = view.findViewById(R.id.addItemButton);
-
 
         displayItems();
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
+
+                    System.out.println();
 
                     itemsToDelete.clear();
 
@@ -89,6 +92,13 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
                 }
             }
         );
+
+        searchItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFragment(new SearchFragment());
+            }
+        });
 
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,11 +114,6 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
 
     @Override
     public void displayItems(){
-
-        leftOfCheckBoxes.clear();
-
-
-        searchItem = view.findViewById(R.id.button12);
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
@@ -161,48 +166,7 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
 
     }
 
-
-        searchItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadFragment(new SearchFragment());
-            }
-        });
-
-        return view;
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void setTextViewStyle(TextView textView) {
-        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
-        textView.setTypeface(typeface);
-
-        textView.setTextSize(15);
-
-        textView.setGravity(Gravity.CENTER);
-
-        textView.setTextColor(getResources().getColor(R.color.black, null));
-
-        textView.setBackground(getResources().getDrawable(R.drawable.border_square));
-
-        textView.setPadding(0,5,0,5);
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void setButtonStyle(Button button){
-
-        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
-        button.setAllCaps(false);
-        button.setBackground(getResources().getDrawable(R.drawable.button_view));
-
-        button.setTextColor(getResources().getColor(R.color.shaded_white, null));
-
-        button.setTextSize(15);
-
-        button.setPadding(0,5,0,5);
-
-        TableRow.LayoutParams params = new TableRow.LayoutParams(150, 80);
-        button.setLayoutParams(params);
-    }
-
 }
+
+
+

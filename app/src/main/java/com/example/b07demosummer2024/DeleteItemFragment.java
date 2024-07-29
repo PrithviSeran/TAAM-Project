@@ -53,7 +53,6 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
 
         tableLayout1 = view.findViewById(R.id.linearLayoutDelete);
 
-
         displayItems();
 
         confirmDelete.setOnClickListener(new View.OnClickListener() {
@@ -72,22 +71,6 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
         return view;
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void setTextViewStyle(TextView textView) {
-        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
-        textView.setTypeface(typeface);
-
-        textView.setTextSize(22);
-
-        textView.setGravity(Gravity.CENTER);
-
-        textView.setTextColor(getResources().getColor(R.color.black, null));
-
-        textView.setBackground(getResources().getDrawable(R.drawable.border_square));
-
-        textView.setPadding(0,5,0,5);
-    }
-
     public void goPreviousFragment(){
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         if (fragmentManager != null) {
@@ -98,6 +81,7 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
     @Override
     public void displayItems(){
         for (String item : itemsToDelete){
+            System.out.println(item);
             individualItems = new TextView(getActivity());
             individualItems.setText(item);
 

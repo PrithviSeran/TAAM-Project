@@ -1,141 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleX="1"
     android:scaleY="1"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".user_table_view">
 
-    <TextView
-        android:id="@+id/homeTittle"
-        android:layout_width="178dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="217dp"
-        android:layout_marginBottom="678dp"
-        android:text="Collections Management"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="397dp"
+        android:layout_height="128dp"
+        android:contentDescription="@string/bg_style"
+        android:src="@drawable/bg_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.184" />
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="250dp"
+        android:layout_height="32dp"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:text="@string/TAAM"
+        android:textColor="@color/shaded_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/homeTittle"
+        android:layout_width="271dp"
+        android:layout_height="87dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="Collections Management"
+        android:textColor="@color/shaded_white"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.761" />
 
     <RadioGroup
-        android:layout_width="400dp"
-        android:layout_height="456dp"
+        android:id="@+id/radioGroup"
+        android:layout_width="392dp"
+        android:layout_height="470dp"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="75dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0">
+
 
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
             android:stretchColumns="1">
             <!-- Header Row -->
 
-            <TableRow>
-
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="8dp"
-                    android:text="Lot #" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:padding="8dp"
-                    android:text="Name" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:padding="8dp"
-                    android:text="Category" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:padding="8dp"
-                    android:text="Period" />
-
-            </TableRow>
-
             <!-- Dynamic Rows -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
 
-            <TableRow>
-
+                <RadioGroup
+                    android:id="@+id/radioGroup1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.47"
+                    android:orientation="vertical"
+                    tools:ignore="DuplicateIds" />
 
                 <TextView
-                    android:id="@+id/name2"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:padding="8dp"
-                    android:text="" />
+                    android:layout_height="40dp"
+                    android:layout_weight="1.5"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center|start"
+                    android:text="Lot #"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
 
                 <TextView
-                    android:id="@+id/category2"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:padding="8dp"
-                    android:text="" />
+                    android:layout_height="40dp"
+                    android:layout_weight="3"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
 
                 <TextView
-                    android:id="@+id/description2"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:padding="8dp"
-                    android:text="" />
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center|start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
             </TableRow>
-
+            <!-- Dynamic Rows -->
         </TableLayout>
     </RadioGroup>
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="50dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="335dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="662dp"
-        android:scaleType="centerInside"
-        android:scaleX="1"
-        android:scaleY="1"
-        android:src="@drawable/search"
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/dark_gold"
+        android:fontFamily="@font/lato_bold"
+        android:text="Create Report"
+        android:textAllCaps="false"
+        android:textColor="@color/shaded_white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button12"
+        app:layout_constraintHorizontal_bias="0.691"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button12"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/dark_gold"
+        android:fontFamily="@font/lato_bold"
+        android:text="Search Item"
+        android:textAllCaps="false"
+        android:textColor="@color/shaded_white"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.814"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.108" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

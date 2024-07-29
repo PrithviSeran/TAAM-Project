@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="393dp"
-        android:layout_height="172dp"
+        android:layout_width="399dp"
+        android:layout_height="173dp"
         android:contentDescription="@string/bg_style"
         android:src="@drawable/bg_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,24 +41,28 @@
         android:text="@string/lot_number"
         android:textColor="@color/gold"
         android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.094"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchActivityTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/searchActivityTitle"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/name"
         android:fontFamily="@font/lato_bold"
+        android:text="@string/name"
         android:textColor="@color/gold"
         android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/homeTittle"
-        app:layout_constraintTop_toBottomOf="@+id/homeTittle" />
+        app:layout_constraintTop_toBottomOf="@+id/homeTittle"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextLotNumber"
@@ -102,6 +106,7 @@
         android:text="@string/search"
         android:textColor="@color/shaded_white"
         android:textSize="20sp"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -112,11 +117,11 @@
     <TextView
         android:id="@+id/searchActivityTitle"
         android:layout_width="278dp"
-        android:layout_height="112dp"
+        android:layout_height="113dp"
         android:fontFamily="@font/lato_bold"
         android:text="@string/search_taam_collection"
         android:textColor="@color/shaded_white"
-        android:textSize="45sp"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.269"
@@ -129,7 +134,6 @@
         android:layout_width="210dp"
         android:layout_height="40dp"
         android:background="@drawable/edit_text_style"
-        android:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -142,28 +146,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/category"
         android:fontFamily="@font/lato_bold"
+        android:text="@string/category"
         android:textColor="@color/gold"
         android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/homeTittle"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/period"
         android:fontFamily="@font/lato_bold"
+        android:text="@string/period"
         android:textColor="@color/gold"
         android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/homeTittle"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/periodSpinner"

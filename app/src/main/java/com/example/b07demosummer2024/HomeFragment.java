@@ -48,7 +48,7 @@ public class HomeFragment extends TAAMSFragment {
         buttonFeature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new AddItemFragment());
+                loadFragment(new AdminVisuals());
             }
         });
 

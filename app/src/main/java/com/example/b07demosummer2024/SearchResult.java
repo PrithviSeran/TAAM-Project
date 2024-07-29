@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 public class SearchResult extends user_table_view {
     private TableRow tableRow1;
@@ -46,12 +47,20 @@ public class SearchResult extends user_table_view {
             tableRow1.addView(checkBox);
 
             textView1 = new TextView(getActivity());
-            textView1.setText(item.getName());
-
+            textView1.setText(item.getLotNum());
+            setTextViewStyle(textView1);
+            textView1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
             tableRow1.addView(textView1);
 
+            textView2 = new TextView(getActivity());
+            textView2.setText(item.getName());
+            textView2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
+            setTextViewStyle(textView2);
+            tableRow1.addView(textView2);
+
             viewItem = new Button(getActivity());
-            viewItem.setText("View Item");
+            viewItem.setText("View");
+            setButtonStyle(viewItem);
 
             viewItem.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,13 +1,17 @@
 package com.example.b07demosummer2024;
 
+import android.annotation.SuppressLint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,11 +47,12 @@ public class AdminVisuals extends TAAMSFragment {
 
     private TableRow tableRow1;
 
-    private TextView textView1;
+    private TextView textView1, textView2;
     private CheckBox checkBox;
     private Button viewItem;
     private Button deleteButton;
     private Button addItem;
+    private Button searchItem;
 
     private HashMap<CheckBox, String> leftOfCheckBoxes = new HashMap<CheckBox, String>();
     private ArrayList<String> itemsToDelete = new ArrayList<String>();
@@ -64,7 +69,7 @@ public class AdminVisuals extends TAAMSFragment {
 
         deleteButton = view.findViewById(R.id.button10);
         addItem = view.findViewById(R.id.addItemButton);
-
+        searchItem = view.findViewById(R.id.button12);
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -77,32 +82,37 @@ public class AdminVisuals extends TAAMSFragment {
 
                     Log.d("Class", String.valueOf(task.getResult().getValue().getClass()));
 
-                    for (Object entry1 : ((HashMap)task.getResult().getValue()).entrySet()) {
+                    for (DataSnapshot entry1 : (task.getResult().getChildren())) {
                         tableRow1 = new TableRow(getActivity());
                         checkBox = new CheckBox(getActivity());
-
-                        leftOfCheckBoxes.put(checkBox, String.valueOf(((Map.Entry)entry1).getKey()));
 
                         tableRow1.addView(checkBox);
 
                         textView1 = new TextView(getActivity());
-                        textView1.setText(String.valueOf(((Map.Entry)entry1).getKey()));
-
+                        textView1.setText(String.valueOf(entry1.child("lotNum").getValue()));
+                        setTextViewStyle(textView1);
+                        textView1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
                         tableRow1.addView(textView1);
 
+                        textView2 = new TextView(getActivity());
+                        textView2.setText(String.valueOf(entry1.child("name").getValue()));// Change to get name
+                        textView2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
+                        setTextViewStyle(textView2);
+                        tableRow1.addView(textView2);
+
                         viewItem = new Button(getActivity());
-                        viewItem.setText("View Item");
+                        viewItem.setText("View");
+                        setButtonStyle(viewItem);
 
                         viewItem.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 // Handle the button click
-                                loadFragment(new ViewItem(String.valueOf(((Map.Entry)entry1).getKey())));
+                                loadFragment(new ViewItem(String.valueOf(entry1.getKey())));
                             }
                         });
 
                         tableRow1.addView(viewItem);
-
                         tableLayout1.addView(tableRow1);
                     }
                 }
@@ -130,8 +140,47 @@ public class AdminVisuals extends TAAMSFragment {
             }
         });
 
-        // Inflate the layout for this fragment
-        return view;
+        searchItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFragment(new SearchFragment());
+            }
+        });
 
+        return view;
     }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void setTextViewStyle(TextView textView) {
+        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
+        textView.setTypeface(typeface);
+
+        textView.setTextSize(15);
+
+        textView.setGravity(Gravity.CENTER);
+
+        textView.setTextColor(getResources().getColor(R.color.black, null));
+
+        textView.setBackground(getResources().getDrawable(R.drawable.border_square));
+
+        textView.setPadding(0,5,0,5);
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void setButtonStyle(Button button){
+
+        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
+        button.setAllCaps(false);
+        button.setBackground(getResources().getDrawable(R.drawable.button_view));
+
+        button.setTextColor(getResources().getColor(R.color.shaded_white, null));
+
+        button.setTextSize(15);
+
+        button.setPadding(0,5,0,5);
+
+        TableRow.LayoutParams params = new TableRow.LayoutParams(150, 80);
+        button.setLayoutParams(params);
+    }
+
 }

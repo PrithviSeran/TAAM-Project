@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -33,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -115,6 +117,7 @@ public class AdminVisuals extends TAAMSFragment {
                         tableRow1.addView(viewItem);
                         tableLayout1.addView(tableRow1);
                     }
+                    Log.d("CheckBoxes", String.valueOf(leftOfCheckBoxes));
                 }
             }
         });
@@ -182,5 +185,4 @@ public class AdminVisuals extends TAAMSFragment {
         TableRow.LayoutParams params = new TableRow.LayoutParams(150, 80);
         button.setLayoutParams(params);
     }
-
 }

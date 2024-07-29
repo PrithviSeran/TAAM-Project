@@ -29,13 +29,36 @@ public class HomeFragment extends TAAMSFragment {
         ImageButton buttonFeature = view.findViewById(R.id.imageButton2);
         ImageButton buttonAdmin = view.findViewById(R.id.imageButton3);
         ImageButton buttonTable = view.findViewById(R.id.imageButton4);
+        TextView loginlogout = view.findViewById(R.id.textView6);
+
 
         title = view.findViewById(R.id.homeTittle);
+        buttonAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginlogout.setText("Admin Log-in");
+                loadFragment(new LoginFragment());
+            }
+        });
 
         if (user != null){
             name = user.getDisplayName();
 
             title.setText("Hello, " + name);
+            loginlogout.setText("Admin Log-out");
+
+            // Create a new Button programmatically
+
+            // Set OnClickListener for the Button
+            buttonAdmin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    user = null;
+                    loadFragment(new HomeFragment());
+                }
+            });
+
         }
 
         buttonSearch.setOnClickListener(new View.OnClickListener() {
@@ -52,12 +75,7 @@ public class HomeFragment extends TAAMSFragment {
             }
         });
 
-        buttonAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new LoginFragment());
-            }
-        });
+
 
         buttonTable.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -55,6 +55,7 @@ public class user_table_view extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
 
         TableLayout tableLayout1 = view.findViewById(R.id.tableLayout);
+
         searchItem = view.findViewById(R.id.button12);
 
         itemsRef = database.getReference("Items");

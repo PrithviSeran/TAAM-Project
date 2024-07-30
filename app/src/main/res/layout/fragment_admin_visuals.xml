@@ -52,19 +52,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.785" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="392dp"
-        android:layout_height="470dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="200dp"
+    <ScrollView
+        android:layout_width="400dp"
+        android:layout_height="388dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="174dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <TableLayout
@@ -120,29 +118,32 @@
             </TableRow>
             <!-- Dynamic Rows -->
         </TableLayout>
-    </RadioGroup>
+    </ScrollView>
 
     <Button
         android:id="@+id/addItemButton"
         android:layout_width="140dp"
         android:layout_height="50dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="594dp"
+        android:layout_marginEnd="217dp"
+        android:layout_marginBottom="87dp"
         android:backgroundTint="@color/dark_gold"
         android:fontFamily="@font/lato_bold"
         android:text="Add Item"
+        android:textAllCaps="false"
         android:textColor="@color/shaded_white"
         android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button10"
-        app:layout_constraintEnd_toStartOf="@+id/button10"
-        app:layout_constraintHorizontal_bias="0.721"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="1.0"
-        android:textAllCaps="false"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button10"
         android:layout_width="140dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="88dp"
         android:backgroundTint="@color/dark_gold"
         android:fontFamily="@font/lato_bold"
         android:text="Remove Item"
@@ -151,7 +152,7 @@
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.794"
+        app:layout_constraintHorizontal_bias="0.793"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintVertical_bias="0.0" />
@@ -161,9 +162,10 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
-        android:fontFamily="@font/lato_bold"
         android:backgroundTint="@color/dark_gold"
+        android:fontFamily="@font/lato_bold"
         android:text="Create Report"
+        android:textAllCaps="false"
         android:textColor="@color/shaded_white"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -171,16 +173,15 @@
         app:layout_constraintHorizontal_bias="0.721"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addItemButton"
-        app:layout_constraintVertical_bias="0.0"
-        android:textAllCaps="false"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button12"
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
-        android:fontFamily="@font/lato_bold"
         android:backgroundTint="@color/dark_gold"
+        android:fontFamily="@font/lato_bold"
         android:text="Search Item"
         android:textAllCaps="false"
         android:textColor="@color/shaded_white"

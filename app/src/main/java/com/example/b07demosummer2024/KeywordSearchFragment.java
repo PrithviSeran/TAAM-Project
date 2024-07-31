@@ -90,7 +90,7 @@ public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearc
 
     @Override
     public void onItemClick(Item item) {
-        loadFragment(new ViewItem(item.getName()));
+        loadFragment(new ViewItem(item.getLotNum()));
 
     }
 

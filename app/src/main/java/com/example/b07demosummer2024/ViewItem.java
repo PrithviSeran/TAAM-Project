@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 
@@ -36,9 +39,11 @@ public class ViewItem extends TAAMSFragment {
     private TextView itemPeriod;
     private TextView itemDescription;
     private TextView itemLotNum;
+    private ImageView viewItemPic;
     private RecyclerView viewImage;
     private ArrayList<String> images = new ArrayList<String>();
     private ViewImageAdapter adapter = new ViewImageAdapter(images, getContext());
+    private Uri imageURI;
 
     public ViewItem(String identifier){
         this.identifier = identifier;
@@ -54,8 +59,9 @@ public class ViewItem extends TAAMSFragment {
         itemCategory = view.findViewById(R.id.category);
         itemPeriod = view.findViewById(R.id.period);
         itemDescription = view.findViewById(R.id.descriptionText);
-        viewImage = view.findViewById(R.id.recycleViewImage);
-        viewImage.setLayoutManager(new LinearLayoutManager(getContext()));
+        //viewImage = view.findViewById(R.id.recycleViewImage);
+        //viewImage.setLayoutManager(new LinearLayoutManager(getContext()));
+        viewItemPic = view.findViewById(R.id.itemViewImage);
 
         popUp();
 
@@ -80,60 +86,36 @@ public class ViewItem extends TAAMSFragment {
                      itemDescription.setText(String.valueOf(task.getResult().child("description").getValue()));
                      itemLotNum.setText(String.valueOf(task.getResult().child("lotNum").getValue()));
                  }
-                 storageRef = storageReference.child(identifier);
 
-                 storageReference.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
-                     @Override
-                     public void onSuccess(ListResult listResult) {
-                         for (StorageReference fileRef : listResult.getItems()) {
-                             fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                 @Override
-                                 public void onSuccess(Uri uri) {
-                                     images.add(uri.toString());
-                                     Log.d("item", uri.toString());
-                                 }
-                             }).addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                 @Override
-                                 public void onSuccess(Uri uri) {
-                                     viewImage.setAdapter(adapter);
-                                 }
-                             });
-                         }
-                     }
-                 });
+                 retrieveFromStorage();
              }
         });
 
     }
 
     private void retrieveFromStorage(){
-        storageRef = storageReference.child(identifier);
 
-        storageReference.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+        StorageReference fileRef = storageReference.child(identifier);
+        fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
-            public void onSuccess(ListResult listResult) {
-                for (StorageReference fileRef : listResult.getItems()) {
-                    fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            images.add(uri.toString());
-                            Log.d("item", uri.toString());
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            viewImage.setAdapter(adapter);
-                        }
-                    });
-                }
+            public void onSuccess(Uri uri) {
+                imageURI = uri;
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(viewItemPic);
+
+                //Glide.with(getContext())
+                //        .load(imageURI)
+                //        .into(viewItemPic);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e("firebase", "Error retrieving data from storage", e);
-                Toast.makeText(getContext(), "Error retrieving data from storage", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No Image Associated", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

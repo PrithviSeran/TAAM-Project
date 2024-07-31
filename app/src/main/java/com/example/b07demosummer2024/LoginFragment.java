@@ -27,6 +27,8 @@ public class LoginFragment extends TAAMSFragment {
     private Button loginButton;     // make local
     private TextView email;
     private TextView password;
+    public Boolean loginStatus;
+
 
     @Nullable
     @Override
@@ -55,39 +57,6 @@ public class LoginFragment extends TAAMSFragment {
         return view;
     }
 
-    private void RegisterAdmin(String name, String email, String password ){
-        mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        user = mAuth.getCurrentUser();
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(name)
-                            .build();
-
-                        user.updateProfile(profileUpdates)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(getContext(), "Unexpected Error", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(getContext(), "Account Created", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-
-                        loadFragment(new HomeFragment());
-
-                    } else {
-                        Toast.makeText(getContext(), "Unexpected Error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-    }
-
     private void LoginAdmin(String email, String password){
 
         mAuth.signInWithEmailAndPassword(email, password)
@@ -111,4 +80,7 @@ public class LoginFragment extends TAAMSFragment {
                 }
             });
     }
+
+    //public String getName(){}
+
 }

@@ -57,7 +57,7 @@ public class SearchResult extends user_table_view {
                 @Override
                 public void onClick(View v) {
                     // Handle the button click
-                    loadFragment(new ViewItem(item.getName()));
+                    loadFragment(new ViewItem(item));
                 }
             });
 

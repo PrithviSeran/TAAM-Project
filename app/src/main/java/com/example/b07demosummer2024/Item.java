@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 
 public class Item {
 
+    /**
+     * LotNum of the Item. This is also the image ID.
+     */
     private String LotNum;
     private String Name;
     private String Category;
@@ -12,7 +15,7 @@ public class Item {
 
     public Item() {}
 
-    public Item(String lotNum, String name, String category, String period, String description, String picURL) {
+    public Item(String lotNum, String name, String category, String period, String description) {
         this.LotNum = lotNum;
         this.Name = name;
         this.Category = category;
@@ -31,12 +34,15 @@ public class Item {
     public String getDescription() { return Description; }
     public void setDescription(String description) { this.Description = description; }
 
-
     @NonNull
     @Override
     public String toString() {
-        return String.format("Lot Num: %s, Name: %s, Category: %s," +
-                " Period: %s, Description: %s, Pic: %s",
-                LotNum, Name, Category, Period, Description);
+        return String.format("Lot Num: %s, Name: %s, Category: %s, Period: %s, Description: %s",
+                (Object[]) toArray());
+    }
+
+    // The order of this array should NOT be changed, add new properties to the end
+    public final String[] toArray() {
+        return new String[] {LotNum, Name, Category, Period, Description};
     }
 }

@@ -1,7 +1,6 @@
 package com.example.b07demosummer2024;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.b07demosummer2024.firebase.FirebaseCallback;
+import com.example.b07demosummer2024.firebase.FirebaseReferences;
+import com.example.b07demosummer2024.firebase.ItemFetcher;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,12 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class SearchFragment extends TAAMSFragment {
-
-    protected interface SearchResultCallback {
-        void onSuccess(List<Item> results);
-        void onFailure(String message);
-    }
+public class SearchFragment extends Fragment {
 
     private EditText editTextLotNum;
     private EditText editTextName;
@@ -40,17 +36,28 @@ public class SearchFragment extends TAAMSFragment {
     private Button submitButton;
     private TextView title;
 
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance(
-            "https://login-taam-bo7-default-rtdb.firebaseio.com/");
-
     private final String activityTitle;
-    private final View.OnClickListener submissionListener;
+    private final String submitText;
+    private View.OnClickListener submissionListener = null;
 
     private final String blankOption = "Not selected";
 
+    /**
+     * Creates a new SearchFragment with title "title".
+     * @param title the title for this fragment
+     */
+    protected SearchFragment(String title, String submitText) {
+        this.activityTitle = title;
+        this.submitText = submitText;
+    }
+
+    /**
+     * Creates a new SearchFragment with default title "title". Sets the submission
+     * listener to by default graphically display the search results.
+     */
     public SearchFragment() {
-        this.activityTitle = "Search Collection";
-        this.submissionListener = setSubmissionListener(new SearchResultCallback() {
+        this("Search collection", "Search");
+        setSubmissionListener(new FirebaseCallback<List<Item>>() {
             @Override
             public void onSuccess(List<Item> results) {
                 // search result here
@@ -64,14 +71,10 @@ public class SearchFragment extends TAAMSFragment {
         });
     }
 
-    protected SearchFragment(String title, SearchResultCallback searchResponse) {
-        this.activityTitle = title;
-        this.submissionListener = setSubmissionListener(searchResponse);
-    }
-
     @Nullable
     @Override
-    public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                                   @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_search, container, false);
     }
 
@@ -87,6 +90,7 @@ public class SearchFragment extends TAAMSFragment {
 
         // Buttons
         submitButton = view.findViewById(R.id.submitConfirm);
+        submitButton.setText(submitText);
         submitButton.setOnClickListener(submissionListener);
 
         // Spinners
@@ -97,43 +101,34 @@ public class SearchFragment extends TAAMSFragment {
         initializeSpinner(R.array.periods_array, spinnerPeriod);
     }
 
-    private View.OnClickListener setSubmissionListener(SearchResultCallback callback) {
-        return (v -> {
-            String lotNum = normalize(editTextLotNum.getText().toString());
-            String name = normalize(editTextName.getText().toString());
-            String category = normalize(spinnerCategory.getSelectedItem().toString());
-            String period = normalize(spinnerPeriod.getSelectedItem().toString());
-
-            if (isAllBlankInput(lotNum, name, category, period)) {
-                Toast.makeText(getContext(), "Please fill in at least one field!", Toast.LENGTH_SHORT).show();
-            } else {
-                searchItems(callback, lotNum, name, category, period);
-            }
-        });
+    /**
+     * Sets this SearchFragment's submissionListener with callback "onSearchCompleted".
+     * @param onSearchCompleted the callback that handles the search results
+     */
+    protected void setSubmissionListener(FirebaseCallback<List<Item>> onSearchCompleted) {
+        this.submissionListener = (v -> performSearch(onSearchCompleted));
     }
 
-    protected void searchItems(SearchResultCallback callback, String lotNum, String name,
-                               String category, String period) {
-        List<Item> searchResults = new ArrayList<>();
-        DatabaseReference itemsRef = database.getReference();
-        itemsRef.child("Items").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DataSnapshot itemsList = task.getResult();
-                for (DataSnapshot snapshot : itemsList.getChildren()) {
-                    Item item = snapshot.getValue(Item.class);
+    /**
+     * Performs a search query based on the input from this SearchFragment. The handling
+     * of the search results is done with the provided SearchResultCallback.
+     * @see FirebaseCallback
+     * @see SearchFragment#setSubmissionListener
+     * @param onSearchCompleted the callback that handles the search results
+     */
+    protected void performSearch(FirebaseCallback<List<Item>> onSearchCompleted) {
+        if (onSearchCompleted == null) {
+            throw new NullPointerException("Cannot have null callback");
+        }
 
-                    // if the fields are blank, compare() should return true anyways
-                    if (item != null && compare(lotNum, item.getLotNum()) && compare(name, item.getName())
-                            && compare(category, item.getCategory()) && compare(period, item.getPeriod())) {
-                        searchResults.add(item);
-                    }
-                }
-                callback.onSuccess(searchResults);
-            } else {
-                callback.onFailure(Objects.toString(task.getException(), "No message available"));
-            }
-        });
+        String lotNum = normalize(editTextLotNum.getText().toString());
+        String name = normalize(editTextName.getText().toString());
+        String category = normalize(spinnerCategory.getSelectedItem().toString());
+        String period = normalize(spinnerPeriod.getSelectedItem().toString());
+
+        ItemFetcher.searchItems(onSearchCompleted, this::compare, lotNum, name, category, period);
     }
+
 
     private void initializeSpinner(int arrayId, Spinner spinner) {
         List<CharSequence> resList = new ArrayList<>(Arrays.asList(getResources().getStringArray(arrayId)));
@@ -160,12 +155,10 @@ public class SearchFragment extends TAAMSFragment {
         return s == null || s.isEmpty() || s.equals(blankOption.toLowerCase());
     }
 
-    private boolean isAllBlankInput(String ... a) {
-        for (String s : a) {
-            if (!isBlankInput(s)) {
-                return false;
-            }
-        }
-        return true;
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

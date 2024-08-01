@@ -218,6 +218,7 @@
         android:fontFamily="@font/roboto"
         android:gravity="start"
         android:hint="e.g. This is a Jade Palace."
+        android:inputType="textMultiLine"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

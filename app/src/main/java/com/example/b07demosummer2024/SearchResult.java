@@ -71,7 +71,7 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
                 @Override
                 public void onClick(View v) {
                     // Handle the button click
-                    loadFragment(new ViewItem(item.getName()));
+                    loadFragment(new ViewItem(item.getLotNum()));
                 }
             });
 

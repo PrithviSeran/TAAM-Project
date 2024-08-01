@@ -1,22 +1,24 @@
 package com.example.b07demosummer2024;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
     private List<Item> items;
     private OnItemClickListener listener;
     private List<Item> getItemsFilter;
+    protected StorageReference storageReference = FirebaseStorage.getInstance("gs://login-taam-bo7.appspot.com").getReference();
+    protected StorageReference storageRef;
 
     @Override
     public Filter getFilter() {
@@ -90,6 +94,7 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
         holder.lotNumText.setText(items.get(position).getLotNum());
         holder.periodText.setText(items.get(position).getPeriod());
         holder.categoryText.setText(items.get(position).getCategory());
+        retrieveFromStorage(holder.itemImage, item.getLotNum());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +115,7 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
 
         TextView itemNameText, lotNumText, periodText, categoryText;
         CardView itemCard;
+        ImageView itemImage;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -119,7 +125,7 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
             this.periodText = itemView.findViewById(R.id.periodText);
             this.categoryText = itemView.findViewById(R.id.categoryText);
             this.itemCard = itemView.findViewById(R.id.itemCard);
-
+            this.itemImage = itemView.findViewById(R.id.item_image);
         }
     }
 
@@ -128,5 +134,15 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
                 item.getLotNum().contains(searchStr) ||
                 item.getPeriod().toLowerCase().contains(searchStr) ||
                 item.getCategory().toLowerCase().contains(searchStr);
+    }
+
+    private void retrieveFromStorage(ImageView imageView, String identifier) {
+        StorageReference fileRef = storageReference.child(identifier);
+        fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(imageView);
+            }
+        });
     }
 }

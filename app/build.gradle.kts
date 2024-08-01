@@ -24,10 +24,6 @@ android {
         }
     }
 
-    buildFeatures{
-        viewBinding = true
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -47,6 +43,13 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.storage)
     testImplementation(libs.junit)
+
+    //testImplementation("org.mockito:mockito-inline:")  // includes "core"
+    //testImplementation("org.mockito:mockito-junit-jupiter:")
+    testImplementation("org.mockito:mockito-core:4.0.0")
+    androidTestImplementation("org.mockito:mockito-android:4.0.0")
+    testImplementation("net.bytebuddy:byte-buddy:1.12.9")
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit.junit)
 }

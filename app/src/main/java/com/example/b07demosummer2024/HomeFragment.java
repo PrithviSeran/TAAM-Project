@@ -20,6 +20,13 @@ public class HomeFragment extends TAAMSFragment {
     private TextView title;
     private String name;
 
+    public HomeFragment(){
+    }
+
+    public HomeFragment(String name){
+        this.name = name;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -4,11 +4,13 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +21,19 @@ import com.example.b07demosummer2024.R;
 import com.example.b07demosummer2024.SearchFragment;
 import com.example.b07demosummer2024.firebase.ImageFetcher;
 import com.google.android.gms.common.images.ImageManager;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class ReportFragment extends SearchFragment {
     private CheckBox confirmOnlyIncludeDescriptionAndPicture;
@@ -53,62 +64,22 @@ public class ReportFragment extends SearchFragment {
         extraLayout.setVisibility(View.VISIBLE);
     }
 
-    class Test implements Target, ImageManager.OnImageLoadedListener {
-        long initialTime;
-        long totalTime;
-
-        @Override
-        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-            System.out.println((System.nanoTime() - initialTime) / 1000000);
-        }
-
-        @Override
-        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-        }
-
-        @Override
-        public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-        }
-
-        public void setTotalTime(long time) {
-            this.totalTime = time;
-        }
-
-        public void setInitialTime(long initialTime) {
-            this.initialTime = initialTime;
-        }
-
-        @Override
-        public void onImageLoaded(@NonNull Uri uri, @Nullable Drawable drawable, boolean b) {
-            System.out.println((System.nanoTime() - initialTime) / 1000000);
-        }
-    }
-
     // takes about 1 second to get uri and use picasso to load into imageview
     private FirebaseCallback<List<Item>> generateAndSaveReport() {
         return new FirebaseCallback<List<Item>>() {
             @Override
             public void onSuccess(List<Item> results) {
-//                Report report = new Report(results, getContext());
-//                try {
-//                    report.generateAndSavePdf();
-//                } catch (IOException e) {
-//                    Toast.makeText(getContext(), "Report could not be saved, try again.",
-//                            Toast.LENGTH_LONG).show();
-//                }
-
-                Test t = new Test();
-                long startTime = System.nanoTime();
-                ImageFetcher.requestImageUriFromId("Item Name").addOnCompleteListener(
-                        uriTask -> {
-                            t.setInitialTime(startTime);
-                            System.out.println((System.nanoTime() - startTime) / 1000000);
-                            //ImageManager m = ImageManager.create(getContext());
-                            //m.loadImage(t, uriTask.getResult());
-                            Picasso.get().load(uriTask.getResult()).into(t);
-                        });
+                Report report = new Report(results, getContext());
+                report.generatePdf().addOnCompleteListener((pdfGenerationStatus) -> {
+                    if (pdfGenerationStatus.isSuccessful()) {
+                        try {
+                            report.savePDF("Report.pdf");
+                        } catch (IOException e) {
+                            Toast.makeText(getContext(), "Could not save report, try again",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
 
             @Override
@@ -117,5 +88,4 @@ public class ReportFragment extends SearchFragment {
             }
         };
     }
-
 }

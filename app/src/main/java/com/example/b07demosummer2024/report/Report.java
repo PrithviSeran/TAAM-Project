@@ -8,104 +8,60 @@ import android.net.Uri;
 import android.view.View;
 
 import com.example.b07demosummer2024.Item;
-import com.example.b07demosummer2024.firebase.ImageFetcher;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 public class Report {
     public static final int pageWidth = 2000;
     public static final int pageHeight = 2000;
     private List<Item> items;
     private Context context;
-
-
-    private ExecutorService service = null;
+    private PdfDocument report;
+    private int currentPage = 1;
 
     public Report(List<Item> items, Context context) {
         this.items = items;
         this.context = context;
     }
 
-    public void generateAndSavePdf() throws IOException {
-        List<Future<Bitmap>> pendingRequests = requestImages();
-        ArrayList<ReportDataPage> dataPages = new ArrayList<>();
-        ArrayList<PdfDocument.Page> pdfPages = new ArrayList<>();
+    public Task<Void> generatePdf() {
+        report = new PdfDocument();
 
-        PdfDocument doc = new PdfDocument();
-        PdfDocument.PageInfo b = new PdfDocument.PageInfo.Builder(
-                pageWidth, pageHeight, 1).create();
-
+        List<Task<Boolean>> pageFinishTasks = new ArrayList<>();
         for (Item item : items) {
-            PdfDocument.Page page = doc.startPage(b);
             ReportDataPage dataPage = new ReportDataPage(item, context);
-            dataPages.add(dataPage);
-            pdfPages.add(page);
+            Task<Boolean> pageFinishTask = dataPage.asyncSetAssociatedView(addPageToDocument());
+            pageFinishTasks.add(pageFinishTask);
         }
+        return Tasks.whenAll(pageFinishTasks);
+    }
 
-        for (int i = 0; i < pendingRequests.size(); i++) {
-            Future<Bitmap> request = pendingRequests.get(i);
-            while (true) {
-                ReportDataPage dataPage = dataPages.get(i);
-                PdfDocument.Page page = pdfPages.get(i);
-                try {
-                    if (request.isDone()) {
-                        dataPage.setAssociatedView(request.get());
-                        doc.finishPage(page);
-                        break;
-                    }
-                } catch (ExecutionException | InterruptedException e) {
-                    dataPage.setAssociatedView(null);
-                    doc.finishPage(page);
-                }
-            }
-        }
-
-        savePDF(doc);
-
+    private ReportDataPage.PageCompletedCallback addPageToDocument() {
+        return completedPage -> {
+            PdfDocument.PageInfo info = getPageInfoForPageNum(currentPage++);
+            PdfDocument.Page newPage = report.startPage(info);
+            Bitmap bit = getBitmapFromView(completedPage);
+            newPage.getCanvas().drawBitmap(bit, 0f, 0f, null);
+            report.finishPage(newPage);
+        };
     }
 
     /** @noinspection IOStreamConstructor*/
-    private void savePDF(PdfDocument pdf) throws IOException {
+    public void savePDF(String fileName) throws IOException {
         File f = new File(context.getFilesDir(), "report");
         if (!f.exists()) {
             f.mkdir();
         }
-        File created = new File(f, "YOOOO.pdf");
-        pdf.writeTo(new FileOutputStream(created));
-        pdf.close();
-    }
-
-    private List<Future<Bitmap>> requestImages() {
-        startMultithreadService();
-
-        List<Future<Bitmap>> pendingRequests = new ArrayList<>();
-        for (Item item : items) {
-            service.submit(() -> {
-                Task<Uri> imageTask = ImageFetcher.requestImageUriFromId(item.getLotNum());
-                ImageFetcher.FetchBitmapFromUri bitmapFetcher = new ImageFetcher.FetchBitmapFromUri();
-                imageTask.addOnCompleteListener(service, bitmapFetcher);
-                return bitmapFetcher.getResult();
-            });
-        }
-        return pendingRequests;
-    }
-
-    private void startMultithreadService() {
-        final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
-        final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
-        service = Executors.newFixedThreadPool(MAXIMUM_POOL_SIZE);
+        File created = new File(f, fileName);
+        report.writeTo(new FileOutputStream(created));
+        report.close();
     }
 
     private Bitmap getBitmapFromView(View v) {
@@ -125,5 +81,9 @@ public class Report {
         v.draw(c);
 
         return bit;
+    }
+
+    private PdfDocument.PageInfo getPageInfoForPageNum(int pageNum) {
+        return new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNum).create();
     }
 }

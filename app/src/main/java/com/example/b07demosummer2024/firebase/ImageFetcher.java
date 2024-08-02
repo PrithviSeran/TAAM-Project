@@ -1,18 +1,14 @@
 package com.example.b07demosummer2024.firebase;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class ImageFetcher {
@@ -36,26 +32,17 @@ public class ImageFetcher {
         return storageRoot.child(imageId).getDownloadUrl();
     }
 
-    public static class FetchBitmapFromUri implements OnCompleteListener<Uri> {
-        private Bitmap result;
-
-        @Override
-        public void onComplete(@NonNull Task<Uri> task) {
-            if (task.isSuccessful()) {
-                try {
-                    result = Picasso.get().load(task.getResult()).get();
-                    System.out.println("hello");
-                } catch (IOException e) {
-                    result = null;
-                }
-            } else {
-                result = null;
-            }
-        }
-
-        public Bitmap getResult() {
-            return result;
-        }
+    public static void requestImage(String imageId,
+                                    Picasso picasso,
+                                    Target listener,
+                                    int errorId) {
+        requestImageUriFromId(imageId)
+                .addOnSuccessListener((uri) -> picasso.load(uri).noFade().error(errorId).into(listener))
+                .addOnFailureListener(e -> {
+                            Log.e("FirebaseError", Objects.requireNonNull(e.getMessage(),
+                                    "There was an Firebase exception but message was null"));
+                            picasso.load(errorId).into(listener);
+                    }
+                );
     }
-
 }

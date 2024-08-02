@@ -29,7 +29,7 @@
     <string name="category">Category</string>
     <string name="period">Period</string>
     <string name="description">Description</string>
-    <string name="picture">Image</string>
+    <string name="picture_video">Image/Video:</string>
     <string name="remove_item">Remove Item</string>
     <string name="confirm_deletion">Confirm deletion of selected item:</string>
     <string name="yes">Yes</string>

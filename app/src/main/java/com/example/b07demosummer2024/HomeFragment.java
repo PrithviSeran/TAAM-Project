@@ -1,4 +1,6 @@
 package com.example.b07demosummer2024;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,11 +73,13 @@ public class HomeFragment extends TAAMSFragment {
         buttonFeature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new AdminVisuals());
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://taam.ca/index.php/en/"));
+                startActivity(intent);
             }
         });
-
-
 
         buttonTable.setOnClickListener(new View.OnClickListener() {
             @Override

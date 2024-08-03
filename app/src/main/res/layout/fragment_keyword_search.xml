@@ -11,7 +11,8 @@
         android:id="@+id/search_view"
         android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:background="@drawable/border_view">
 
     </androidx.appcompat.widget.SearchView>
 
@@ -19,7 +20,8 @@
         android:id="@+id/rvItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

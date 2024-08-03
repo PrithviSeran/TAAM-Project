@@ -48,7 +48,7 @@
             android:backgroundTint="@color/dark_gold"
             android:contentDescription="@string/extra_feature"
             android:scaleType="fitCenter"
-            android:src="@drawable/question_image"
+            android:src="@drawable/link_view"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.259"
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato_bold"
             android:gravity="center"
-            android:text="@string/extra_feature"
+            android:text="TAAM Website"
             android:textColor="@color/shaded_white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
@@ -202,7 +202,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.059" />
 
     <TextView
         android:id="@+id/homeTittle"

@@ -3,6 +3,11 @@ package com.example.b07demosummer2024;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +18,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -90,10 +98,12 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         Item item = items.get(position);
+  
         holder.itemNameText.setText(items.get(position).getName());
         holder.lotNumText.setText(items.get(position).getLotNum());
         holder.periodText.setText(items.get(position).getPeriod());
         holder.categoryText.setText(items.get(position).getCategory());
+      
         retrieveFromStorage(holder.itemImage, item.getLotNum());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +146,7 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
                 item.getCategory().toLowerCase().contains(searchStr);
     }
 
+
     private void retrieveFromStorage(ImageView imageView, String identifier) {
         StorageReference fileRef = storageReference.child(identifier);
         fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -144,5 +155,24 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
                 Picasso.get().load(uri).into(imageView);
             }
         });
+  
+    private void setTextStyle(MyViewHolder holder){
+        Typeface customTypeface = ResourcesCompat.getFont(context, R.font.roboto);
+
+        holder.itemNameText.setTypeface(customTypeface);
+        holder.lotNumText.setTypeface(customTypeface);
+        holder.periodText.setTypeface(customTypeface);
+        holder.categoryText.setTypeface(customTypeface);
+
+        holder.itemNameText.setTextSize(18);
+        holder.lotNumText.setTextSize(18);
+        holder.periodText.setTextSize(18);
+        holder.categoryText.setTextSize(18);
+    }
+
+    private SpannableString getBoldSpannable(String boldPart, String normalPart) {
+        SpannableString spannableString = new SpannableString(boldPart + normalPart);
+        spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, boldPart.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
     }
 }

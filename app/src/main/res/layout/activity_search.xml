@@ -177,11 +177,10 @@
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/gold"
         android:fontFamily="@font/lato_bold"
-        android:text="KeywordSearch"
+        android:text="Search by Keyword"
         android:textAllCaps="false"
         android:textColor="@color/shaded_white"
-
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextLotNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/homeTittle"

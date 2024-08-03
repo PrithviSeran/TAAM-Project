@@ -103,7 +103,7 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
         holder.lotNumText.setText(items.get(position).getLotNum());
         holder.periodText.setText(items.get(position).getPeriod());
         holder.categoryText.setText(items.get(position).getCategory());
-      
+        setTextStyle(holder);
         retrieveFromStorage(holder.itemImage, item.getLotNum());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -159,21 +159,16 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
   
     private void setTextStyle(MyViewHolder holder){
         Typeface customTypeface = ResourcesCompat.getFont(context, R.font.roboto);
-
-        holder.itemNameText.setTypeface(customTypeface);
+        Typeface boldTypeface = ResourcesCompat.getFont(context, R.font.lato_bold);
+        
+        holder.itemNameText.setTypeface(boldTypeface);
         holder.lotNumText.setTypeface(customTypeface);
         holder.periodText.setTypeface(customTypeface);
         holder.categoryText.setTypeface(customTypeface);
 
-        holder.itemNameText.setTextSize(18);
-        holder.lotNumText.setTextSize(18);
-        holder.periodText.setTextSize(18);
-        holder.categoryText.setTextSize(18);
-    }
-
-    private SpannableString getBoldSpannable(String boldPart, String normalPart) {
-        SpannableString spannableString = new SpannableString(boldPart + normalPart);
-        spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, boldPart.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannableString;
+        holder.itemNameText.setTextSize(16);
+        holder.lotNumText.setTextSize(16);
+        holder.periodText.setTextSize(16);
+        holder.categoryText.setTextSize(16);
     }
 }

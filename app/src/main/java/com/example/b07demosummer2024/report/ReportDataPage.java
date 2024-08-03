@@ -1,21 +1,17 @@
 package com.example.b07demosummer2024.report;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.appcompat.content.res.AppCompatResources;
 
 import com.example.b07demosummer2024.Item;
 import com.example.b07demosummer2024.R;
 import com.example.b07demosummer2024.firebase.ImageFetcher;
-import com.google.android.gms.common.images.ImageManager;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.squareup.picasso.Picasso;
@@ -25,10 +21,9 @@ public class ReportDataPage {
 
     private Item item;
     private Context context;
-    private ImageManager manager;
 
-    public interface PageCompletedCallback {
-        void onComplete(View completedPage);
+    public interface ViewCompletedCallback {
+        void onComplete(View completedView);
     }
 
     /**
@@ -40,10 +35,17 @@ public class ReportDataPage {
     protected ReportDataPage(Item item, Context context) {
         this.item = item;
         this.context = context;
-        this.manager = ImageManager.create(context);
     }
 
-    protected Task<Boolean> asyncSetAssociatedView(PageCompletedCallback callback) {
+    /**
+     * Gets the View associated with this page with "callback" being called when
+     * the view is completed. The View is completed when all data fields are populated
+     * and the image has been inserted.
+     * @param callback the listener that operates on the completed View
+     * @return the Task that when completed means the provided "callback" has completed its work
+     * @see ViewCompletedCallback
+     */
+    protected Task<Void> asyncSetAssociatedView(ViewCompletedCallback callback) {
         LayoutInflater inf = LayoutInflater.from(context);
 
         View itemView = inf.inflate(R.layout.pdf_report_data_page, null);
@@ -54,27 +56,31 @@ public class ReportDataPage {
         getAndSetTextView(itemView, R.id.itemPeriod, item.getPeriod());
         getAndSetTextView(itemView, R.id.itemDescription, item.getDescription());
 
-        TaskCompletionSource<Boolean> statusOfTaskAfterPageCompletion = new TaskCompletionSource<>();
+        TaskCompletionSource<Void> statusOfTaskAfterPageCompletion = new TaskCompletionSource<>();
         ImageFetcher.requestImage(item.getLotNum(), Picasso.get(), new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                itemImage.setImageBitmap(bitmap);
-                notifyListeners();
+                ViewGroup.LayoutParams imageLayout = itemImage.getLayoutParams();
+                Bitmap scaledToFitBitmap = Bitmap.createScaledBitmap(bitmap, imageLayout.width,
+                        imageLayout.height, true);
+                itemImage.setImageBitmap(scaledToFitBitmap);
+
+                notifyListenersAndPropagateFeedback();
             }
 
             @Override
             public void onBitmapFailed(Exception e, Drawable errorDrawable) {
                 itemImage.setImageDrawable(errorDrawable);
-                notifyListeners();
+                notifyListenersAndPropagateFeedback();
             }
 
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {}
 
-            public void notifyListeners() {
+            public void notifyListenersAndPropagateFeedback() {
                 try {
                     callback.onComplete(itemView);
-                    statusOfTaskAfterPageCompletion.setResult(true);
+                    statusOfTaskAfterPageCompletion.setResult(null);
                 } catch (RuntimeException pageCallbackException) {
                     statusOfTaskAfterPageCompletion.setException(pageCallbackException);
                 }

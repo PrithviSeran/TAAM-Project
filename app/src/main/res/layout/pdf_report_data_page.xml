@@ -114,7 +114,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/itemCategory"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/itemCategory"
-            app:srcCompat="@drawable/pdf_category_icon" />
+            app:srcCompat="@drawable/pdf_tag_icon" />
 
         <ImageView
             android:id="@+id/imageView5"

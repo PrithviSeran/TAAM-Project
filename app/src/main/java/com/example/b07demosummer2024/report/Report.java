@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
-import android.net.Uri;
 import android.view.View;
 
 import com.example.b07demosummer2024.Item;
@@ -16,7 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class Report {
     public static final int pageWidth = 2000;
@@ -31,30 +29,30 @@ public class Report {
         this.context = context;
     }
 
-    public Task<Void> generatePdf() {
+    protected Task<Void> generatePdf() {
         report = new PdfDocument();
 
-        List<Task<Boolean>> pageFinishTasks = new ArrayList<>();
+        List<Task<Void>> pageFinishTasks = new ArrayList<>();
         for (Item item : items) {
             ReportDataPage dataPage = new ReportDataPage(item, context);
-            Task<Boolean> pageFinishTask = dataPage.asyncSetAssociatedView(addPageToDocument());
+            Task<Void> pageFinishTask = dataPage.asyncSetAssociatedView(addDataPageToDocument());
             pageFinishTasks.add(pageFinishTask);
         }
         return Tasks.whenAll(pageFinishTasks);
     }
 
-    private ReportDataPage.PageCompletedCallback addPageToDocument() {
-        return completedPage -> {
+    private ReportDataPage.ViewCompletedCallback addDataPageToDocument() {
+        return completedView -> {
             PdfDocument.PageInfo info = getPageInfoForPageNum(currentPage++);
             PdfDocument.Page newPage = report.startPage(info);
-            Bitmap bit = getBitmapFromView(completedPage);
+            Bitmap bit = getBitmapFromView(completedView);
             newPage.getCanvas().drawBitmap(bit, 0f, 0f, null);
             report.finishPage(newPage);
         };
     }
 
     /** @noinspection IOStreamConstructor*/
-    public void savePDF(String fileName) throws IOException {
+    protected void savePDF(String fileName) throws IOException {
         File f = new File(context.getFilesDir(), "report");
         if (!f.exists()) {
             f.mkdir();

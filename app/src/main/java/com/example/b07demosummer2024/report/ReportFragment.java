@@ -1,10 +1,6 @@
 package com.example.b07demosummer2024.report;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -19,21 +15,9 @@ import com.example.b07demosummer2024.firebase.FirebaseCallback;
 import com.example.b07demosummer2024.Item;
 import com.example.b07demosummer2024.R;
 import com.example.b07demosummer2024.SearchFragment;
-import com.example.b07demosummer2024.firebase.ImageFetcher;
-import com.google.android.gms.common.images.ImageManager;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class ReportFragment extends SearchFragment {
     private CheckBox confirmOnlyIncludeDescriptionAndPicture;
@@ -64,7 +48,6 @@ public class ReportFragment extends SearchFragment {
         extraLayout.setVisibility(View.VISIBLE);
     }
 
-    // takes about 1 second to get uri and use picasso to load into imageview
     private FirebaseCallback<List<Item>> generateAndSaveReport() {
         return new FirebaseCallback<List<Item>>() {
             @Override
@@ -78,6 +61,10 @@ public class ReportFragment extends SearchFragment {
                             Toast.makeText(getContext(), "Could not save report, try again",
                                     Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        Log.w("ReportError", "Error occurred in callback after view was generated");
+                        Toast.makeText(getContext(), "Error occurred with pdf generation, could not save",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
             }

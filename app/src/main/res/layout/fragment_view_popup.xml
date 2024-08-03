@@ -45,8 +45,8 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="40dp"
         android:fontFamily="@font/lato_bold"
-        android:text="Name"
         android:gravity="center"
+        android:text="Name"
         android:textColor="@color/shaded_white"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
@@ -114,10 +114,10 @@
         android:background="@drawable/border_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.563"
+        app:layout_constraintHorizontal_bias="0.566"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemViewImage"
-        app:layout_constraintVertical_bias="0.89">
+        app:layout_constraintVertical_bias="0.891">
 
         <TextView
             android:id="@+id/descriptionText"
@@ -156,7 +156,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.479"
+        app:layout_constraintHorizontal_bias="0.107"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemViewImage"
         app:layout_constraintVertical_bias="1.0" />
@@ -186,24 +186,24 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/description"
         app:layout_constraintEnd_toStartOf="@+id/LotNum"
-        app:layout_constraintHorizontal_bias="0.314"
+        app:layout_constraintHorizontal_bias="0.326"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
-        app:layout_constraintVertical_bias="0.323" />
+        app:layout_constraintVertical_bias="0.265" />
 
     <ImageView
         android:id="@+id/itemViewImage"
-        android:layout_width="169dp"
-        android:layout_height="170dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="280dp"
+        android:layout_height="176dp"
         android:maxWidth="10dp"
         android:maxHeight="10dp"
+        android:background="@android:drawable/editbox_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.01"
+        app:layout_constraintTop_toBottomOf="@+id/artTitle"
+        app:layout_constraintVertical_bias="0.032"
         tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

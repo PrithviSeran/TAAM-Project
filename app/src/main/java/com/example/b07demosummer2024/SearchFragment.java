@@ -95,7 +95,7 @@ public class SearchFragment extends TAAMSFragment {
             @Override
             public void onClick(View v) {
 
-                user = null;
+                //user = null;
                 loadFragment(new KeywordSearchFragment());
             }
         });

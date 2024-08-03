@@ -155,6 +155,7 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
                 Picasso.get().load(uri).into(imageView);
             }
         });
+    }
   
     private void setTextStyle(MyViewHolder holder){
         Typeface customTypeface = ResourcesCompat.getFont(context, R.font.roboto);

@@ -160,6 +160,7 @@ public class AddItemFragment extends TAAMSFragment {
                         if (addTask.isSuccessful()) {
                             Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
                             uploadImage(contentDisplay);
+                            getParentFragmentManager().popBackStackImmediate();
                         } else {
                             Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
                         }

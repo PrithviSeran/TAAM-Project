@@ -32,9 +32,6 @@ public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearc
 
     private SearchView searchView;
 
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance(
-            "https://login-taam-bo7-default-rtdb.firebaseio.com/");
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,6 +49,7 @@ public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearc
 
         // prevent soft keyboard from moving up layout
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
 
         recyclerView.setAdapter(adapter);
 
@@ -82,6 +80,9 @@ public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearc
                 return true;
             }
         });
+
+
+
         return view;
     }
     @Override

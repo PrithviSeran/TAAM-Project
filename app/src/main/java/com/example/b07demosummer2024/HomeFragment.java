@@ -80,7 +80,7 @@ public class HomeFragment extends TAAMSFragment {
                 startActivity(intent);
             }
         });
-        
+
         buttonTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -193,17 +193,31 @@
 
     <ImageView
         android:id="@+id/itemViewImage"
-        android:layout_width="280dp"
-        android:layout_height="176dp"
-        android:maxWidth="10dp"
-        android:maxHeight="10dp"
+        android:layout_width="320dp"
+        android:layout_height="185dp"
         android:background="@android:drawable/editbox_background"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/artTitle"
-        app:layout_constraintVertical_bias="0.032"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.029"
+        tools:srcCompat="@tools:sample/avatars"
+        tools:visibility="invisible"/>
+
+    <VideoView
+        android:id="@+id/videoView2"
+        android:layout_width="320dp"
+        android:layout_height="185dp"
+        android:background="@drawable/border_square"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artTitle"
+        app:layout_constraintVertical_bias="0.029"
+        tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

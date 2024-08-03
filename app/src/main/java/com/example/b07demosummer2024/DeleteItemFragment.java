@@ -95,7 +95,6 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
         System.out.println(itemsToDeleteLotNum);
         for (String lotNum : itemsToDeleteLotNum) {
             itemsRef = database.getReference("Items/" + lotNum);
-
             itemsRef.removeValue();
         }
         goPreviousFragment();

@@ -218,7 +218,7 @@
         android:fontFamily="@font/roboto"
         android:gravity="start"
         android:hint="e.g. This is a Jade Palace."
-        android:inputType="text"
+        android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.392"
@@ -262,16 +262,32 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="109dp"
-        android:layout_height="112dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_marginEnd="28dp"
+        android:visibility="invisible"
         android:background="@android:drawable/editbox_background"
         app:layout_constraintBottom_toTopOf="@+id/editTextText3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.777"
+        app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toEndOf="@+id/imagesearch"
         app:layout_constraintTop_toBottomOf="@+id/spinner2"
-        app:layout_constraintVertical_bias="0.666"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.722"
+        tools:src="@tools:sample/avatars"
+        tools:visibility="invisible" />
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:visibility="invisible"
+        android:background="@drawable/border_square"
+        app:layout_constraintBottom_toTopOf="@+id/editTextText3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.255"
+        app:layout_constraintStart_toEndOf="@+id/imagesearch"
+        app:layout_constraintTop_toBottomOf="@+id/spinner2"
+        app:layout_constraintVertical_bias="0.722"
+        tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

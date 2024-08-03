@@ -13,6 +13,13 @@
         android:layout_height="wrap_content"
         android:padding="15dp">
 
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="120dp"
+            android:layout_height="110dp">
+
+        </ImageView>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,6 +29,7 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@id/item_image"
             />
         <TextView
             android:layout_width="match_parent"
@@ -32,6 +40,7 @@
             android:textColor="@color/black"
             android:layout_below="@+id/itemNameText"
             android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@id/item_image"
             />
         <TextView
             android:layout_width="match_parent"
@@ -42,6 +51,7 @@
             android:textColor="@color/black"
             android:layout_below="@+id/lotNumText"
             android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@id/item_image"
             />
         <TextView
             android:layout_width="match_parent"
@@ -52,6 +62,7 @@
             android:textColor="@color/black"
             android:layout_below="@+id/periodText"
             android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@id/item_image"
             />
 
     </RelativeLayout>

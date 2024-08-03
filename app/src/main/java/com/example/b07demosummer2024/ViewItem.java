@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +24,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 
@@ -36,104 +40,108 @@ public class ViewItem extends TAAMSFragment {
     private TextView itemPeriod;
     private TextView itemDescription;
     private TextView itemLotNum;
-    private RecyclerView viewImage;
+    private ImageView viewItemPic;
+    private VideoView viewItemVid;
     private ArrayList<String> images = new ArrayList<String>();
-    private ViewImageAdapter adapter = new ViewImageAdapter(images, getContext());
+    private Uri imageURI;
 
-    public ViewItem(String identifier){
+    public ViewItem(String identifier) {
         this.identifier = identifier;
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view_popup, container, false);
 
-        itemLotNum =view.findViewById(R.id.LotNum);
+        itemLotNum = view.findViewById(R.id.LotNum);
         itemName = view.findViewById(R.id.artTitle);
         itemCategory = view.findViewById(R.id.category);
         itemPeriod = view.findViewById(R.id.period);
         itemDescription = view.findViewById(R.id.descriptionText);
-        viewImage = view.findViewById(R.id.recycleViewImage);
-        viewImage.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        viewItemPic = view.findViewById(R.id.itemViewImage);
+        viewItemVid = view.findViewById(R.id.videoView2);
         popUp();
 
         return view;
 
     }
 
-    private void popUp(){
+    private void popUp() {
         itemsRef = database.getReference("Items/" + identifier);
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
-             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                 if (!task.isSuccessful()) {
-                     Log.e("firebase", "Error getting data", task.getException());
-                     Toast.makeText(getContext(), "Error getting data", Toast.LENGTH_SHORT).show();
-                 }
-                 else {
-                     itemName.setText(String.valueOf(task.getResult().child("name").getValue()));
-                     itemCategory.setText(String.valueOf(task.getResult().child("category").getValue()));
-                     itemPeriod.setText(String.valueOf(task.getResult().child("period").getValue()));
-                     itemDescription.setText(String.valueOf(task.getResult().child("description").getValue()));
-                     itemLotNum.setText(String.valueOf(task.getResult().child("lotNum").getValue()));
-                 }
-                 storageRef = storageReference.child(identifier);
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                    Toast.makeText(getContext(), "Error getting data", Toast.LENGTH_SHORT).show();
+                } else {
+                    itemName.setText(String.valueOf(task.getResult().child("name").getValue()));
+                    itemCategory.setText(String.valueOf(task.getResult().child("category").getValue()));
+                    itemPeriod.setText(String.valueOf(task.getResult().child("period").getValue()));
+                    itemDescription.setText(String.valueOf(task.getResult().child("description").getValue()));
+                    itemLotNum.setText(String.valueOf(task.getResult().child("lotNum").getValue()));
+                }
 
-                 storageReference.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
-                     @Override
-                     public void onSuccess(ListResult listResult) {
-                         for (StorageReference fileRef : listResult.getItems()) {
-                             fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                 @Override
-                                 public void onSuccess(Uri uri) {
-                                     images.add(uri.toString());
-                                     Log.d("item", uri.toString());
-                                 }
-                             }).addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                 @Override
-                                 public void onSuccess(Uri uri) {
-                                     viewImage.setAdapter(adapter);
-                                 }
-                             });
-                         }
-                     }
-                 });
-             }
+                retrieveFromStorage();
+            }
         });
 
     }
 
-    private void retrieveFromStorage(){
-        storageRef = storageReference.child(identifier);
+    private void retrieveFromStorage() {
 
-        storageReference.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+        StorageReference fileRef = storageReference.child(identifier);
+        fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
             @Override
-            public void onSuccess(ListResult listResult) {
-                for (StorageReference fileRef : listResult.getItems()) {
-                    fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            images.add(uri.toString());
-                            Log.d("item", uri.toString());
+            public void onSuccess(Uri uri) {
+
+                imageURI = uri;
+                fileRef.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+
+                    @Override
+                    public void onSuccess(StorageMetadata storageMetadata) {
+                        String mimeType = storageMetadata.getContentType();
+
+                        if (mimeType != null) {
+                            if (mimeType.startsWith("image/")) {
+                                viewItemVid.setVisibility(View.INVISIBLE);
+                                viewItemPic.setVisibility(View.VISIBLE);
+                                Picasso.get().load(uri).into(viewItemPic);
+                            }
+                            else if (mimeType.startsWith("video/")) {
+                                viewItemPic.setVisibility(View.INVISIBLE);
+                                viewItemVid.setVisibility(View.VISIBLE);
+                                viewItemVid.setVideoURI(uri);
+                                viewItemVid.setOnPreparedListener(mp -> {
+                                    mp.setLooping(true);
+                                    viewItemVid.start();
+                                });
+                            }
+                            else {
+                                Toast.makeText(getContext(), "Unsupported file type", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }).addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            viewImage.setAdapter(adapter);
+                        else {
+                            Toast.makeText(getContext(), "Unable to determine file type", Toast.LENGTH_SHORT).show();
+
                         }
-                    });
-                }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "No Content Associated", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e("firebase", "Error retrieving data from storage", e);
-                Toast.makeText(getContext(), "Error retrieving data from storage", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No Content Associated", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

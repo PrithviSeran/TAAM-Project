@@ -33,13 +33,15 @@ import java.util.Objects;
 public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable {
 
     private ArrayList<String> itemsToDelete;
+    private ArrayList<String> itemsToDeleteLotNum;
     private TextView individualItems;
     private Button confirmDelete;
     private Button goBack;
     private LinearLayout tableLayout1;
 
-    public DeleteItemFragment(ArrayList<String> itemsToDelete){
+    public DeleteItemFragment(ArrayList<String> itemsToDelete, ArrayList<String> itemsToDeleteLotNum){
         this.itemsToDelete = itemsToDelete;
+        this.itemsToDeleteLotNum = itemsToDeleteLotNum;
     }
 
     @Nullable
@@ -84,15 +86,16 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
             System.out.println(item);
             individualItems = new TextView(getActivity());
             individualItems.setText(item);
-
+            setTextViewStyle(individualItems);
             tableLayout1.addView(individualItems);
         }
     }
 
     private void deleteItems(){
-        for (String lotNum : itemsToDelete) {
+        System.out.println(itemsToDeleteLotNum);
+        for (String lotNum : itemsToDeleteLotNum) {
             itemsRef = database.getReference("Items/" + lotNum);
-            //itemsRef.removeValue();
+            itemsRef.removeValue();
         }
         goPreviousFragment();
     }

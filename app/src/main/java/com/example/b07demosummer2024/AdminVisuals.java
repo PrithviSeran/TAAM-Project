@@ -55,7 +55,9 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
     private Button searchItem;
 
     private HashMap<CheckBox, String> leftOfCheckBoxes = new HashMap<CheckBox, String>();
-    private ArrayList<String> itemsToDelete = new ArrayList<String>();
+    private HashMap<String, String> nameToLotNum = new HashMap<String, String>();
+    private ArrayList<String> nameofItemsToDelete = new ArrayList<String>();
+    private ArrayList<String> lotNumsofItemsToDelete = new ArrayList<String>();
 
     @Nullable
     @Override
@@ -78,15 +80,21 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
                 @Override
                 public void onClick(View v){
 
-                    itemsToDelete.clear();
+                    nameofItemsToDelete.clear();
+                    lotNumsofItemsToDelete.clear();
 
                     for (Object box : leftOfCheckBoxes.entrySet()) {
 
                         if (((CheckBox)((Map.Entry) box).getKey()).isChecked()){
-                            itemsToDelete.add(String.valueOf(((Map.Entry) box).getValue()));
+                            nameofItemsToDelete.add(String.valueOf(((Map.Entry) box).getValue()));
                         }
                     }
-                    loadFragment(new DeleteItemFragment(itemsToDelete));
+
+                    for (String name : nameofItemsToDelete) {
+                        lotNumsofItemsToDelete.add(nameToLotNum.get(name));
+                    }
+
+                    loadFragment(new DeleteItemFragment(nameofItemsToDelete, lotNumsofItemsToDelete));
                 }
             }
         );
@@ -114,6 +122,7 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
     public void displayItems(){
 
         leftOfCheckBoxes.clear();
+        nameToLotNum.clear();
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
@@ -141,6 +150,7 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
                         textView2 = new TextView(getActivity());
                         textView2.setText(String.valueOf(entry1.child("name").getValue()));// Change to get name
                         leftOfCheckBoxes.put(checkBox, String.valueOf(entry1.child("name").getValue()));
+                        nameToLotNum.put(String.valueOf(entry1.child("name").getValue()), String.valueOf(entry1.child("lotNum").getValue()));
                         textView2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
                         setTextViewStyle(textView2);
                         tableRow1.addView(textView2);
@@ -160,7 +170,6 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
                         tableRow1.addView(viewItem);
                         tableLayout1.addView(tableRow1);
                     }
-                    Log.d("CheckBoxes", String.valueOf(leftOfCheckBoxes));
                 }
             }
         });

@@ -30,6 +30,7 @@ public class LoginFragment extends TAAMSFragment implements ILoginView {
     private LoginPresenter loginPresenter;
     private LoginModel loginModel;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,7 +62,6 @@ public class LoginFragment extends TAAMSFragment implements ILoginView {
         return view;
     }
 
-
     @Override
     public void showLoginSuccesful(String name){
 
@@ -80,5 +80,4 @@ public class LoginFragment extends TAAMSFragment implements ILoginView {
         Toast.makeText(getContext(), "Please fill our all fields!", Toast.LENGTH_SHORT).show();
 
     }
-
 }

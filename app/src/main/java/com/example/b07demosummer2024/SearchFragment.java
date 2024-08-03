@@ -39,6 +39,7 @@ public class SearchFragment extends TAAMSFragment {
     private Spinner spinnerPeriod;
     private Button submitButton;
     private TextView title;
+    private Button keywordSearch;
 
     private final FirebaseDatabase database = FirebaseDatabase.getInstance(
             "https://login-taam-bo7-default-rtdb.firebaseio.com/");
@@ -50,6 +51,7 @@ public class SearchFragment extends TAAMSFragment {
 
     public SearchFragment() {
         this.activityTitle = "Search Collection";
+
         this.submissionListener = setSubmissionListener(new SearchResultCallback() {
             @Override
             public void onSuccess(List<Item> results) {
@@ -88,6 +90,15 @@ public class SearchFragment extends TAAMSFragment {
         // Buttons
         submitButton = view.findViewById(R.id.submitConfirm);
         submitButton.setOnClickListener(submissionListener);
+        keywordSearch = view.findViewById(R.id.keywordSearch);
+        keywordSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                user = null;
+                loadFragment(new KeywordSearchFragment());
+            }
+        });
 
         // Spinners
         spinnerCategory = view.findViewById(R.id.categorySpinner);

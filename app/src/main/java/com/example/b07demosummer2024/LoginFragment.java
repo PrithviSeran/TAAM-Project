@@ -22,12 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class LoginFragment extends TAAMSFragment {
+public class LoginFragment extends TAAMSFragment implements ILoginView {
 
     private Button loginButton;     // make local
     private TextView email;
     private TextView password;
-    public Boolean loginStatus;
+    private LoginPresenter loginPresenter;
+    private LoginModel loginModel;
 
 
     @Nullable
@@ -41,46 +42,42 @@ public class LoginFragment extends TAAMSFragment {
 
         password = view.findViewById(R.id.passwordEditText);
 
+        loginModel = new LoginModel();
+
+        loginPresenter = new LoginPresenter(this, loginModel) ;
+
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
 
                 if (email.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()){
-                    Toast.makeText(getContext(), "Please fill our all fields!", Toast.LENGTH_SHORT).show();
+                    showLoginEmptyFields();
                     return;
                 }
 
-                LoginAdmin(email.getText().toString(), password.getText().toString());
+                loginPresenter.authenticateUser(email.getText().toString(), password.getText().toString());
             }
         });
 
         return view;
     }
 
-    private void LoginAdmin(String email, String password){
+    @Override
+    public void showLoginSuccesful(String name){
 
-        mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        user = mAuth.getCurrentUser();
+        loadFragment(new HomeFragment(name));
 
-                        Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                        // Read that having success messages isn't necessary,
-                        // or good, discuss if needed later - Burhanuddin
-
-                        loadFragment(new HomeFragment());
-
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(getContext(), "Email or Password incorrect", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+        Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
     }
 
-    //public String getName(){}
+    @Override
+    public void showLoginNotSuccesful(){
+        Toast.makeText(getContext(), "Email or Password incorrect", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void showLoginEmptyFields(){
+        Toast.makeText(getContext(), "Please fill our all fields!", Toast.LENGTH_SHORT).show();
+
+    }
 }

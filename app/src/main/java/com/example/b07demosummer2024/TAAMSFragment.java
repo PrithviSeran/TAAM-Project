@@ -24,7 +24,6 @@ public abstract class TAAMSFragment extends Fragment {
     protected static FirebaseUser user;
     protected StorageReference storageReference = FirebaseStorage.getInstance("gs://login-taam-bo7.appspot.com").getReference();
     protected StorageReference storageRef;
-    protected static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     protected void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();

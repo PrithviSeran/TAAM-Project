@@ -2,12 +2,7 @@ package com.example.b07demosummer2024;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,7 +30,10 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
     private OnItemClickListener listener;
     private List<Item> getItemsFilter;
     protected StorageReference storageReference = FirebaseStorage.getInstance("gs://login-taam-bo7.appspot.com").getReference();
-    protected StorageReference storageRef;
+
+    public interface OnItemClickListener {
+        void onItemClick(Item item);
+    }
 
     @Override
     public Filter getFilter() {
@@ -45,17 +41,14 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 FilterResults filterResults = new FilterResults();
-                if (charSequence == null || charSequence.length() == 0){
+                if (invalidCharSequence(charSequence)){
                     filterResults.values = getItemsFilter;
                     filterResults.count = getItemsFilter.size();
                 }else{
                     String searchStr = charSequence.toString().toLowerCase();
                     List<Item> newItems = new ArrayList<>();
-                    for (Item item: getItemsFilter){
-                        if (findMatch(item, searchStr)) {
-                            newItems.add(item);
-                        }
-                    }
+                    getItemsFromFilter(newItems, searchStr);
+
                     filterResults.values = newItems;
                     filterResults.count = newItems.size();
                 }
@@ -73,16 +66,10 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
         return filter;
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(Item item);
-    }
     public KeywordSearchAdapter(Context context, List<Item> items, OnItemClickListener listener) {
         this.context = context;
         this.items = items;
         this.getItemsFilter = items;
-        this.listener = listener;
-    }
-    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
@@ -171,4 +158,17 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
         holder.periodText.setTextSize(16);
         holder.categoryText.setTextSize(16);
     }
+
+    private void getItemsFromFilter(List<Item> newItems, String searchStr) {
+        for (Item item: getItemsFilter){
+            if (findMatch(item, searchStr)) {
+                newItems.add(item);
+            }
+        }
+    }
+
+    private boolean invalidCharSequence(CharSequence charSequence) {
+        return (charSequence == null || charSequence.length() == 0);
+    }
+
 }

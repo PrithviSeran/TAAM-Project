@@ -1,26 +1,32 @@
 package com.example.b07demosummer2024.report;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.b07demosummer2024.CommonUtils;
 import com.example.b07demosummer2024.firebase.FirebaseCallback;
 import com.example.b07demosummer2024.Item;
 import com.example.b07demosummer2024.R;
 import com.example.b07demosummer2024.SearchFragment;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.List;
 
 public class ReportFragment extends SearchFragment {
     private CheckBox confirmOnlyIncludeDescriptionAndPicture;
+    private ProgressBar pdfGenerationProgressBar;
 
     public ReportFragment() {
         super("Generate report", "Generate");
@@ -46,27 +52,37 @@ public class ReportFragment extends SearchFragment {
                 "Show only Item description and picture in generated report");
         extraLayout.addView(confirmOnlyIncludeDescriptionAndPicture, checkBoxConstraint);
         extraLayout.setVisibility(View.VISIBLE);
+
+        pdfGenerationProgressBar = view.findViewById(R.id.extraProgressBar);
     }
 
     private FirebaseCallback<List<Item>> generateAndSaveReport() {
         return new FirebaseCallback<List<Item>>() {
             @Override
             public void onSuccess(List<Item> results) {
-                Report report = new Report(results, getContext());
-                report.generatePdf().addOnCompleteListener((pdfGenerationStatus) -> {
-                    if (pdfGenerationStatus.isSuccessful()) {
+                boolean showDetailedInfo = !confirmOnlyIncludeDescriptionAndPicture.isChecked();
+                Report report = new Report(results, getContext(), "Report.pdf", showDetailedInfo);
+                int totalPages = report.getTotalNumberOfPages();
+                pdfGenerationProgressBar.setVisibility(View.VISIBLE);
+                submitButton.setEnabled(false);
+
+                report.addPageGeneratedListener(updateOnPageGenerated(totalPages));
+                report.generatePdf((pdfGenerationStatusTask) -> {
+                    if (pdfGenerationStatusTask.isSuccessful()) {
                         try {
-                            report.savePDF("Report.pdf");
+                            report.savePDF();
+                            getOpenGeneratedPdfPopup(report.getUriOfSavePath()).show();
                         } catch (IOException e) {
                             Toast.makeText(getContext(), "Could not save report, try again",
                                     Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Log.w("ReportError", "Error occurred in callback after view was generated");
+                        CommonUtils.logError("ReportError", "Error with page creation callback");
                         Toast.makeText(getContext(), "Error occurred with pdf generation, could not save",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+                submitButton.postDelayed(() -> submitButton.setEnabled(true), 5000);
             }
 
             @Override
@@ -74,5 +90,33 @@ public class ReportFragment extends SearchFragment {
                 // show error dialog
             }
         };
+    }
+
+    private PropertyChangeListener updateOnPageGenerated(int totalPages) {
+        return evt -> {
+            int generatedPages = (Integer) evt.getNewValue();
+            System.out.println(generatedPages);
+            if (generatedPages <= totalPages) { // the last page increments to a higher total
+                double proportion = generatedPages / (double) totalPages;
+                pdfGenerationProgressBar.setProgress((int) (proportion * 100));
+                if (generatedPages == totalPages) {
+                    pdfGenerationProgressBar.postDelayed(() -> {
+                        pdfGenerationProgressBar.setVisibility(View.GONE);
+                        pdfGenerationProgressBar.setProgress(0);
+                    }, 50);
+                }
+            }
+        };
+    }
+
+    private Snackbar getOpenGeneratedPdfPopup(Uri linkToGeneratedFile) {
+        return Snackbar.make(submitButton, "Here is the generated PDF ", Snackbar.LENGTH_SHORT)
+                .setAction("Open", v -> {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(linkToGeneratedFile, "application/pdf");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(intent);
+                });
     }
 }

@@ -29,12 +29,12 @@ import java.util.Objects;
 
 public class SearchFragment extends Fragment {
 
-    private EditText editTextLotNum;
-    private EditText editTextName;
-    private Spinner spinnerCategory;
-    private Spinner spinnerPeriod;
-    private Button submitButton;
-    private TextView title;
+    protected EditText editTextLotNum;
+    protected EditText editTextName;
+    protected Spinner spinnerCategory;
+    protected Spinner spinnerPeriod;
+    protected Button submitButton;
+    protected TextView title;
 
     private final String activityTitle;
     private final String submitText;

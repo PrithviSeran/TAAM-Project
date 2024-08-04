@@ -37,11 +37,11 @@ import java.util.Map;
  * <p>
  * user_table_view creates a view for the xml file and display the list
  * of all items under the "Items" reference stored in Firebase Database.
+ * It also adds functionality to a button which allows for searching
+ * through displayed items, through <code>SearchFragment</code>.
  * <p>
  * Extends <code>TAAMSFragment</code> to use Firebase database. Implements
  * <code>ViewItemsTable</code> to use interface <code>displayItems</code> method.
- *
- *
  */
 public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 

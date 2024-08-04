@@ -33,9 +33,18 @@ public class HomeFragment extends TAAMSFragment {
     private TextView title;
     private String name;
 
+    /**
+     * Default constructor of <code>HomeFragment</code>.
+     */
     public HomeFragment(){
     }
 
+    /**
+     * Constructor of <code>HomeFragment</code>. Sets name of logged
+     * in user. <code>name</code> is only implemented if user is not null.
+     *
+     * @param name      Name of logged in user.
+     */
     public HomeFragment(String name){
         this.name = name;
     }

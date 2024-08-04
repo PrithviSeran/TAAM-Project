@@ -21,6 +21,8 @@ import java.util.Objects;
 
 /**
  * Class used to make checks and load <code>HomeFragment</code>.
+ * MainActivity is expected to be the first class called when app
+ * is starting.
  *
  */
 public class MainActivity extends AppCompatActivity {

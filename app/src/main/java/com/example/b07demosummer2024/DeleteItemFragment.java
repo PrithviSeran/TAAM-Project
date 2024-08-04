@@ -119,7 +119,6 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
     @Override
     public void displayItems(){
         for (String item : itemsToDelete){
-            System.out.println(item);
             individualItems = new TextView(getActivity());
             individualItems.setText(item);
             setTextViewStyle(individualItems);
@@ -128,7 +127,6 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
     }
 
     private void deleteItems(){
-        System.out.println(itemsToDeleteLotNum);
         for (String lotNum : itemsToDeleteLotNum) {
             itemsRef = database.getReference("Items/" + lotNum);
             itemsRef.removeValue();

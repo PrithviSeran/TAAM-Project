@@ -120,9 +120,8 @@ public class ViewItem extends TAAMSFragment {
     /**
      * Called to load image from database into view.
      *
-     * <p>Successful will save the image uri into <code>imageURI</code>
-     * and call <code>Picasso</code> class to load uri into
-     * <code>viewItemPic</code>.
+     * <p>Successful will save the image or video and load
+     * it with its corresponding methods.
      * Failed task results in error popup and error message logged.
      * View will still be loaded but with no image.
      */

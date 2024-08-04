@@ -10,14 +10,26 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * Class used to authenticate user using <code>FirebaseAuth</code>.
+ * <p>
+ * Extends <code>TAAMSFragment</code> for storing and manipulation
+ * of <code>static</code> user information.
+ */
 public class LoginModel extends TAAMSFragment{
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    //public LoginModel(FirebaseAuth mAuth){
-      //  super.mAuth = mAuth;
-    //}
-
+    /**
+     * Method used to authenticate and store user information.
+     * <p>
+     *
+     *
+     * @param loginPresenter    <code>ILoginPresenter</code> interface used to authenticate user
+     *                          and display failed authentication message.
+     * @param email             Email from login attempt.
+     * @param password          Password from login attempt.
+     */
     public void authenticateUser(ILoginPresenter loginPresenter, String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

@@ -30,7 +30,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
  * admin login.
  * <p>
  * Extends <code>TAAMSFragment</code> to use Firebase authentication,
- * and <code>loadFragment</code> method.
+ * and <code>loadFragment</code> method. Implements <code>ILoginView</code>
+ * to display all possible login attempt outcomes.
  */
 public class LoginFragment extends TAAMSFragment implements ILoginView {
 
@@ -44,8 +45,11 @@ public class LoginFragment extends TAAMSFragment implements ILoginView {
      * Called to instantiate LoginFragment view.
      * This view is created from the <code>activity_login.xml</code> file.
      * <p>
-     * Calls <code>onClick</code> for <code>searchItem</code> and is used
-     * to call <code>loadFragment</code> for <code>SearchFragment</code>.
+     * Calls <code>onClick</code> to check for login information filled
+     * out in <code>TextVIew</code>'s.
+     * <p>
+     * If any <code>TextView</code> is empty, returns nothing. Otherwise, calls
+     * to authenticate user with <code>LoginPresenter</code>.
      *
      * @param inflater The LayoutInflater object that can be used to inflate
      * any views in LoginFragment,

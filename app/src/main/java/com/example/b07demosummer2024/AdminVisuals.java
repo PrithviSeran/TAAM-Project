@@ -38,9 +38,16 @@ import java.util.Map;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link AdminVisuals#newInstance} factory method to
- * create an instance of this fragment.
+ * CLass used to display <code>fragment_admin_visuals.xml</code>, and
+ * compiling proper information for the view.
+ * <p>
+ * AdminVisuals creates a view for the xml file and display the list
+ * of all items under the "Items" reference stored in Firebase Database.
+ * It also gives functionality to multiple buttons allowing for adding, deleting,
+ * reporting, and searching items displayed on screen, through other classes.
+ * <p>
+ * Extends <code>TAAMSFragment</code> to use Firebase database. Implements
+ * <code>ViewItemsTable</code> to use interface <code>displayItems</code> method.
  */
 public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
 
@@ -64,6 +71,9 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
      * <p>
      * Calls <code>onClick</code> for <code>deleteButton</code> and is used
      * to call <code>loadFragment</code> for <code>DeleteItemFragment</code>.
+     * <p>
+     * Calls <code>onClick</code> for <code>AddItemFragment</code> and <code>SearchFragment</code>
+     * with their corresponding buttons.
      *
      * @param inflater The LayoutInflater object that can be used to inflate
      * any views in <code>fragment_admin_visuals.xml</code>,
@@ -135,7 +145,6 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
 
     }
 
-    //Documentation in overriden class
     @Override
     public void displayItems(){
 

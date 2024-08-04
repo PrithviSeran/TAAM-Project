@@ -59,6 +59,23 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
     private ArrayList<String> nameofItemsToDelete = new ArrayList<String>();
     private ArrayList<String> lotNumsofItemsToDelete = new ArrayList<String>();
 
+    /**
+     * Called to instantiate <code>fragment_admin_visuals.xml</code> view.
+     * <p>
+     * Calls <code>onClick</code> for <code>deleteButton</code> and is used
+     * to call <code>loadFragment</code> for <code>DeleteItemFragment</code>.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in <code>fragment_admin_visuals.xml</code>,
+     * @param container This is the parent view that the fragment's
+     * UI should be attached to. <code>fragment_admin_visuals.xml</code> should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, <code>fragment_admin_visuals.xml</code> is being re-constructed
+     * from a previous saved state as given here. savedInstanceState is note used in this instance of
+     * <code>onCreateView</code>
+     *
+     * @return Return the View for <code>fragment_admin_visuals.xml</code>'s UI, or null.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -118,6 +135,7 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
 
     }
 
+    //Documentation in overriden class
     @Override
     public void displayItems(){
 

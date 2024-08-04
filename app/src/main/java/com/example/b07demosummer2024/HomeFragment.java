@@ -17,6 +17,17 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * CLass used to display <code>activity_home_fragment.xml</code>, and
+ * compiling proper information for the view.
+ * <p>
+ * HomeFragment creates a view for the xml file and adds functionality to
+ * the different buttons in the xml file.
+ * <p>
+ * Extends <code>TAAMSFragment</code> to use Firebase user and the
+ * <code>loadFragment</code> method.
+ *
+ */
 public class HomeFragment extends TAAMSFragment {
 
     private TextView title;
@@ -29,6 +40,25 @@ public class HomeFragment extends TAAMSFragment {
         this.name = name;
     }
 
+    /**
+     * Called to instantiate HomeFragment view.
+     * This view is created from the <code>activity_home_fragment.xml</code> file.
+     * <p>
+     * This method has multiple <code>onClick</code> methods for the 4 different
+     * buttons being used. When clicked, each one loads its corresponding Fragment.
+     *
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in HomeFragment,
+     * @param container This is the parent view that HomeFragment's
+     * UI should be attached to. HomeFragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, HomeFragment is being re-constructed
+     * from a previous saved state as given here. savedInstanceState is not used in this instance of
+     * <code>onCreateView</code>.
+     *
+     * @return Return the View for HomeFragment's UI, or null.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

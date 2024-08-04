@@ -32,6 +32,17 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
+/**
+ * CLass used to display <code>fragment_view_popup</code>, and
+ * compiling proper information for the view.
+ * <p>
+ * ViewItem creates a view for the xml file, and retrieves the
+ * designated item from Firebase Database.
+ * <p>
+ * Extends <code>TAAMSFragment</code> to use Firebase database, and
+ * <code>Fragment</code>'s <code>onCreateView</code> method.
+ *
+ */
 public class ViewItem extends TAAMSFragment {
 
     private String identifier;
@@ -45,7 +56,12 @@ public class ViewItem extends TAAMSFragment {
     private ArrayList<String> images = new ArrayList<String>();
     private Uri imageURI;
 
-    public ViewItem(String identifier) {
+    /**
+     * Constructor for <code>ViewItem</code>, which assigns a value to <code>identitier</code>.
+     *
+     * @param identifier     Given identifier for a distinct item in Firebase database.
+     */
+    public ViewItem(String identifier){
         this.identifier = identifier;
     }
 
@@ -67,7 +83,18 @@ public class ViewItem extends TAAMSFragment {
 
     }
 
-    private void popUp() {
+    /**
+     * Called to get the identified reference from database and use
+     * it to set values for all item information.
+     *
+     * <p>Successful task sets <code>itemName</code>, <code>itemCategory</code>,
+     * <code>itemPeriod</code>, <code>itemDescription</code>, and <code>itemLotNum</code>, to
+     * the values stored in database.
+     * Failed task results in error popup and error message logged, and a popup with
+     * no item information will appear.
+     *
+     */
+    private void popUp(){
         itemsRef = database.getReference("Items/" + identifier);
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -90,7 +117,16 @@ public class ViewItem extends TAAMSFragment {
 
     }
 
-    private void retrieveFromStorage() {
+    /**
+     * Called to load image from database into view.
+     *
+     * <p>Successful will save the image uri into <code>imageURI</code>
+     * and call <code>Picasso</code> class to load uri into
+     * <code>viewItemPic</code>.
+     * Failed task results in error popup and error message logged.
+     * View will still be loaded but with no image.
+     */
+    private void retrieveFromStorage(){
 
         StorageReference fileRef = storageReference.child(identifier);
         fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

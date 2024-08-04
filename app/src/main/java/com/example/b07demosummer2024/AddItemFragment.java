@@ -34,6 +34,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.net.URI;
 
+/**
+ * CLass used to display <code>fragment_add_item.xml</code>, and
+ * compiling proper information for the view.
+ * <p>
+ * AddItemFragment creates a view for the xml file and allows for
+ * adding items to Firebase Database, through input of information and
+ * images/videos.
+ * <p>
+ * Extends <code>TAAMSFragment</code> to use Firebase database. Implements
+ * <code>ViewItemsTable</code> to use interface <code>displayItems</code> method.
+ */
+
 public class AddItemFragment extends TAAMSFragment {
 
     private EditText editTextLotNum, editTextName, editTextDescription;
@@ -83,6 +95,24 @@ public class AddItemFragment extends TAAMSFragment {
             }
         }
     });
+
+    /**
+     * Called to instantiate AddItemFragment view.
+     * This view is created from the <code>fragment_add_item.xml</code> file.
+     * <p>
+     * Calls <code>onClick</code> for <code>addItem</code>.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in AddItemFragment,
+     * @param container This is the parent view that AddItemFragment's
+     * UI should be attached to. AddItemFragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, AddItemFragment is being re-constructed
+     * from a previous saved state as given here. savedInstanceState is not used in this instance of
+     * <code>onCreateView</code>.
+     *
+     * @return Return the View for AddItemFragment's UI, or null.
+     */
 
     @Nullable
     @Override
@@ -135,6 +165,18 @@ public class AddItemFragment extends TAAMSFragment {
 
         return view;
     }
+
+    /**
+     * This method adds an item to Firebase Database with the provided information
+     * in the Fragment view's <code>EditText</code>.
+     * <p>
+     * If any field is left blank, a popup is displayed and method ends. If Firebase
+     * task fails or the item already exist, popup is displayed.
+     * <p>
+     * If task is successful, an item with the field information is added to Firebase
+     * database.
+     *
+     */
 
     private void addItem() {
         lotNum = editTextLotNum.getText().toString().trim();

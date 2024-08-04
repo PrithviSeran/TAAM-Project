@@ -32,9 +32,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link user_table_view#newInstance} factory method to
- * create an instance of this fragment.
+ * CLass used to display <code>fragment_user_table_view.xml</code>, and
+ * compiling proper information for the view.
+ * <p>
+ * user_table_view creates a view for the xml file and display the list
+ * of all items under the "Items" reference stored in Firebase Database.
+ * <p>
+ * Extends <code>TAAMSFragment</code> to use Firebase database. Implements
+ * <code>ViewItemsTable</code> to use interface <code>displayItems</code> method.
+ *
+ *
  */
 public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
@@ -44,7 +51,24 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
     private TableLayout tableLayout1;
     private Button searchItem;
 
-
+    /**
+     * Called to instantiate user_table_view view.
+     * This view is created from the <code>fragment_user_table_view.xml</code> file.
+     * <p>
+     * Calls <code>onClick</code> for <code>searchItem</code> and is used
+     * to call <code>loadFragment</code> for <code>SearchFragment</code>.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in user_table_view,
+     * @param container This is the parent view that user_table_view's
+     * UI should be attached to. user_table_view should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, user_table_view is being re-constructed
+     * from a previous saved state as given here. savedInstanceState is not used in this instance of
+     * <code>onCreateView</code>.
+     *
+     * @return Return the View for user_table_view's UI, or null.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,7 +92,7 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
         return view;
     }
 
-
+    //Doc comments in overridden class
     @Override
     public void displayItems(){
 

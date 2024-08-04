@@ -22,14 +22,42 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+/**
+ * CLass used to display <code>activity_login.xml</code>, and
+ * compiling proper information for the view.
+ * <p>
+ * LoginFragment creates a view for the xml file and checks for
+ * admin login.
+ * <p>
+ * Extends <code>TAAMSFragment</code> to use Firebase authentication,
+ * and <code>loadFragment</code> method.
+ */
 public class LoginFragment extends TAAMSFragment implements ILoginView {
 
-    private Button loginButton;     // make local
+    private Button loginButton;
     private TextView email;
     private TextView password;
     private LoginPresenter loginPresenter;
     private LoginModel loginModel;
 
+    /**
+     * Called to instantiate LoginFragment view.
+     * This view is created from the <code>activity_login.xml</code> file.
+     * <p>
+     * Calls <code>onClick</code> for <code>searchItem</code> and is used
+     * to call <code>loadFragment</code> for <code>SearchFragment</code>.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in LoginFragment,
+     * @param container This is the parent view that user_table_view's
+     * UI should be attached to. LoginFragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, LoginFragment is being re-constructed
+     * from a previous saved state as given here. savedInstanceState is not used in this instance of
+     * <code>onCreateView</code>.
+     *
+     * @return Return the View for LayoutFragment's UI, or null.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

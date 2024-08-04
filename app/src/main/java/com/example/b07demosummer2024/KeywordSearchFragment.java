@@ -23,14 +23,19 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-
+/**
+ *
+ */
 public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearchAdapter.OnItemClickListener{
 
     private RecyclerView recyclerView;
     private KeywordSearchAdapter adapter;
     private ArrayList<Item> items;
-
     private SearchView searchView;
+
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance(
+            "https://login-taam-bo7-default-rtdb.firebaseio.com/");
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +54,6 @@ public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearc
 
         // prevent soft keyboard from moving up layout
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
 
         recyclerView.setAdapter(adapter);
 
@@ -80,11 +84,9 @@ public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearc
                 return true;
             }
         });
-
-
-
         return view;
     }
+
     @Override
     public void onItemClick(Item item) {
         loadFragment(new ViewItem(item.getLotNum()));

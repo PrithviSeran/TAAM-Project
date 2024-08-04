@@ -1,4 +1,4 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.interfaces;
 
 /**
  * Interface with methods used to display different
@@ -12,13 +12,13 @@ public interface ILoginView {
      *
      * @param name      Name of user who successfully logged in.
      */
-    void showLoginSuccesful(String name);
+    void showLoginSuccessful(String name);
 
     /**
      * Method should be called when an unsuccessful login attempt
      * has been made where all login parameters have been filled.
      */
-    void showLoginNotSuccesful();
+    void showLoginNotSuccessful();
 
     /**
      * Method should be called when an unsuccessful login attempt

@@ -1,21 +1,16 @@
-package com.example.b07demosummer2024;//package com.example.b07demosummer2024;
+package com.example.b07demosummer2024;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
-import android.content.Context;
+import com.example.TAAM_collection_management.interfaces.ILoginPresenter;
+import com.example.TAAM_collection_management.interfaces.ILoginView;
+import com.example.TAAM_collection_management.strategy.LoginModel;
+import com.example.TAAM_collection_management.strategy.LoginPresenter;
 
-import com.example.b07demosummer2024.ILoginPresenter;
-import com.example.b07demosummer2024.ILoginView;
-import com.example.b07demosummer2024.LoginModel;
-import com.example.b07demosummer2024.LoginPresenter;
-import com.google.firebase.auth.FirebaseAuth;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -49,7 +44,7 @@ public class LoginTests {
 
         presenter.userAuthenticated(name);
 
-        verify(loginView).showLoginSuccesful(name);
+        verify(loginView).showLoginSuccessful(name);
     }
 
     @Test
@@ -57,9 +52,9 @@ public class LoginTests {
 
         ILoginPresenter presenter = new LoginPresenter(loginView, loginModel);
 
-        presenter.showLoginNotSuccesful();
+        presenter.showLoginNotSuccessful();
 
-        verify(loginView).showLoginNotSuccesful();
+        verify(loginView).showLoginNotSuccessful();
     }
 
 }

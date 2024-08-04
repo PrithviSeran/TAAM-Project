@@ -1,4 +1,4 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,13 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.b07demosummer2024.R;
+
 /**
- * Class used to create display for <code>fragment_spinner.xml</code> package.
+ * Class used to create display for <code>fragment_spinner.xml</code> file.
  * <p>
  * A Spinner is an interactable drop down display allowing user to select between
  * different predetermined options.
- *
- * Gonna have to spend some time figuring out what the fuck this thing does :(
  *
  */
 public class SpinnerFragment extends Fragment { //Should not extend TAAMSFragment???????
@@ -40,17 +40,18 @@ public class SpinnerFragment extends Fragment { //Should not extend TAAMSFragmen
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_spinner, container, false);
-
         Spinner spinner = view.findViewById(R.id.spinner);
         Spinner spinner2 = view.findViewById(R.id.spinner2);
 
+        //Initializing array adapters
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.categories_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getContext(),
+                R.array.periods_array, android.R.layout.simple_spinner_item);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getContext(),
-                R.array.periods_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
 

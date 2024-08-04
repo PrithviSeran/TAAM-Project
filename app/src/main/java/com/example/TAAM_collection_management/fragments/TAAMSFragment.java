@@ -1,4 +1,4 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.fragments;
 
 import android.annotation.SuppressLint;
 import android.graphics.Typeface;
@@ -11,7 +11,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.b07demosummer2024.R;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,14 +28,11 @@ import com.google.firebase.storage.StorageReference;
  * standardizes text and buttons generated in certain views.
  * <p>
  * Includes references to Firebase Database and storage reference.
- *
- * @author Prithvi Seran
- *
  */
 public abstract class TAAMSFragment extends Fragment {
+    protected static FirebaseUser user;
     protected FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
     protected DatabaseReference itemsRef;
-    protected static FirebaseUser user;
     protected StorageReference storageReference = FirebaseStorage.getInstance("gs://login-taam-bo7.appspot.com").getReference();
     protected StorageReference storageRef;
 
@@ -43,7 +40,6 @@ public abstract class TAAMSFragment extends Fragment {
      * This method transitions screen from the current fragment to <code>fragment</code>.
      * Using the <code>FragmentTransaction</code> class, it replaces the current displayed
      * fragment with parameter <code>fragment</code>.
-     *
      * <p>
      * <code>fragment</code> should not be null. Generally, <code>fragment</code> is defined
      * in the method call.
@@ -67,16 +63,12 @@ public abstract class TAAMSFragment extends Fragment {
     @SuppressLint("UseCompatLoadingForDrawables")
     protected void setTextViewStyle(TextView textView) {
         Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
+
         textView.setTypeface(typeface);
-
         textView.setTextSize(15);
-
         textView.setGravity(Gravity.CENTER);
-
         textView.setTextColor(getResources().getColor(R.color.black, null));
-
         textView.setBackground(getResources().getDrawable(R.drawable.border_square));
-
         textView.setPadding(0,5,0,5);
     }
 
@@ -88,18 +80,13 @@ public abstract class TAAMSFragment extends Fragment {
      */
     @SuppressLint("UseCompatLoadingForDrawables")
     protected void setButtonStyle(Button button){
+        TableRow.LayoutParams params = new TableRow.LayoutParams(150, 80);
 
-        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
         button.setAllCaps(false);
         button.setBackground(getResources().getDrawable(R.drawable.button_view));
-
         button.setTextColor(getResources().getColor(R.color.shaded_white, null));
-
         button.setTextSize(15);
-
         button.setPadding(0,5,0,5);
-
-        TableRow.LayoutParams params = new TableRow.LayoutParams(150, 80);
         button.setLayoutParams(params);
     }
 }

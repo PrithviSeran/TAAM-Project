@@ -1,34 +1,21 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
-import android.graphics.Typeface;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.TAAM_collection_management.interfaces.ViewItemsTable;
+import com.example.b07demosummer2024.R;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * Class used to display <code>fragment_delete_item.xml</code>, and
@@ -43,12 +30,9 @@ import java.util.Objects;
  */
 public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable {
 
+    private LinearLayout tableLayout;
     private ArrayList<String> itemsToDelete;
     private ArrayList<String> itemsToDeleteLotNum;
-    private TextView individualItems;
-    private Button confirmDelete;
-    private Button goBack;
-    private LinearLayout tableLayout1;
 
     /**
      * Constructor for <code>DeleteItemFragment</code>. Sets variables <code>itemsToDelete</code>
@@ -83,13 +67,10 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_delete_item, container, false);
-
-        confirmDelete = view.findViewById(R.id.proceedWithDelete);
-        goBack = view.findViewById(R.id.goBackItems);
-
-        tableLayout1 = view.findViewById(R.id.linearLayoutDelete);
+        Button confirmDelete = view.findViewById(R.id.proceedWithDelete);
+        Button goBack = view.findViewById(R.id.goBackItems);
+        tableLayout = view.findViewById(R.id.linearLayoutDelete);
 
         displayItems();
 
@@ -119,10 +100,10 @@ public class DeleteItemFragment extends TAAMSFragment implements ViewItemsTable 
     @Override
     public void displayItems(){
         for (String item : itemsToDelete){
-            individualItems = new TextView(getActivity());
+            TextView individualItems = new TextView(getActivity());
             individualItems.setText(item);
             setTextViewStyle(individualItems);
-            tableLayout1.addView(individualItems);
+            tableLayout.addView(individualItems);
         }
     }
 

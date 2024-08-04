@@ -1,23 +1,19 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.TAAM_collection_management.strategy.Item;
+import com.example.TAAM_collection_management.adapters.KeywordSearchAdapter;
+import com.example.b07demosummer2024.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,11 +33,8 @@ import java.util.ArrayList;
  */
 public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearchAdapter.OnItemClickListener{
 
-    private RecyclerView recyclerView;
     private KeywordSearchAdapter adapter;
     private ArrayList<Item> items;
-    private SearchView searchView;
-
     private final FirebaseDatabase database = FirebaseDatabase.getInstance(
             "https://login-taam-bo7-default-rtdb.firebaseio.com/");
 
@@ -68,12 +61,11 @@ public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearc
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_keyword_search, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.rvItems);
+        SearchView searchView = view.findViewById(R.id.search_view);
 
-        recyclerView = view.findViewById(R.id.rvItems);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        searchView = view.findViewById(R.id.search_view);
 
         items = new ArrayList<>();
         adapter = new KeywordSearchAdapter(view.getContext(), items, this::onItemClick);
@@ -96,7 +88,6 @@ public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearc
             }
         });
 
-        // search
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -105,7 +96,6 @@ public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearc
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                String searchStr = newText;         //Tf?
                 adapter.getFilter().filter(newText);
                 return true;
             }
@@ -115,6 +105,6 @@ public class KeywordSearchFragment extends TAAMSFragment implements KeywordSearc
 
     @Override
     public void onItemClick(Item item) {
-        loadFragment(new ViewItem(item.getLotNum()));
+        loadFragment(new ViewItemFragment(item.getLotNum()));
     }
 }

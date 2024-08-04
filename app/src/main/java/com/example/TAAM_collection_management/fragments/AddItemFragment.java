@@ -1,4 +1,4 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.fragments;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -23,16 +23,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import androidx.recyclerview.widget.RecyclerView;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
-import java.net.URI;
+import com.example.TAAM_collection_management.strategy.Item;
+import com.example.b07demosummer2024.R;
+import com.google.firebase.database.DatabaseReference;
 
 /**
  * Class used to display <code>fragment_add_item.xml</code>, and
@@ -50,7 +44,6 @@ public class AddItemFragment extends TAAMSFragment {
 
     private EditText editTextLotNum, editTextName, editTextDescription;
     private Spinner spinnerCategory, spinnerPeriod;
-    private Button buttonAdd;
     private ImageButton addImageButton;
     private DatabaseReference itemsRef;
     private Intent intent;
@@ -85,7 +78,7 @@ public class AddItemFragment extends TAAMSFragment {
                             });
                         }
                     }
-                    else{
+                    else {
                         Toast.makeText(getContext(), "Incompatible file type", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -117,8 +110,8 @@ public class AddItemFragment extends TAAMSFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_add_item, container, false);
+        Button buttonAdd = view.findViewById(R.id.addItemButton);
 
         editTextLotNum = view.findViewById(R.id.editTextText1);
         editTextName = view.findViewById(R.id.editTextText2);
@@ -126,7 +119,6 @@ public class AddItemFragment extends TAAMSFragment {
         spinnerPeriod= view.findViewById(R.id.spinner2);
         editTextDescription = view.findViewById(R.id.editTextText3);
         addImageButton = view.findViewById(R.id.imagesearch);
-        buttonAdd = view.findViewById(R.id.addItemButton);
         imageView = view.findViewById(R.id.imageView2);
         videoView = view.findViewById(R.id.videoView);
 
@@ -146,7 +138,6 @@ public class AddItemFragment extends TAAMSFragment {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 addItem();
             }
         });
@@ -194,23 +185,29 @@ public class AddItemFragment extends TAAMSFragment {
 
         itemsRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
+
                 if (!(task.getResult().child(lotNum).exists())) {
                     Item item = new Item(lotNum, name, category, period, description);
-
                     itemsRef.child(lotNum).setValue(item).addOnCompleteListener(addTask -> {
+
                         if (addTask.isSuccessful()) {
                             Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
 
-                            if (contentDisplay != null) uploadImage(contentDisplay);
+                            if (contentDisplay != null) {
+                                uploadImage(contentDisplay);
+                            }
                             getParentFragmentManager().popBackStackImmediate();
+
                         } else {
                             Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
+
                 else {
                     Toast.makeText(getContext(), "Item with Lot# already exists!", Toast.LENGTH_SHORT).show();
                 }
+
             } else {
                 Toast.makeText(getContext(), "Failed to access database", Toast.LENGTH_SHORT).show();
             }

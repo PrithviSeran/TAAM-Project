@@ -1,21 +1,17 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.b07demosummer2024.R;
 
 /**
  * Class used to display <code>activity_home_fragment.xml</code>, and
@@ -30,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class HomeFragment extends TAAMSFragment {
 
-    private TextView title;
     private String name;
 
     /**
@@ -72,19 +67,17 @@ public class HomeFragment extends TAAMSFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
-
         ImageButton buttonSearch = view.findViewById(R.id.imageButton1);
         ImageButton buttonFeature = view.findViewById(R.id.imageButton2);
         ImageButton buttonAdmin = view.findViewById(R.id.imageButton3);
         ImageButton buttonTable = view.findViewById(R.id.imageButton4);
-        TextView loginlogout = view.findViewById(R.id.textView6);
+        TextView loginLogout = view.findViewById(R.id.textView6);
+        TextView title = view.findViewById(R.id.homeTittle);
 
-
-        title = view.findViewById(R.id.homeTittle);
         buttonAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginlogout.setText("Admin Log-in");
+                loginLogout.setText("Admin Log-in");
                 loadFragment(new LoginFragment());
             }
         });
@@ -93,15 +86,11 @@ public class HomeFragment extends TAAMSFragment {
             name = user.getDisplayName();
 
             title.setText("Hello, " + name);
-            loginlogout.setText("Admin Log-out");
+            loginLogout.setText("Admin Log-out");
 
-            // Create a new Button programmatically
-
-            // Set OnClickListener for the Button
             buttonAdmin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     user = null;
                     loadFragment(new HomeFragment());
                 }
@@ -130,12 +119,11 @@ public class HomeFragment extends TAAMSFragment {
         buttonTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (user != null){
-                    loadFragment(new AdminVisuals());
+                    loadFragment(new AdminVisualsFragment());
                 }
-                else{
-                    loadFragment(new user_table_view());
+                else {
+                    loadFragment(new UserTableViewFragment());
                 }
             }
         });

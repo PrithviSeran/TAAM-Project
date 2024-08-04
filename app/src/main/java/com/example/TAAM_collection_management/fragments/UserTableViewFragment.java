@@ -1,35 +1,24 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.fragments;
 
-import android.annotation.SuppressLint;
-import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.TAAM_collection_management.interfaces.ViewItemsTable;
+import com.example.b07demosummer2024.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Class used to display <code>fragment_user_table_view.xml</code>, and
@@ -43,13 +32,9 @@ import java.util.Map;
  * Extends <code>TAAMSFragment</code> to use Firebase database. Implements
  * <code>ViewItemsTable</code> to use interface <code>displayItems</code> method.
  */
-public class user_table_view extends TAAMSFragment implements ViewItemsTable{
+public class UserTableViewFragment extends TAAMSFragment implements ViewItemsTable {
 
-    private TableRow tableRow1;
-    private TextView textView1, textView2;
-    private Button viewItem;
-    private TableLayout tableLayout1;
-    private Button searchItem;
+    private TableLayout tableLayout;
 
     /**
      * Called to instantiate user_table_view view.
@@ -74,10 +59,9 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
+        Button searchItem = view.findViewById(R.id.button12);
 
-        tableLayout1 = view.findViewById(R.id.tableLayout);
-
-        searchItem = view.findViewById(R.id.button12);
+        tableLayout = view.findViewById(R.id.tableLayout);
 
         searchItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,9 +80,7 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
     @Override
     public void displayItems(){
 
-
         itemsRef = database.getReference("Items");
-
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
@@ -109,36 +91,40 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
                 }
                 else {
 
-                    for (DataSnapshot entry1 : (task.getResult().getChildren())) {
-                        tableRow1 = new TableRow(getActivity());
+                    TableRow tableRow;
+                    TextView logNumTextView;
+                    TextView nameTextView;
+                    Button viewItemButton;
 
-                        textView1 = new TextView(getActivity());
-                        textView1.setText(String.valueOf(entry1.child("lotNum").getValue()));
-                        setTextViewStyle(textView1);
-                        textView1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
-                        tableRow1.addView(textView1);
+                    for (DataSnapshot entry : (task.getResult().getChildren())) {
+                        tableRow = new TableRow(getActivity());
 
-                        textView2 = new TextView(getActivity());
-                        textView2.setText(String.valueOf(entry1.child("name").getValue()));// Change to get name
-                        textView2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
-                        setTextViewStyle(textView2);
-                        tableRow1.addView(textView2);
+                        logNumTextView = new TextView(getActivity());
+                        logNumTextView.setText(String.valueOf(entry.child("lotNum").getValue()));
+                        setTextViewStyle(logNumTextView);
+                        logNumTextView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
+                        tableRow.addView(logNumTextView);
 
-                        viewItem = new Button(getActivity());
-                        viewItem.setText("View");
-                        setButtonStyle(viewItem);
+                        nameTextView = new TextView(getActivity());
+                        nameTextView.setText(String.valueOf(entry.child("name").getValue()));// Change to get name
+                        nameTextView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
+                        setTextViewStyle(nameTextView);
+                        tableRow.addView(nameTextView);
 
-                        viewItem.setOnClickListener(new View.OnClickListener() {
+                        viewItemButton = new Button(getActivity());
+                        viewItemButton.setText("View");
+                        setButtonStyle(viewItemButton);
+
+                        viewItemButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 // Handle the button click
-                                loadFragment(new ViewItem(String.valueOf(entry1.getKey())));
+                                loadFragment(new ViewItemFragment(String.valueOf(entry.getKey())));
                             }
                         });
 
-                        tableRow1.addView(viewItem);
-
-                        tableLayout1.addView(tableRow1);
+                        tableRow.addView(viewItemButton);
+                        tableLayout.addView(tableRow);
                     }
                 }
             }

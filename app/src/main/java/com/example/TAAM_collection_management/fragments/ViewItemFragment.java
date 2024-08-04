@@ -1,4 +1,4 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.fragments;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,22 +13,16 @@ import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.b07demosummer2024.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -36,14 +30,14 @@ import java.util.ArrayList;
  * Class used to display <code>fragment_view_popup</code>, and
  * compiling proper information for the view.
  * <p>
- * ViewItem creates a view for the xml file, and retrieves the
+ * ViewItemFragment creates a view for the xml file, and retrieves the
  * designated item from Firebase Database.
  * <p>
  * Extends <code>TAAMSFragment</code> to use Firebase database, and
  * <code>Fragment</code>'s <code>onCreateView</code> method.
  *
  */
-public class ViewItem extends TAAMSFragment {
+public class ViewItemFragment extends TAAMSFragment {
 
     private String identifier;
     private TextView itemName;
@@ -53,15 +47,13 @@ public class ViewItem extends TAAMSFragment {
     private TextView itemLotNum;
     private ImageView viewItemPic;
     private VideoView viewItemVid;
-    private ArrayList<String> images = new ArrayList<String>();
-    private Uri imageURI;
 
     /**
-     * Constructor for <code>ViewItem</code>, which assigns a value to <code>identitier</code>.
+     * Constructor for <code>ViewItemFragment</code>, which assigns a value to <code>identitier</code>.
      *
      * @param identifier     Given identifier for a distinct item in Firebase database.
      */
-    public ViewItem(String identifier){
+    public ViewItemFragment(String identifier){
         this.identifier = identifier;
     }
 
@@ -80,7 +72,6 @@ public class ViewItem extends TAAMSFragment {
         popUp();
 
         return view;
-
     }
 
     /**
@@ -114,7 +105,6 @@ public class ViewItem extends TAAMSFragment {
                 retrieveFromStorage();
             }
         });
-
     }
 
     /**
@@ -133,7 +123,6 @@ public class ViewItem extends TAAMSFragment {
             @Override
             public void onSuccess(Uri uri) {
 
-                imageURI = uri;
                 fileRef.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
 
                     @Override
@@ -141,12 +130,13 @@ public class ViewItem extends TAAMSFragment {
                         String mimeType = storageMetadata.getContentType();
 
                         if (mimeType != null) {
+
                             if (mimeType.startsWith("image/")) {
                                 viewItemVid.setVisibility(View.INVISIBLE);
                                 viewItemPic.setVisibility(View.VISIBLE);
                                 Picasso.get().load(uri).into(viewItemPic);
-                            }
-                            else if (mimeType.startsWith("video/")) {
+
+                            } else if (mimeType.startsWith("video/")) {
                                 viewItemPic.setVisibility(View.INVISIBLE);
                                 viewItemVid.setVisibility(View.VISIBLE);
                                 viewItemVid.setVideoURI(uri);
@@ -154,14 +144,13 @@ public class ViewItem extends TAAMSFragment {
                                     mp.setLooping(true);
                                     viewItemVid.start();
                                 });
-                            }
-                            else {
+
+                            } else {
                                 Toast.makeText(getContext(), "Unsupported file type", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                        else {
-                            Toast.makeText(getContext(), "Unable to determine file type", Toast.LENGTH_SHORT).show();
 
+                        } else {
+                            Toast.makeText(getContext(), "Unable to determine file type", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {

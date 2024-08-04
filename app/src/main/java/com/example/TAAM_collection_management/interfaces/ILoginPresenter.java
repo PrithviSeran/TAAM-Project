@@ -1,4 +1,4 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.interfaces;
 
 /**
  * Interface with methods used to authenticate user
@@ -28,6 +28,6 @@ public interface ILoginPresenter {
      * Method should be called after <code>authenticateUser</code> is called
      * if an unsuccessful login attempt has been made.
      */
-    void showLoginNotSuccesful();
+    void showLoginNotSuccessful();
 
 }

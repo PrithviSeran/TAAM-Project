@@ -1,4 +1,4 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import com.example.b07demosummer2024.R;
 import com.squareup.picasso.Picasso;
 
 public class ViewImageAdapter extends RecyclerView.Adapter<ViewImageAdapter.ViewHolder> {

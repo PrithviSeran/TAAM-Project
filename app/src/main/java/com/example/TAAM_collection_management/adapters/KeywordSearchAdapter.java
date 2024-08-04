@@ -1,13 +1,8 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.adapters;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +14,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.TAAM_collection_management.strategy.Item;
+import com.example.b07demosummer2024.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -52,6 +47,7 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
     protected StorageReference storageReference = FirebaseStorage.getInstance("gs://login-taam-bo7.appspot.com").getReference();
     protected StorageReference storageRef;
 
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView itemNameText, lotNumText, periodText, categoryText;
@@ -69,6 +65,7 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
             this.itemImage = itemView.findViewById(R.id.item_image);
         }
     }
+
 
     public interface OnItemClickListener {
         void onItemClick(Item item);
@@ -112,7 +109,7 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
                 if (charSequence == null || charSequence.length() == 0){
                     filterResults.values = getItemsFilter;
                     filterResults.count = getItemsFilter.size();
-                }else{
+                } else {
                     String searchStr = charSequence.toString().toLowerCase();
                     List<Item> newItems = new ArrayList<>();
                     for (Item item: getItemsFilter){
@@ -146,7 +143,6 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
         Item item = items.get(position);
   
         holder.itemNameText.setText(items.get(position).getName());
@@ -170,8 +166,9 @@ public class KeywordSearchAdapter extends RecyclerView.Adapter<KeywordSearchAdap
 
     @Override
     public int getItemCount() {
-        if (items == null) return 0;
-
+        if (items == null) {
+            return 0;
+        }
         return items.size();
     }
 

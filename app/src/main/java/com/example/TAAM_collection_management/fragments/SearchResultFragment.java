@@ -1,10 +1,6 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +11,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.TAAM_collection_management.strategy.Item;
+import com.example.TAAM_collection_management.interfaces.ViewItemsTable;
+import com.example.b07demosummer2024.R;
+
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
 
 /**
  * Class used to create display for the <code>fragment_user_table_view.xml</code>
@@ -30,14 +27,10 @@ import java.util.Map;
  * <code>displayItems</code> method.
  *
  */
-public class SearchResult extends TAAMSFragment implements ViewItemsTable {
-    private TableRow tableRow1;
+public class SearchResultFragment extends TAAMSFragment implements ViewItemsTable {
 
-    private TextView textView1, textView2;
-    private CheckBox checkBox;
-    private Button viewItem;
     private List<Item> items;
-    private TableLayout tableLayout1;
+    private TableLayout tableLayout;
 
     /**
      * Constructor for <code>SearchResult</code>.
@@ -45,7 +38,7 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
      *
      * @param items     List of items created from searching.
      */
-    public SearchResult(List<Item> items) {
+    public SearchResultFragment(List<Item> items) {
         this.items = items;
     }
 
@@ -68,7 +61,7 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
-        tableLayout1 = view.findViewById(R.id.tableLayout);
+        tableLayout = view.findViewById(R.id.tableLayout);
         displayItems();
         return view;
     }
@@ -86,38 +79,45 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
     @Override
     public void displayItems(){
 
+        TableRow tableRow;
+        TextView lotNumTextView;
+        TextView nameTextView;
+        CheckBox checkBox;
+        Button viewItemButton;
+
+
         for (Item item: items) {
-            tableRow1 = new TableRow(getActivity());
+            tableRow = new TableRow(getActivity());
             checkBox = new CheckBox(getActivity());
 
-            tableRow1.addView(checkBox);
+            tableRow.addView(checkBox);
 
-            textView1 = new TextView(getActivity());
-            textView1.setText(item.getLotNum());
-            setTextViewStyle(textView1);
-            textView1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
-            tableRow1.addView(textView1);
+            lotNumTextView = new TextView(getActivity());
+            lotNumTextView.setText(item.getLotNum());
+            setTextViewStyle(lotNumTextView);
+            lotNumTextView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
+            tableRow.addView(lotNumTextView);
 
-            textView2 = new TextView(getActivity());
-            textView2.setText(item.getName());
-            textView2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
-            setTextViewStyle(textView2);
-            tableRow1.addView(textView2);
+            nameTextView = new TextView(getActivity());
+            nameTextView.setText(item.getName());
+            nameTextView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
+            setTextViewStyle(nameTextView);
+            tableRow.addView(nameTextView);
 
-            viewItem = new Button(getActivity());
-            viewItem.setText("View");
-            setButtonStyle(viewItem);
+            viewItemButton = new Button(getActivity());
+            viewItemButton.setText("View");
+            setButtonStyle(viewItemButton);
 
-            viewItem.setOnClickListener(new View.OnClickListener() {
+            viewItemButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Handle the button click
-                    loadFragment(new ViewItem(item.getLotNum()));
+                    loadFragment(new ViewItemFragment(item.getLotNum()));
                 }
             });
 
-            tableRow1.addView(viewItem);
-            tableLayout1.addView(tableRow1);
+            tableRow.addView(viewItemButton);
+            tableLayout.addView(tableRow);
         }
 
     }

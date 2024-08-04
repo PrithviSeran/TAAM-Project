@@ -1,7 +1,6 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
+import com.example.TAAM_collection_management.strategy.Item;
+import com.example.b07demosummer2024.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -35,6 +34,7 @@ import java.util.Objects;
  */
 public class SearchFragment extends TAAMSFragment {
 
+
     protected interface SearchResultCallback {
         void onSuccess(List<Item> results);
         void onFailure(String message);
@@ -44,17 +44,11 @@ public class SearchFragment extends TAAMSFragment {
     private EditText editTextName;
     private Spinner spinnerCategory;
     private Spinner spinnerPeriod;
-    private Button submitButton;
-    private TextView title;
-    private Button keywordSearch;
-
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance(
-            "https://login-taam-bo7-default-rtdb.firebaseio.com/");
-
     private final String activityTitle;
     private final View.OnClickListener submissionListener;
-
     private final String blankOption = "Not selected";
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance(
+            "https://login-taam-bo7-default-rtdb.firebaseio.com/");
 
     /**
      * Default constructor of SearchFragment. Runs the <code>setSubmissionListener</code> method.
@@ -70,7 +64,7 @@ public class SearchFragment extends TAAMSFragment {
             @Override
             public void onSuccess(List<Item> results) {
                 // search result here
-                loadFragment(new SearchResult(results));
+                loadFragment(new SearchResultFragment(results));
             }
 
             @Override
@@ -125,8 +119,11 @@ public class SearchFragment extends TAAMSFragment {
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Button submitButton = view.findViewById(R.id.submitConfirm);
+        TextView title = view.findViewById(R.id.searchActivityTitle);
+        Button keywordSearch = view.findViewById(R.id.keywordSearch);
+
         // Title
-        title = view.findViewById(R.id.searchActivityTitle);
         title.setText(activityTitle);
 
         // EditTexts
@@ -134,13 +131,10 @@ public class SearchFragment extends TAAMSFragment {
         editTextName = view.findViewById(R.id.editTextName);
 
         // Buttons
-        submitButton = view.findViewById(R.id.submitConfirm);
         submitButton.setOnClickListener(submissionListener);
-        keywordSearch = view.findViewById(R.id.keywordSearch);
         keywordSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //user = null;
                 loadFragment(new KeywordSearchFragment());
             }
@@ -204,6 +198,7 @@ public class SearchFragment extends TAAMSFragment {
         itemsRef.child("Items").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DataSnapshot itemsList = task.getResult();
+
                 for (DataSnapshot snapshot : itemsList.getChildren()) {
                     Item item = snapshot.getValue(Item.class);
 
@@ -213,11 +208,13 @@ public class SearchFragment extends TAAMSFragment {
                         searchResults.add(item);
                     }
                 }
-                if(searchResults.isEmpty()){
+
+                if (searchResults.isEmpty()){
                     Toast.makeText(getContext(), "No items match this description", Toast.LENGTH_SHORT).show();
                 } else {
                     callback.onSuccess(searchResults);
                 }
+
             } else {
                 callback.onFailure(Objects.toString(task.getException(), "No message available"));
             }
@@ -234,6 +231,7 @@ public class SearchFragment extends TAAMSFragment {
         List<CharSequence> resList = new ArrayList<>(Arrays.asList(getResources().getStringArray(arrayId)));
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_item, resList);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter.insert(blankOption, 0);
         spinner.setAdapter(adapter);

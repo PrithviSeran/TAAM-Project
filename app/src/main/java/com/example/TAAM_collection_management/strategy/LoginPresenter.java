@@ -1,4 +1,7 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management.strategy;
+
+import com.example.TAAM_collection_management.interfaces.ILoginPresenter;
+import com.example.TAAM_collection_management.interfaces.ILoginView;
 
 /**
  * Class used to authenticate user information and implement actions
@@ -7,7 +10,7 @@ package com.example.b07demosummer2024;
  * Implements <code>ILoginPresenter</code> to authenticate user and
  * act on successful and failed attempts.
  */
-public class LoginPresenter implements ILoginPresenter{
+public class LoginPresenter implements ILoginPresenter {
 
     ILoginView loginView;
     LoginModel loginModel;
@@ -31,12 +34,12 @@ public class LoginPresenter implements ILoginPresenter{
 
     @Override
     public void userAuthenticated(String name){
-        loginView.showLoginSuccesful(name);
+        loginView.showLoginSuccessful(name);
     }
 
 
     @Override
-    public void showLoginNotSuccesful(){
-        loginView.showLoginNotSuccesful();
+    public void showLoginNotSuccessful(){
+        loginView.showLoginNotSuccessful();
     }
 }

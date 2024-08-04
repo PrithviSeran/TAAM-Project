@@ -1,14 +1,13 @@
-package com.example.b07demosummer2024;
-
-import android.widget.Toast;
+package com.example.TAAM_collection_management.strategy;
 
 import androidx.annotation.NonNull;
 
+import com.example.TAAM_collection_management.fragments.TAAMSFragment;
+import com.example.TAAM_collection_management.interfaces.ILoginPresenter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Class used to authenticate user using <code>FirebaseAuth</code>.
@@ -16,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
  * Extends <code>TAAMSFragment</code> for storing and manipulation
  * of <code>static</code> user information.
  */
-public class LoginModel extends TAAMSFragment{
+public class LoginModel extends TAAMSFragment {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -42,7 +41,7 @@ public class LoginModel extends TAAMSFragment{
 
                     } else {
                         // If sign in fails, display a message to the user.
-                        loginPresenter.showLoginNotSuccesful();
+                        loginPresenter.showLoginNotSuccessful();
                     }
                 }
             });

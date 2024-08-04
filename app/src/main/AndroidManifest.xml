@@ -13,16 +13,16 @@
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".Item"
+            android:name="com.example.TAAM_collection_management.strategy.Item"
             android:exported="false" />
         <activity
-            android:name=".SpinnerFragment"
+            android:name="com.example.TAAM_collection_management.fragments.SpinnerFragment"
             android:exported="false" />
         <activity
-            android:name=".HomeFragment"
+            android:name="com.example.TAAM_collection_management.fragments.HomeFragment"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.TAAM_collection_management.fragments.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>

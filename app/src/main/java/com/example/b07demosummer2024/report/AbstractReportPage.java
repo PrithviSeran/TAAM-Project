@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.b07demosummer2024.CommonUtils;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
@@ -40,6 +41,7 @@ public abstract class AbstractReportPage {
             callback.finishPage(createdView);
             taskProvider.setResult(null);
         } catch (RuntimeException pageCallbackException) {
+            CommonUtils.logError("RuntimeException", pageCallbackException.getMessage());
             taskProvider.setException(pageCallbackException);
         }
     }

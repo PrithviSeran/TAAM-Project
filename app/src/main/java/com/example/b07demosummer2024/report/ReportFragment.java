@@ -68,18 +68,12 @@ public class ReportFragment extends SearchFragment {
                 submitButton.setEnabled(false);
 
                 report.addPageGeneratedListener(updateOnPageGenerated(totalPages));
-                report.generatePdf().addOnCompleteListener((pdfGenerationStatusTask) -> {
-                    if (pdfGenerationStatusTask.isSuccessful()) {
-                        try {
-                            report.savePDF();
-                            getOpenGeneratedPdfPopup(report.getUriOfSavePath()).show();
-                        } catch (IOException e) {
-                            Toast.makeText(getContext(), "Could not save report, try again",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        CommonUtils.logError("ReportError", "Error with page creation callback");
-                        Toast.makeText(getContext(), "Error occurred with pdf generation, could not save",
+                report.generatePdf().addOnSuccessListener((Void) -> {
+                    try {
+                        report.savePDF();
+                        getOpenGeneratedPdfPopup(report.getUriOfSavePath()).show();
+                    } catch (IOException e) {
+                        Toast.makeText(getContext(), "Could not save report, try again",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });

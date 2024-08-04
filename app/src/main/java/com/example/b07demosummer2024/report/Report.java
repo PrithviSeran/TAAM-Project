@@ -11,9 +11,12 @@ import android.view.View;
 
 import androidx.core.content.FileProvider;
 
+import com.example.b07demosummer2024.CommonUtils;
 import com.example.b07demosummer2024.Item;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 import com.squareup.picasso.Picasso;
 
@@ -50,23 +53,24 @@ public class Report {
         this.saveFile = new File(saveFolder, fileSaveName);
     }
 
-    protected void generatePdf(OnCompleteListener onPdfDone) {
-        report = new PdfDocument();
-
-        // idea is to generate each page, then wait until the page is done, then ...
-        ReportIntroduction introPage = new ReportIntroduction(context);
-        Task<Void> completeIntroPageTask = introPage.asyncGetAssociatedView(addPageToDocument());
-        completeIntroPageTask.addOnSuccessListener((Void) -> {
-            List<Task<Void>> dataPageFinishTasks = new ArrayList<>();
-            for (Item item : items) {
-                ReportDataPage dataPage = new ReportDataPage(item, context, showDetailedInfo);
-                Task<Void> pageFinishTask = dataPage.asyncGetAssociatedView(addPageToDocument());
-                dataPageFinishTasks.add(pageFinishTask);
-            }
-
-            Tasks.whenAll(dataPageFinishTasks).addOnCompleteListener(onPdfDone);
-        });
-    }
+//    protected Task<Task<Void>> generatePdf() {
+//        report = new PdfDocument();
+//
+//        // idea is to generate each page, then wait until the page is done, then ...
+//        ReportIntroduction introPage = new ReportIntroduction(context);
+//        Task<Void> getIntroTask = introPage.asyncGetAssociatedView(addPageToDocument());
+//        TaskCompletionSource<Task<Void>> finishAllDataPagesTaskProvider = new TaskCompletionSource<>();
+//        getIntroTask.addOnSuccessListener((Void) -> {
+//            List<Task<Void>> dataPageFinishTasks = new ArrayList<>();
+//            for (Item item : items) {
+//                ReportDataPage dataPage = new ReportDataPage(item, context, showDetailedInfo);
+//                Task<Void> pageFinishTask = dataPage.asyncGetAssociatedView(addPageToDocument());
+//                dataPageFinishTasks.add(pageFinishTask);
+//            }
+//            finishAllDataPagesTaskProvider.setResult(Tasks.whenAll(dataPageFinishTasks));
+//        });
+//        return finishAllDataPagesTaskProvider.getTask();
+//    }
 
     protected Task<Void> generatePdf() {
         report = new PdfDocument();
@@ -139,7 +143,7 @@ public class Report {
     }
 
     public int getTotalNumberOfPages() {
-        return items.size() + 1; // one page is intro, the other is (maybe) summary
+        return items.size(); // one page is intro, the other is (maybe) summary
     }
 
     private int postIncrementPagesGeneratedCounter() {

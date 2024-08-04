@@ -72,6 +72,11 @@ public class Report {
 //        return finishAllDataPagesTaskProvider.getTask();
 //    }
 
+    /**
+     * Generates a pdf and creates a task to complete it. The task being complete and successful
+     * indicates all the pages have generated correctly.
+     * @return A task tracking the generation of the pdf/report
+     */
     protected Task<Void> generatePdf() {
         report = new PdfDocument();
 
@@ -85,6 +90,10 @@ public class Report {
         return Tasks.whenAll(dataPageFinishTasks);
     }
 
+    /**
+     * Returns a callback that add a page to the PDFDocument global instance.
+     * @return a callback that adds the view as the next page
+     */
     private AbstractReportPage.ViewCompletedCallback addPageToDocument() {
         if (addPageToDocument == null) {
             addPageToDocument = completedView -> {
@@ -98,7 +107,10 @@ public class Report {
         return addPageToDocument;
     }
 
-    /** @noinspection IOStreamConstructor*/
+    /**
+     * Saves the pdf in a default location which under the app directory.
+     * @throws IOException if there is an error that occurs while writing
+     */
     protected void savePDF() throws IOException {
         FileOutputStream fileStream = new FileOutputStream(saveFile);
         report.writeTo(fileStream);
@@ -146,6 +158,11 @@ public class Report {
         return items.size(); // one page is intro, the other is (maybe) summary
     }
 
+    /**
+     * Increments the pages generated counter and notifies all listeners
+     * about the change.
+     * @return the initial value of the field pagesGenerated
+     */
     private int postIncrementPagesGeneratedCounter() {
         firePropertyChange(pagesGenerated, pagesGenerated + 1);
         return pagesGenerated++;

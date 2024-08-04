@@ -27,6 +27,7 @@ import java.util.List;
 public class ReportFragment extends SearchFragment {
     private CheckBox confirmOnlyIncludeDescriptionAndPicture;
     private ProgressBar pdfGenerationProgressBar;
+    private Snackbar openFilePopup = null;
 
     public ReportFragment() {
         super("Generate report", "Generate");
@@ -67,7 +68,7 @@ public class ReportFragment extends SearchFragment {
                 submitButton.setEnabled(false);
 
                 report.addPageGeneratedListener(updateOnPageGenerated(totalPages));
-                report.generatePdf((pdfGenerationStatusTask) -> {
+                report.generatePdf().addOnCompleteListener((pdfGenerationStatusTask) -> {
                     if (pdfGenerationStatusTask.isSuccessful()) {
                         try {
                             report.savePDF();
@@ -95,7 +96,6 @@ public class ReportFragment extends SearchFragment {
     private PropertyChangeListener updateOnPageGenerated(int totalPages) {
         return evt -> {
             int generatedPages = (Integer) evt.getNewValue();
-            System.out.println(generatedPages);
             if (generatedPages <= totalPages) { // the last page increments to a higher total
                 double proportion = generatedPages / (double) totalPages;
                 pdfGenerationProgressBar.setProgress((int) (proportion * 100));
@@ -110,13 +110,16 @@ public class ReportFragment extends SearchFragment {
     }
 
     private Snackbar getOpenGeneratedPdfPopup(Uri linkToGeneratedFile) {
-        return Snackbar.make(submitButton, "Here is the generated PDF ", Snackbar.LENGTH_SHORT)
-                .setAction("Open", v -> {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(linkToGeneratedFile, "application/pdf");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    startActivity(intent);
-                });
+        if (openFilePopup == null) {
+            openFilePopup = Snackbar.make(submitButton, "Here is the generated PDF ", Snackbar.LENGTH_SHORT)
+                    .setAction("Open", v -> {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(linkToGeneratedFile, "application/pdf");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        startActivity(intent);
+                    });
+        }
+        return openFilePopup;
     }
 }

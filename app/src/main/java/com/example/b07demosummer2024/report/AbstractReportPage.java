@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
 public abstract class AbstractReportPage {
+
     protected Context context;
 
     /**

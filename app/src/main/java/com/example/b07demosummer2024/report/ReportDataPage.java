@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.util.concurrent.Executors;
+
 public class ReportDataPage extends AbstractReportPage {
 
     private Item item;
@@ -64,11 +66,7 @@ public class ReportDataPage extends AbstractReportPage {
         ImageFetcher.requestImage(item.getLotNum(), Picasso.get(), new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                ViewGroup.LayoutParams imageLayout = itemImage.getLayoutParams();
-                // this only works since the image view is of fixed size
-                Bitmap scaledToFitBitmap = Bitmap.createScaledBitmap(bitmap, imageLayout.width,
-                        imageLayout.height, true);
-                itemImage.setImageBitmap(scaledToFitBitmap);
+                itemImage.setImageBitmap(bitmap);
 
                 notifyListenersAndPropagateFeedback(callback, pageCompletionTaskProvider, itemView);
             }

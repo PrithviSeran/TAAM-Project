@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
 import androidx.core.content.FileProvider;
@@ -13,6 +15,7 @@ import com.example.b07demosummer2024.Item;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.squareup.picasso.Picasso;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -21,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class Report {
     public static final int PAGE_WIDTH = 2000;
@@ -35,6 +39,7 @@ public class Report {
 
     private int pagesGenerated = 1;
     private List<PropertyChangeListener> pageGeneratedListeners = new ArrayList<>();
+    private AbstractReportPage.ViewCompletedCallback addPageToDocument = null;
 
     public Report(List<Item> items, Context context, String fileSaveName, boolean showDetailedInfo) {
         this.items = items;
@@ -45,7 +50,7 @@ public class Report {
         this.saveFile = new File(saveFolder, fileSaveName);
     }
 
-    protected void generatePdf(OnCompleteListener<Void> onPdfDone) {
+    protected void generatePdf(OnCompleteListener onPdfDone) {
         report = new PdfDocument();
 
         // idea is to generate each page, then wait until the page is done, then ...
@@ -63,20 +68,38 @@ public class Report {
         });
     }
 
+    protected Task<Void> generatePdf() {
+        report = new PdfDocument();
+
+        List<Task<Void>> dataPageFinishTasks = new ArrayList<>();
+        for (Item item : items) {
+            ReportDataPage dataPage = new ReportDataPage(item, context, showDetailedInfo);
+            Task<Void> pageFinishTask = dataPage.asyncGetAssociatedView(addPageToDocument());
+            dataPageFinishTasks.add(pageFinishTask);
+        }
+
+        return Tasks.whenAll(dataPageFinishTasks);
+    }
+
     private AbstractReportPage.ViewCompletedCallback addPageToDocument() {
-        return completedView -> {
-            PdfDocument.PageInfo info = getPageInfoForPageNum(postIncrementPagesGeneratedCounter());
-            PdfDocument.Page newPage = report.startPage(info);
-            Bitmap bit = getBitmapFromView(completedView);
-            newPage.getCanvas().drawBitmap(bit, 0f, 0f, null);
-            report.finishPage(newPage);
-        };
+        if (addPageToDocument == null) {
+            addPageToDocument = completedView -> {
+                PdfDocument.PageInfo info = getPageInfoForPageNum(postIncrementPagesGeneratedCounter());
+                PdfDocument.Page newPage = report.startPage(info);
+                Bitmap bit = getBitmapFromView(completedView);
+                newPage.getCanvas().drawBitmap(bit, 0f, 0f, null);
+                report.finishPage(newPage);
+            };
+        }
+        return addPageToDocument;
     }
 
     /** @noinspection IOStreamConstructor*/
     protected void savePDF() throws IOException {
-        report.writeTo(new FileOutputStream(saveFile));
+        FileOutputStream fileStream = new FileOutputStream(saveFile);
+        report.writeTo(fileStream);
         report.close();
+        fileStream.close();
     }
 
     public Uri getUriOfSavePath() {

@@ -35,7 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.net.URI;
 
 /**
- * CLass used to display <code>fragment_add_item.xml</code>, and
+ * Class used to display <code>fragment_add_item.xml</code>, and
  * compiling proper information for the view.
  * <p>
  * AddItemFragment creates a view for the xml file and allows for

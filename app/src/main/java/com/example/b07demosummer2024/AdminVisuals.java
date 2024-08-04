@@ -38,7 +38,7 @@ import java.util.Map;
 
 
 /**
- * CLass used to display <code>fragment_admin_visuals.xml</code>, and
+ * Class used to display <code>fragment_admin_visuals.xml</code>, and
  * compiling proper information for the view.
  * <p>
  * AdminVisuals creates a view for the xml file and display the list

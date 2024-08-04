@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 /**
- * CLass used to display <code>fragment_keyword_search.xml</code>, and
+ * Class used to display <code>fragment_keyword_search.xml</code>, and
  * compiling proper information for the view.
  * <p>
  * KeywordSearchFragment creates a view for the xml file and display the list

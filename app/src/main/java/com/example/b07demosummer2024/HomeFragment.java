@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * CLass used to display <code>activity_home_fragment.xml</code>, and
+ * Class used to display <code>activity_home_fragment.xml</code>, and
  * compiling proper information for the view.
  * <p>
  * HomeFragment creates a view for the xml file and adds functionality to

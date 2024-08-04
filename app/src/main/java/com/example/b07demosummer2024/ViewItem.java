@@ -33,7 +33,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 
 /**
- * CLass used to display <code>fragment_view_popup</code>, and
+ * Class used to display <code>fragment_view_popup</code>, and
  * compiling proper information for the view.
  * <p>
  * ViewItem creates a view for the xml file, and retrieves the

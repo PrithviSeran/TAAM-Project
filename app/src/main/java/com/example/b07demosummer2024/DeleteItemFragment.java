@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * CLass used to display <code>fragment_delete_item.xml</code>, and
+ * Class used to display <code>fragment_delete_item.xml</code>, and
  * compiling proper information for the view.
  * <p>
  * DeleteItemFragment creates a view for the xml file, display the list

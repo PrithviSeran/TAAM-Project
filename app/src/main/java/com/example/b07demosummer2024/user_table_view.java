@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * CLass used to display <code>fragment_user_table_view.xml</code>, and
+ * Class used to display <code>fragment_user_table_view.xml</code>, and
  * compiling proper information for the view.
  * <p>
  * user_table_view creates a view for the xml file and display the list

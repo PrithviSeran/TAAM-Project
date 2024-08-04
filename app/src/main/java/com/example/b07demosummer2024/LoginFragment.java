@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 /**
- * CLass used to display <code>activity_login.xml</code>, and
+ * Class used to display <code>activity_login.xml</code>, and
  * compiling proper information for the view.
  * <p>
  * LoginFragment creates a view for the xml file and checks for

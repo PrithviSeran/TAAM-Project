@@ -97,7 +97,11 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
                         lotNumsofItemsToDelete.add(nameToLotNum.get(name));
                     }
 
-                    loadFragment(new DeleteItemFragment(nameofItemsToDelete, lotNumsofItemsToDelete));
+                    if (!nameofItemsToDelete.isEmpty() && !lotNumsofItemsToDelete.isEmpty()) {
+                        loadFragment(new DeleteItemFragment(nameofItemsToDelete, lotNumsofItemsToDelete));
+                    } else {
+                        CommonUtils.makeAndShowShortToast("No items selected", getContext());
+                    }
                 }
             }
         );

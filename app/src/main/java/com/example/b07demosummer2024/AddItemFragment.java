@@ -156,7 +156,7 @@ public class AddItemFragment extends TAAMSFragment {
 
         itemsRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                if (!(task.getResult().child(lotNum).exists())) {
+                if (!(task.getResult().child(lotNum).exists()) && isInteger(lotNum)) {
                     Item item = new Item(lotNum, name, category, period, description);
 
                     itemsRef.child(lotNum).setValue(item).addOnCompleteListener(addTask -> {
@@ -171,7 +171,7 @@ public class AddItemFragment extends TAAMSFragment {
                     });
                 }
                 else {
-                    Toast.makeText(getContext(), "Item with Lot# already exists!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Invalid Lot#!", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(getContext(), "Failed to access database", Toast.LENGTH_SHORT).show();
@@ -182,6 +182,16 @@ public class AddItemFragment extends TAAMSFragment {
     private void uploadImage(Uri image){
         storageRef = storageReference.child(lotNum);
         storageRef.putFile(image);
+    }
+
+    private boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        }
+        catch(NumberFormatException e) {
+            return false;
+        }
     }
 
 }

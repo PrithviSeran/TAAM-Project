@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.TAAM_collection_management.fragments.KeywordSearchFragment">
+    tools:context="com.example.TAAM_collection_management.Search.KeywordSearch.KeywordSearchFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"

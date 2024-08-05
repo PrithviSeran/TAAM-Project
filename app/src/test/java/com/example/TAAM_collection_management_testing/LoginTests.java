@@ -1,12 +1,12 @@
-package com.example.b07demosummer2024;
+package com.example.TAAM_collection_management_testing;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
-import com.example.TAAM_collection_management.interfaces.ILoginPresenter;
-import com.example.TAAM_collection_management.interfaces.ILoginView;
-import com.example.TAAM_collection_management.strategy.LoginModel;
-import com.example.TAAM_collection_management.strategy.LoginPresenter;
+import com.example.TAAM_collection_management.Login.ILoginPresenter;
+import com.example.TAAM_collection_management.Login.ILoginView;
+import com.example.TAAM_collection_management.Login.LoginModel;
+import com.example.TAAM_collection_management.Login.LoginPresenter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -2,10 +2,7 @@
  * LoginPresenter.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.strategy;
-
-import com.example.TAAM_collection_management.interfaces.ILoginPresenter;
-import com.example.TAAM_collection_management.interfaces.ILoginView;
+package com.example.TAAM_collection_management.Login;
 
 /**
  * Class used to authenticate user information and implement actions

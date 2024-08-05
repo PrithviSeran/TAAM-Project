@@ -2,7 +2,7 @@
  * TAAMSFragment.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.fragments;
+package com.example.TAAM_collection_management.Objects;
 
 import android.annotation.SuppressLint;
 import android.graphics.Typeface;
@@ -24,8 +24,8 @@ import com.google.firebase.storage.StorageReference;
 
 /**
  * A simple {@link Fragment} subclass.
- * TAAMSFragment is the abstract parent class for all classes in the
- * <code>com.example.b07demosummer2024</code> package that require displaying
+ * TAAMSFragment is the abstract parent class for all Fragment classes in the
+ * <code>com.example.TAAM_collection_management</code> package that require displaying
  * an xml file.
  * <p>
  * TAAMSFragment allows for subclasses to load other fragments as needed and

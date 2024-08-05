@@ -2,7 +2,7 @@
  * MainActivity.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.fragments;
+package com.example.TAAM_collection_management.Home;
 
 import android.os.Bundle;
 

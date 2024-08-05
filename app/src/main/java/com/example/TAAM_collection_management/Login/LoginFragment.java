@@ -2,7 +2,7 @@
  * LoginFragment.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.fragments;
+package com.example.TAAM_collection_management.Login;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,9 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.TAAM_collection_management.strategy.LoginModel;
-import com.example.TAAM_collection_management.strategy.LoginPresenter;
-import com.example.TAAM_collection_management.interfaces.ILoginView;
+import com.example.TAAM_collection_management.Home.HomeFragment;
+import com.example.TAAM_collection_management.Objects.TAAMSFragment;
 import com.example.b07demosummer2024.R;
 
 /**

@@ -2,7 +2,7 @@
  * DeleteItemFragment.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.fragments;
+package com.example.TAAM_collection_management.AdminFunctionality;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,7 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.TAAM_collection_management.interfaces.ViewItemsTable;
+import com.example.TAAM_collection_management.CatalogueView.ViewItemsTable;
+import com.example.TAAM_collection_management.Objects.TAAMSFragment;
 import com.example.b07demosummer2024.R;
 
 import java.util.ArrayList;

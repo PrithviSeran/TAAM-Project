@@ -2,7 +2,7 @@
  * HomeFragment.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.fragments;
+package com.example.TAAM_collection_management.Home;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +15,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.TAAM_collection_management.CatalogueView.AdminVisualsFragment;
+import com.example.TAAM_collection_management.Login.LoginFragment;
+import com.example.TAAM_collection_management.Search.SearchFragment;
+import com.example.TAAM_collection_management.Objects.TAAMSFragment;
+import com.example.TAAM_collection_management.CatalogueView.UserTableViewFragment;
 import com.example.b07demosummer2024.R;
 
 /**

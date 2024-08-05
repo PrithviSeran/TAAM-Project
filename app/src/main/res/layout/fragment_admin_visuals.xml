@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:scaleX="1"
     android:scaleY="1"
-    tools:context="com.example.TAAM_collection_management.fragments.AdminVisualsFragment">
+    tools:context="com.example.TAAM_collection_management.CatalogueView.AdminVisualsFragment">
 
     <ImageView
         android:id="@+id/imageView"

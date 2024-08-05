@@ -2,7 +2,7 @@
  * SearchFragment.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.fragments;
+package com.example.TAAM_collection_management.Search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +18,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.TAAM_collection_management.strategy.Item;
+import com.example.TAAM_collection_management.Objects.Item;
+import com.example.TAAM_collection_management.Search.KeywordSearch.KeywordSearchFragment;
+import com.example.TAAM_collection_management.Objects.TAAMSFragment;
 import com.example.b07demosummer2024.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -59,7 +61,6 @@ public class SearchFragment extends TAAMSFragment {
      * <p>
      * Contains the <code>setSubmissionListener</code> method, which loads <code>SearchResult</code>
      * fragment on success and displays an error popup on failure.
-     *
      */
     public SearchFragment() {
         this.activityTitle = "Search Collection";

@@ -2,7 +2,7 @@
  * ViewItemFragment.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.fragments;
+package com.example.TAAM_collection_management.ItemView;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import android.widget.VideoView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.TAAM_collection_management.Objects.TAAMSFragment;
 import com.example.b07demosummer2024.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,8 +29,6 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
 /**
  * Class used to display <code>fragment_view_popup</code>, and
  * compiling proper information for the view.
@@ -39,7 +38,6 @@ import java.util.ArrayList;
  * <p>
  * Extends <code>TAAMSFragment</code> to use Firebase database, and
  * <code>Fragment</code>'s <code>onCreateView</code> method.
- *
  */
 public class ViewItemFragment extends TAAMSFragment {
 
@@ -87,7 +85,6 @@ public class ViewItemFragment extends TAAMSFragment {
      * the values stored in database.
      * Failed task results in error popup and error message logged, and a popup with
      * no item information will appear.
-     *
      */
     private void popUp(){
         itemsRef = database.getReference("Items/" + identifier);

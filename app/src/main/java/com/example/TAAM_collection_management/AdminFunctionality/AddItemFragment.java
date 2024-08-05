@@ -2,7 +2,7 @@
  * AddItemFragment.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.fragments;
+package com.example.TAAM_collection_management.AdminFunctionality;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -28,7 +28,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.TAAM_collection_management.strategy.Item;
+import com.example.TAAM_collection_management.Objects.Item;
+import com.example.TAAM_collection_management.Objects.TAAMSFragment;
 import com.example.b07demosummer2024.R;
 import com.google.firebase.database.DatabaseReference;
 
@@ -109,7 +110,6 @@ public class AddItemFragment extends TAAMSFragment {
      *
      * @return Return the View for AddItemFragment's UI, or null.
      */
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -171,7 +171,6 @@ public class AddItemFragment extends TAAMSFragment {
      * database.
      *
      */
-
     private void addItem() {
         lotNum = editTextLotNum.getText().toString().trim();
         name = editTextName.getText().toString().trim();

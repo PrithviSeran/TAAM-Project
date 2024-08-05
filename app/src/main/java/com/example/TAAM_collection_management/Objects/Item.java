@@ -2,7 +2,7 @@
  * Item.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.strategy;
+package com.example.TAAM_collection_management.Objects;
 
 import androidx.annotation.NonNull;
 
@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 /**
  * <code>Item</code> class translates and allows the usage and manipulation
  * of display data for items stored in Firebase database.
- *
  */
 public class Item {
 

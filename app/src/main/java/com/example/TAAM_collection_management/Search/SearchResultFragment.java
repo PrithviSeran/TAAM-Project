@@ -2,7 +2,7 @@
  * SearchResultFragment.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.fragments;
+package com.example.TAAM_collection_management.Search;
 
 import android.os.Bundle;
 
@@ -15,8 +15,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.TAAM_collection_management.strategy.Item;
-import com.example.TAAM_collection_management.interfaces.ViewItemsTable;
+import com.example.TAAM_collection_management.Objects.Item;
+import com.example.TAAM_collection_management.Objects.TAAMSFragment;
+import com.example.TAAM_collection_management.ItemView.ViewItemFragment;
+import com.example.TAAM_collection_management.CatalogueView.ViewItemsTable;
 import com.example.b07demosummer2024.R;
 
 import java.util.List;
@@ -29,7 +31,6 @@ import java.util.List;
  * Extends <code>TAAMSFragment</code> to use <code>loadFragment</code> and standardized
  * button and text. Implements <code>ViewItemsTable</code> to use interface
  * <code>displayItems</code> method.
- *
  */
 public class SearchResultFragment extends TAAMSFragment implements ViewItemsTable {
 

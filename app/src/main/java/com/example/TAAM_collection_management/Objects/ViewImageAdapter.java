@@ -1,4 +1,4 @@
-package com.example.TAAM_collection_management.adapters;
+package com.example.TAAM_collection_management.Objects;
 
 import android.content.Context;
 import android.view.LayoutInflater;

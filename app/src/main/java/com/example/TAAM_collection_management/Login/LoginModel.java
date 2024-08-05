@@ -2,12 +2,11 @@
  * LoginModel.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.strategy;
+package com.example.TAAM_collection_management.Login;
 
 import androidx.annotation.NonNull;
 
-import com.example.TAAM_collection_management.fragments.TAAMSFragment;
-import com.example.TAAM_collection_management.interfaces.ILoginPresenter;
+import com.example.TAAM_collection_management.Objects.TAAMSFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

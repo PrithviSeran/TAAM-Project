@@ -2,7 +2,7 @@
  * KeywordSearchAdapter.java     1.0     2024/08/04
  */
 
-package com.example.TAAM_collection_management.adapters;
+package com.example.TAAM_collection_management.Search.KeywordSearch;
 
 import android.content.Context;
 import android.net.Uri;
@@ -20,7 +20,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.TAAM_collection_management.strategy.Item;
+import com.example.TAAM_collection_management.Objects.Item;
 import com.example.b07demosummer2024.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;

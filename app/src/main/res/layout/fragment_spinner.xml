@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.TAAM_collection_management.fragments.SpinnerFragment">
+    tools:context="com.example.TAAM_collection_management.Objects.SpinnerFragment">
 
     <Spinner
         android:id="@+id/spinner"

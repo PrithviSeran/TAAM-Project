@@ -12,6 +12,7 @@
         android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        app:iconifiedByDefault="false"
         android:background="@drawable/border_view">
 
     </androidx.appcompat.widget.SearchView>

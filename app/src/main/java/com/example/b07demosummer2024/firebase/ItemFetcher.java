@@ -1,10 +1,12 @@
 package com.example.b07demosummer2024.firebase;
 
 import com.example.b07demosummer2024.Item;
+import com.google.firebase.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiPredicate;
@@ -51,5 +53,9 @@ public class ItemFetcher {
                         "No message available"));
             }
         });
+    }
+
+    public static void getAllItems(FirebaseCallback<List<Item>> callback) {
+        searchItems(callback, (a, b) -> true, null, null, null, null, null);
     }
 }

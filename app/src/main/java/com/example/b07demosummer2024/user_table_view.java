@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +15,13 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.b07demosummer2024.firebase.FirebaseCallback;
+import com.example.b07demosummer2024.firebase.ItemFetcher;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+
+import java.util.List;
 
 public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
@@ -53,53 +58,58 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
     @Override
     public void displayItems(){
-
-        itemsRef = database.getReference("Items");
-
-        itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                    Toast.makeText(getContext(), "Display Error", Toast.LENGTH_SHORT).show();
-                }
-                else {
-
-                    for (DataSnapshot entry1 : (task.getResult().getChildren())) {
-                        newRow = new TableRow(getActivity());
-                        newRow.setPadding(0,10,0,10);
-
-                        lotText = new TextView(getActivity());
-                        lotText.setText(String.valueOf(entry1.child("lotNum").getValue()));
-                        setTextViewStyle(lotText);
-                        lotText.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
-                        newRow.addView(lotText);
-
-                        nameText = new TextView(getActivity());
-                        nameText.setText(String.valueOf(entry1.child("name").getValue()));// Change to get name
-                        nameText.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
-                        setTextViewStyle(nameText);
-                        newRow.addView(nameText);
-
-                        viewItem = new Button(getActivity());
-                        viewItem.setText("View");
-                        setButtonStyle(viewItem);
-
-                        viewItem.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Handle the button click
-                                loadFragment(new ViewItem(String.valueOf(entry1.getKey())));
-                            }
-                        });
-
-                        newRow.addView(viewItem);
-
-                        mainTable.addView(newRow);
-                    }
+        ItemFetcher.getAllItems(new FirebaseCallback<List<Item>>() {
+            @Override
+            public void onFirebaseSuccess(List<Item> results) {
+                for (Item item: results) {
+                    mainTable.addView(getItemTableRow(item));
                 }
             }
+
+            @Override
+            public void onFirebaseFailure(String message) {
+                CommonUtils.logError("FirebaseError", message);
+                CommonUtils.makeAndShowShortToast("Display Error", getContext());
+            }
         });
+    }
+
+    private void initializeTextView(TextView textView, String initialText, float initialWeight) {
+        textView.setText(initialText);
+        textView.setSingleLine(true);
+        textView.setEllipsize(TextUtils.TruncateAt.END);
+        setTextViewStyle(textView);
+        textView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, initialWeight));
+    }
+
+    protected TableRow getItemTableRow(Item item) {
+        newRow = new TableRow(getActivity());
+
+        lotText = new TextView(getActivity());
+        initializeTextView(lotText, item.getLotNum(), 1.5f);
+
+        newRow.addView(lotText);
+
+        nameText = new TextView(getActivity());
+        initializeTextView(nameText, item.getName(), 3f);
+
+        newRow.addView(nameText);
+
+        viewItem = new Button(getActivity());
+        viewItem.setText("View");
+        setButtonStyle(viewItem);
+
+        viewItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the button click
+                loadFragment(new ViewItem(item));
+            }
+        });
+
+        newRow.addView(viewItem);
+
+        return newRow;
     }
 }
 

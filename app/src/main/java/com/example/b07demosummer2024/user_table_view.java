@@ -54,9 +54,7 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
     @Override
     public void displayItems(){
 
-
         itemsRef = database.getReference("Items");
-
 
         itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 
@@ -69,6 +67,7 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
                     for (DataSnapshot entry1 : (task.getResult().getChildren())) {
                         newRow = new TableRow(getActivity());
+                        newRow.setPadding(0,10,0,10);
 
                         lotText = new TextView(getActivity());
                         lotText.setText(String.valueOf(entry1.child("lotNum").getValue()));

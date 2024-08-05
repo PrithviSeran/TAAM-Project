@@ -151,6 +151,7 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
 
                     for (DataSnapshot entry1 : (task.getResult().getChildren())) {
                         tableRow1 = new TableRow(getActivity());
+                        tableRow1.setPadding(0,10,0,10);
                         checkBox = new CheckBox(getActivity());
 
                         tableRow1.addView(checkBox);

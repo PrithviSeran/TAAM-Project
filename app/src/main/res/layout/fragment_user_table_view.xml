@@ -57,18 +57,16 @@
 
     <ScrollView
         android:id="@+id/userTableScrollView"
-        android:layout_width="355dp"
-        android:layout_height="388dp"
+        android:layout_width="353dp"
+        android:layout_height="450dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="100dp"
         android:layout_marginEnd="6dp"
-        android:layout_marginBottom="174dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.507">
+        app:layout_constraintVertical_bias="0.572">
 
 
         <TableLayout
@@ -132,7 +130,7 @@
         android:id="@+id/searchButton"
         android:layout_width="140dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="44dp"
         android:backgroundTint="@color/dark_gold"
         android:fontFamily="@font/lato_bold"
         android:text="Search Item"
@@ -141,6 +139,7 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintVertical_bias="0.0" />

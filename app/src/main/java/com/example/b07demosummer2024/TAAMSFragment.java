@@ -46,7 +46,7 @@ public class TAAMSFragment extends Fragment {
 
         textView.setBackground(getResources().getDrawable(R.drawable.border_square));
 
-        textView.setPadding(0,5,0,5);
+        textView.setPadding(4,5,4,5);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -60,7 +60,7 @@ public class TAAMSFragment extends Fragment {
 
         button.setTextSize(15);
 
-        button.setPadding(0,5,0,5);
+        button.setPadding(4,5,4,5);
 
         TableRow.LayoutParams params = new TableRow.LayoutParams(150, 80);
         button.setLayoutParams(params);

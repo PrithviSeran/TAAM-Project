@@ -25,7 +25,6 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
     private TableRow tableRow1;
 
     private TextView textView1, textView2;
-    private CheckBox checkBox;
     private Button viewItem;
     private List<Item> items;
     private TableLayout tableLayout1;
@@ -54,11 +53,8 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
 
         for (Item item: items) {
             tableRow1 = new TableRow(getActivity());
-            checkBox = new CheckBox(getActivity());
 
             tableRow1.setPadding(0,10,0,10);
-
-            tableRow1.addView(checkBox);
 
             textView1 = new TextView(getActivity());
             initializeTextView(textView1, item.getLotNum(), 1.5f);

@@ -11,7 +11,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="397dp"
+        android:layout_width="0dp"
         android:layout_height="128dp"
         android:contentDescription="@string/bg_style"
         android:src="@drawable/bg_view"
@@ -38,22 +38,25 @@
 
 
     <TextView
-        android:id="@+id/homeTittle"
+        android:id="@+id/userTableTitle"
         android:layout_width="271dp"
-        android:layout_height="87dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
         android:fontFamily="@font/lato_bold"
         android:text="Collections Management"
         android:textColor="@color/shaded_white"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.761" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <ScrollView
+        android:id="@+id/userTableScrollView"
         android:layout_width="355dp"
         android:layout_height="388dp"
         android:layout_marginStart="5dp"
@@ -89,6 +92,7 @@
                     tools:ignore="DuplicateIds" />
 
                 <TextView
+                    android:id="@+id/userTableLotHeader"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1.5"
@@ -99,6 +103,7 @@
                     android:textSize="22sp" />
 
                 <TextView
+                    android:id="@+id/userTableItemHeader"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="3"
@@ -124,24 +129,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button11"
-        android:layout_width="140dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="54dp"
-        android:layout_marginEnd="217dp"
-        android:backgroundTint="@color/dark_gold"
-        android:fontFamily="@font/lato_bold"
-        android:text="Create Report"
-        android:textAllCaps="false"
-        android:textColor="@color/shaded_white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button12"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button12" />
-
-    <Button
-        android:id="@+id/button12"
+        android:id="@+id/searchButton"
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginBottom="88dp"
@@ -153,7 +141,6 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.815"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintVertical_bias="0.0" />

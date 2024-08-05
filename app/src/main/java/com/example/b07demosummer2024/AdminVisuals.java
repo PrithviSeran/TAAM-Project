@@ -26,6 +26,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.b07demosummer2024.report.ReportFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -53,6 +54,7 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
     private Button addItem;         //make local
     private TableLayout tableLayout1;
     private Button searchItem;
+    private Button reportButton;
 
     private HashMap<CheckBox, String> leftOfCheckBoxes = new HashMap<CheckBox, String>();
     private HashMap<String, String> nameToLotNum = new HashMap<String, String>();
@@ -73,6 +75,7 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
 
         deleteButton = view.findViewById(R.id.button10);
         addItem = view.findViewById(R.id.addItemButton);
+        reportButton = view.findViewById(R.id.createReportButton);
 
         displayItems();
 
@@ -110,6 +113,13 @@ public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
             @Override
             public void onClick(View view) {
                 loadFragment(new AddItemFragment());
+            }
+        });
+
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFragment(new ReportFragment());
             }
         });
 

@@ -112,10 +112,11 @@ public class Report {
      * @throws IOException if there is an error that occurs while writing
      */
     protected void savePDF() throws IOException {
-        FileOutputStream fileStream = new FileOutputStream(saveFile);
-        report.writeTo(fileStream);
-        report.close();
-        fileStream.close();
+        try (FileOutputStream fileStream = new FileOutputStream(saveFile)) {
+            report.writeTo(fileStream);
+        } finally {
+            report.close();
+        }
     }
 
     public Uri getUriOfSavePath() {

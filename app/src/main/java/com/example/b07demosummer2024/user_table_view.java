@@ -1,22 +1,14 @@
 package com.example.b07demosummer2024;
 
-import android.annotation.SuppressLint;
-import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -25,23 +17,13 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link user_table_view#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
-    private TableRow tableRow1;
-    private TextView textView1, textView2;
+    private TableRow newRow;
+    private TextView lotText, nameText;
     private Button viewItem;
-    private TableLayout tableLayout1;
+    private TableLayout mainTable;
     private Button searchItem;
 
 
@@ -51,9 +33,9 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
 
-        tableLayout1 = view.findViewById(R.id.tableLayout);
+        mainTable = view.findViewById(R.id.tableLayout);
 
-        searchItem = view.findViewById(R.id.button12);
+        searchItem = view.findViewById(R.id.searchButton);
 
         searchItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,19 +68,19 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
                 else {
 
                     for (DataSnapshot entry1 : (task.getResult().getChildren())) {
-                        tableRow1 = new TableRow(getActivity());
+                        newRow = new TableRow(getActivity());
 
-                        textView1 = new TextView(getActivity());
-                        textView1.setText(String.valueOf(entry1.child("lotNum").getValue()));
-                        setTextViewStyle(textView1);
-                        textView1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
-                        tableRow1.addView(textView1);
+                        lotText = new TextView(getActivity());
+                        lotText.setText(String.valueOf(entry1.child("lotNum").getValue()));
+                        setTextViewStyle(lotText);
+                        lotText.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
+                        newRow.addView(lotText);
 
-                        textView2 = new TextView(getActivity());
-                        textView2.setText(String.valueOf(entry1.child("name").getValue()));// Change to get name
-                        textView2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
-                        setTextViewStyle(textView2);
-                        tableRow1.addView(textView2);
+                        nameText = new TextView(getActivity());
+                        nameText.setText(String.valueOf(entry1.child("name").getValue()));// Change to get name
+                        nameText.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
+                        setTextViewStyle(nameText);
+                        newRow.addView(nameText);
 
                         viewItem = new Button(getActivity());
                         viewItem.setText("View");
@@ -112,9 +94,9 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
                             }
                         });
 
-                        tableRow1.addView(viewItem);
+                        newRow.addView(viewItem);
 
-                        tableLayout1.addView(tableRow1);
+                        mainTable.addView(newRow);
                     }
                 }
             }

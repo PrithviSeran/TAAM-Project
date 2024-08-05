@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ReportDataPage extends AbstractReportPage {
@@ -63,6 +64,7 @@ public class ReportDataPage extends AbstractReportPage {
         getAndSetTextView(itemView, R.id.itemDescription, item.getDescription());
 
         TaskCompletionSource<Void> pageCompletionTaskProvider = new TaskCompletionSource<>();
+        Drawable errorDrawable = AppCompatResources.getDrawable(super.context, R.drawable.image_not_found);
         ImageFetcher.requestImage(item.getLotNum(), Picasso.get(), new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -72,9 +74,9 @@ public class ReportDataPage extends AbstractReportPage {
             }
 
             @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+            public void onBitmapFailed(Exception e, Drawable picassoErrorDrawable) {
                 CommonUtils.logError("InvalidBitmapError", e.getMessage());
-                itemImage.setImageDrawable(errorDrawable);
+                itemImage.setImageDrawable(picassoErrorDrawable);
 
                 notifyListenersAndPropagateFeedback(callback, pageCompletionTaskProvider, itemView);
             }
@@ -82,7 +84,7 @@ public class ReportDataPage extends AbstractReportPage {
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {}
 
-        }, AppCompatResources.getDrawable(super.context, R.drawable.image_not_found));
+        }, errorDrawable);
         return pageCompletionTaskProvider.getTask();
     }
 }

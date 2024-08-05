@@ -18,6 +18,7 @@ import com.example.b07demosummer2024.firebase.FirebaseCallback;
 import com.example.b07demosummer2024.Item;
 import com.example.b07demosummer2024.R;
 import com.example.b07demosummer2024.SearchFragment;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.beans.PropertyChangeListener;
@@ -37,6 +38,7 @@ public class ReportFragment extends SearchFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        keywordSearch.setVisibility(View.GONE);
 
         // creating "show only description and picture" checkbox
         LinearLayout extraLayout = view.findViewById(R.id.extraLayout);
@@ -60,28 +62,33 @@ public class ReportFragment extends SearchFragment {
     private FirebaseCallback<List<Item>> generateAndSaveReport() {
         return new FirebaseCallback<List<Item>>() {
             @Override
-            public void onSuccess(List<Item> results) {
-                boolean showDetailedInfo = !confirmOnlyIncludeDescriptionAndPicture.isChecked();
-                Report report = new Report(results, getContext(), "Report.pdf", showDetailedInfo);
-                int totalPages = report.getTotalNumberOfPages();
-                pdfGenerationProgressBar.setVisibility(View.VISIBLE);
-                submitButton.setEnabled(false);
+            public void onFirebaseSuccess(List<Item> results) {
+                if (!results.isEmpty()) {
+                    boolean showDetailedInfo = !confirmOnlyIncludeDescriptionAndPicture.isChecked();
+                    Report report = new Report(results, getContext(), "Report.pdf", showDetailedInfo);
+                    int totalPages = report.getTotalNumberOfPages();
+                    pdfGenerationProgressBar.setVisibility(View.VISIBLE);
+                    submitButton.setEnabled(false);
 
-                report.addPageGeneratedListener(updateOnPageGenerated(totalPages));
-                report.generatePdf().addOnSuccessListener((Void) -> {
-                    try {
-                        report.savePDF();
-                        getOpenGeneratedPdfPopup(report.getUriOfSavePath()).show();
-                    } catch (IOException e) {
-                        Toast.makeText(getContext(), "Could not save report, try again",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-                submitButton.postDelayed(() -> submitButton.setEnabled(true), 5000);
+                    report.addPageGeneratedListener(updateOnPageGenerated(totalPages));
+                    report.generatePdf().addOnSuccessListener((Void) -> {
+                        try {
+                            report.savePDF();
+                            getOpenGeneratedPdfPopup(report.getUriOfSavePath()).show();
+                        } catch (IOException e) {
+                            Toast.makeText(getContext(), "Could not save report, try again",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    submitButton.postDelayed(() -> submitButton.setEnabled(true), 5000);
+                } else {
+                    CommonUtils.logError("SearchError", "No items found");
+                    Toast.makeText(getContext(), "No items found", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(String message) {
+            public void onFirebaseFailure(String message) {
                 // show error dialog
             }
         };
@@ -90,10 +97,11 @@ public class ReportFragment extends SearchFragment {
     private PropertyChangeListener updateOnPageGenerated(int totalPages) {
         return evt -> {
             int generatedPages = (Integer) evt.getNewValue();
-            if (generatedPages <= totalPages) { // the last page increments to a higher total
+            // if totalPages == 1, generatedPages is 2 > 1
+            if (generatedPages <= totalPages || totalPages == 1) {
                 double proportion = generatedPages / (double) totalPages;
                 pdfGenerationProgressBar.setProgress((int) (proportion * 100));
-                if (generatedPages == totalPages) {
+                if (generatedPages == totalPages || totalPages == 1) {
                     pdfGenerationProgressBar.postDelayed(() -> {
                         pdfGenerationProgressBar.setVisibility(View.GONE);
                         pdfGenerationProgressBar.setProgress(0);
@@ -105,7 +113,7 @@ public class ReportFragment extends SearchFragment {
 
     private Snackbar getOpenGeneratedPdfPopup(Uri linkToGeneratedFile) {
         if (openFilePopup == null) {
-            openFilePopup = Snackbar.make(submitButton, "Here is the generated PDF ", Snackbar.LENGTH_SHORT)
+            openFilePopup = Snackbar.make(submitButton, "Here is the generated PDF ", Snackbar.LENGTH_LONG)
                     .setAction("Open", v -> {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setDataAndType(linkToGeneratedFile, "application/pdf");

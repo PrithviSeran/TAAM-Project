@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,7 @@ public class SearchFragment extends Fragment {
     protected Spinner spinnerCategory;
     protected Spinner spinnerPeriod;
     protected Button submitButton;
+    protected Button keywordSearch;
     protected TextView title;
 
 
@@ -63,13 +65,13 @@ public class SearchFragment extends Fragment {
         setSubmissionListener(new FirebaseCallback<List<Item>>() {
 
             @Override
-            public void onSuccess(List<Item> results) {
+            public void onFirebaseSuccess(List<Item> results) {
                 // search result here
                 loadFragment(new SearchResult(results));
             }
 
             @Override
-            public void onFailure(String message) {
+            public void onFirebaseFailure(String message) {
                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
@@ -126,7 +128,7 @@ public class SearchFragment extends Fragment {
 
     /**
      * Performs a search query based on the input from this SearchFragment. The handling
-     * of the search results is done with the provided SearchResultCallback.
+     * of the search results is done with the provided FirebaseCallback.
      * @see FirebaseCallback
      * @see SearchFragment#setSubmissionListener
      * @param onSearchCompleted the callback that handles the search results

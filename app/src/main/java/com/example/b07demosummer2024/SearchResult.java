@@ -38,6 +38,12 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
 
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
         tableLayout1 = view.findViewById(R.id.tableLayout);
+        Button searchButton = view.findViewById(R.id.searchButton);
+        searchButton.setVisibility(View.GONE);
+
+        TextView title = view.findViewById(R.id.userTableTitle);
+        title.setText("Search Results");
+
         displayItems();
         return view;
     }

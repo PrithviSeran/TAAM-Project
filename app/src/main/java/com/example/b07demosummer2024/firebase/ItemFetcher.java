@@ -45,9 +45,9 @@ public class ItemFetcher {
                     }
                     if (isEqual) {searchResults.add(item);}
                 }
-                callback.onSuccess(searchResults);
+                callback.onFirebaseSuccess(searchResults);
             } else {
-                callback.onFailure(Objects.toString(task.getException(),
+                callback.onFirebaseFailure(Objects.toString(task.getException(),
                         "No message available"));
             }
         });

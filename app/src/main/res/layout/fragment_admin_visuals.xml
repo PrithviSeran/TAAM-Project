@@ -11,7 +11,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="397dp"
+        android:layout_width="0dp"
         android:layout_height="126dp"
         android:contentDescription="@string/bg_style"
         android:src="@drawable/bg_view"
@@ -47,10 +47,9 @@
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.785" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ScrollView
         android:layout_width="355dp"
@@ -124,8 +123,6 @@
         android:id="@+id/addItemButton"
         android:layout_width="140dp"
         android:layout_height="50dp"
-        android:layout_marginStart="54dp"
-        android:layout_marginEnd="217dp"
         android:backgroundTint="@color/dark_gold"
         android:fontFamily="@font/lato_bold"
         android:text="Add Item"
@@ -133,9 +130,12 @@
         android:textColor="@color/shaded_white"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/button10"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button10" />
+        app:layout_constraintTop_toTopOf="@+id/button10"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button10"
@@ -149,14 +149,10 @@
         android:textColor="@color/shaded_white"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.793"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/addItemButton" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/createReportButton"
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:backgroundTint="@color/dark_gold"
@@ -165,10 +161,11 @@
         android:textAllCaps="false"
         android:textColor="@color/shaded_white"
         android:textSize="14dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintBottom_toBottomOf="@+id/button12"
         app:layout_constraintEnd_toEndOf="@+id/addItemButton"
         app:layout_constraintStart_toStartOf="@+id/addItemButton"
-        app:layout_constraintTop_toBottomOf="@+id/button10" />
+        app:layout_constraintTop_toTopOf="@+id/button12" />
 
     <Button
         android:id="@+id/button12"
@@ -182,10 +179,17 @@
         android:textColor="@color/shaded_white"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.794"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button10"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/createReportButton"
         app:layout_constraintTop_toBottomOf="@+id/button10"
         app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

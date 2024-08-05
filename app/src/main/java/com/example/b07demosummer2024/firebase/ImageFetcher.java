@@ -2,14 +2,10 @@ package com.example.b07demosummer2024.firebase;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.util.Log;
-
-import androidx.annotation.Nullable;
 
 import com.example.b07demosummer2024.CommonUtils;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -24,9 +20,9 @@ public class ImageFetcher {
         requestImageUriFromId(imageId).addOnCompleteListener(
                 uriTask -> {
                     if (uriTask.isSuccessful()) {
-                        callback.onSuccess(uriTask.getResult());
+                        callback.onFirebaseSuccess(uriTask.getResult());
                     } else {
-                        callback.onFailure(Objects.toString(uriTask.getException(),
+                        callback.onFirebaseFailure(Objects.toString(uriTask.getException(),
                                 "No message available"));
                     }
                 }

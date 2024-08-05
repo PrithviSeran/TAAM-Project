@@ -45,20 +45,22 @@
         android:id="@+id/lotNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/lato_bold"
         android:text="@string/lot_number"
         android:textColor="@color/gold"
         android:textSize="25sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintEnd_toStartOf="@+id/editTextLotNumber"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keywordSearch" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/lato_bold"
 
         android:text="@string/name"
@@ -70,9 +72,9 @@
 
     <EditText
         android:id="@+id/editTextLotNumber"
-        android:layout_width="210dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="80dp"
         android:background="@drawable/edit_text_style"
         android:ems="10"
         android:fontFamily="@font/roboto"
@@ -80,60 +82,45 @@
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="@+id/lotNumber"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/lotNumber"
         app:layout_constraintTop_toTopOf="@+id/lotNumber" />
 
-
-    <Spinner
-        android:id="@+id/periodSpinner"
-        android:layout_width="210dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/edit_text_style"
-        android:ems="10"
-        android:fontFamily="@font/roboto"
-        android:hint="@string/e_g_musician_figures"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="@+id/name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextLotNumber"
-        app:layout_constraintTop_toTopOf="@+id/name" />
 
     <Button
         android:id="@+id/submitConfirm"
         android:layout_width="244dp"
         android:layout_height="51dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/gold"
         android:fontFamily="@font/lato_bold"
         android:text="@string/search"
         android:textColor="@color/shaded_white"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/extraLayout" />
-
+        app:layout_constraintTop_toBottomOf="@+id/extraProgressBar"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/categorySpinner"
-        android:layout_width="210dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
         android:background="@drawable/edit_text_style"
         android:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/category"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextLotNumber"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/editTextLotNumber"
-        app:layout_constraintTop_toTopOf="@+id/category"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/category" />
 
     <TextView
         android:id="@+id/category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/lato_bold"
         android:text="@string/category"
         android:textColor="@color/gold"
@@ -146,7 +133,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/lato_bold"
         android:text="@string/period"
         android:textColor="@color/gold"
@@ -156,56 +143,40 @@
 
     <Spinner
         android:id="@+id/periodSpinner"
-        android:layout_width="210dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
         android:background="@drawable/edit_text_style"
         app:layout_constraintBottom_toBottomOf="@+id/textView5"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextLotNumber"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/editTextLotNumber"
-        app:layout_constraintTop_toTopOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
 
 
     <Button
         android:id="@+id/keywordSearch"
         android:layout_width="207dp"
         android:layout_height="46dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/gold"
         android:fontFamily="@font/lato_bold"
         android:text="Search by Keyword"
         android:textAllCaps="false"
         android:textColor="@color/shaded_white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextLotNumber"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/homeTittle"
-        app:layout_constraintTop_toBottomOf="@+id/searchActivityTitle"
-        app:layout_constraintVertical_bias="0.66" />
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.46" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextLotNumber"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <LinearLayout
         android:id="@+id/extraLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:orientation="vertical"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/periodSpinner"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintTop_toBottomOf="@+id/periodSpinner" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -220,14 +191,25 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:indeterminate="false"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/submitConfirm"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/extraLayout" />
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edit_text_style"
+        android:ems="10"
+        android:hint="@string/e_g_musician_figures"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="@+id/name"
+        app:layout_constraintEnd_toEndOf="@+id/editTextLotNumber"
+        app:layout_constraintTop_toTopOf="@+id/name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

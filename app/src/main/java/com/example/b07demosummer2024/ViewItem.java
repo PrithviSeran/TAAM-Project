@@ -37,7 +37,6 @@ public class ViewItem extends TAAMSFragment {
 
     private String itemID;
     private Item item = null;
-    private String identifier;
     private TextView itemName;
     private TextView itemCategory;
     private TextView itemPeriod;
@@ -104,7 +103,7 @@ public class ViewItem extends TAAMSFragment {
 
     private void retrieveFromStorage() {
 
-        StorageReference fileRef = storageReference.child(identifier);
+        StorageReference fileRef = storageReference.child(itemID);
         fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 
             @Override

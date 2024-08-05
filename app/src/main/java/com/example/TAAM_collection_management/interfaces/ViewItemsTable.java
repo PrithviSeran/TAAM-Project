@@ -1,3 +1,7 @@
+/*
+ * ViewItemsTable.java     1.0     2024/08/04
+ */
+
 package com.example.TAAM_collection_management.interfaces;
 
 /**

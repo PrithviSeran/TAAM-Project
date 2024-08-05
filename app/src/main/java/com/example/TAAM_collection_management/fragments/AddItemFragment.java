@@ -1,3 +1,7 @@
+/*
+ * AddItemFragment.java     1.0     2024/08/04
+ */
+
 package com.example.TAAM_collection_management.fragments;
 
 import static android.app.Activity.RESULT_OK;
@@ -39,7 +43,6 @@ import com.google.firebase.database.DatabaseReference;
  * Extends <code>TAAMSFragment</code> to use Firebase database. Implements
  * <code>ViewItemsTable</code> to use interface <code>displayItems</code> method.
  */
-
 public class AddItemFragment extends TAAMSFragment {
 
     private EditText editTextLotNum, editTextName, editTextDescription;

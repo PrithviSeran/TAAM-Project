@@ -1,3 +1,7 @@
+/*
+ * SpinnerFragment.java     1.0     2024/08/04
+ */
+
 package com.example.TAAM_collection_management.fragments;
 
 import android.os.Bundle;
@@ -14,12 +18,12 @@ import com.example.b07demosummer2024.R;
 
 /**
  * Class used to create display for <code>fragment_spinner.xml</code> file.
+ * Creates two spinners, one with all item categories and one with all item periods.
  * <p>
  * A Spinner is an interactable drop down display allowing user to select between
  * different predetermined options.
- *
  */
-public class SpinnerFragment extends Fragment { //Should not extend TAAMSFragment???????
+public class SpinnerFragment extends Fragment {
 
     /**
      * Called to instantiate SpinnerFragment view.
@@ -40,20 +44,20 @@ public class SpinnerFragment extends Fragment { //Should not extend TAAMSFragmen
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_spinner, container, false);
-        Spinner spinner = view.findViewById(R.id.spinner);
-        Spinner spinner2 = view.findViewById(R.id.spinner2);
+        Spinner categorySpinner = view.findViewById(R.id.spinner);
+        Spinner periodSpinner = view.findViewById(R.id.spinner2);
 
         //Initializing array adapters
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.categories_array, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getContext(),
+        ArrayAdapter<CharSequence> periodAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.periods_array, android.R.layout.simple_spinner_item);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(categoryAdapter);
 
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(adapter2);
+        periodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        periodSpinner.setAdapter(periodAdapter);
 
         return view;
     }

@@ -65,6 +65,16 @@ public class HomeFragment extends TAAMSFragment {
             });
 
         }
+        else{
+            buttonAdmin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadFragment(new LoginFragment());
+
+                }
+            });
+        }
+
 
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,14 +91,6 @@ public class HomeFragment extends TAAMSFragment {
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
                 intent.setData(Uri.parse("https://taam.ca/index.php/en/"));
                 startActivity(intent);
-            }
-        });
-
-        buttonAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new LoginFragment());
-
             }
         });
 

@@ -30,12 +30,14 @@ import java.util.Objects;
 
 public class SearchFragment extends Fragment {
 
+
     protected EditText editTextLotNum;
     protected EditText editTextName;
     protected Spinner spinnerCategory;
     protected Spinner spinnerPeriod;
     protected Button submitButton;
     protected TextView title;
+
 
     private final String activityTitle;
     private final String submitText;
@@ -59,6 +61,7 @@ public class SearchFragment extends Fragment {
     public SearchFragment() {
         this("Search collection", "Search");
         setSubmissionListener(new FirebaseCallback<List<Item>>() {
+
             @Override
             public void onSuccess(List<Item> results) {
                 // search result here
@@ -67,10 +70,11 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onFailure(String message) {
-
+                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
     }
+    
 
     @Nullable
     @Override
@@ -93,6 +97,15 @@ public class SearchFragment extends Fragment {
         submitButton = view.findViewById(R.id.submitConfirm);
         submitButton.setText(submitText);
         submitButton.setOnClickListener(submissionListener);
+        keywordSearch = view.findViewById(R.id.keywordSearch);
+        keywordSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //user = null;
+                loadFragment(new KeywordSearchFragment());
+            }
+        });
 
         // Spinners
         spinnerCategory = view.findViewById(R.id.categorySpinner);
@@ -109,6 +122,7 @@ public class SearchFragment extends Fragment {
     protected void setSubmissionListener(FirebaseCallback<List<Item>> onSearchCompleted) {
         this.submissionListener = (v -> performSearch(onSearchCompleted));
     }
+
 
     /**
      * Performs a search query based on the input from this SearchFragment. The handling
@@ -128,6 +142,7 @@ public class SearchFragment extends Fragment {
         String period = normalize(spinnerPeriod.getSelectedItem().toString());
 
         ItemFetcher.searchItems(onSearchCompleted, this::compare, lotNum, name, category, period);
+
     }
 
 

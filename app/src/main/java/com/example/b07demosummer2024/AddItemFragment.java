@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -22,6 +23,16 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import androidx.fragment.app.Fragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import androidx.recyclerview.widget.RecyclerView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 
 import com.google.firebase.database.DatabaseReference;
 
@@ -34,8 +45,10 @@ public class AddItemFragment extends TAAMSFragment {
     private DatabaseReference itemsRef;
     private Intent intent;
     private ImageView imageView;
-    private Uri image;
+    private VideoView videoView;
+    private Uri contentDisplay;
     private String lotNum, name, category, period, description;
+
 
 
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
@@ -45,11 +58,32 @@ public class AddItemFragment extends TAAMSFragment {
             if (result.getResultCode() == RESULT_OK) {
                 if (result.getData() != null) {
                     addImageButton.setEnabled(true);
-                    image = result.getData().getData();
-                    imageView.setImageURI(image);
+                    contentDisplay = result.getData().getData();
+                    String mimeType = requireContext().getContentResolver().getType(contentDisplay);
 
+                    if (mimeType != null) {
+                        if (mimeType.startsWith("image/")) {
+                            videoView.setVisibility(View.GONE);
+                            imageView.setVisibility(View.VISIBLE);
+                            imageView.setImageURI(contentDisplay);
+
+                        }
+                        else if (mimeType.startsWith("video/")) {
+                            imageView.setVisibility(View.GONE);
+                            videoView.setVisibility(View.VISIBLE);
+                            videoView.setVideoURI(contentDisplay);
+                            videoView.setOnPreparedListener(mp -> {
+                                mp.setLooping(true);
+                                videoView.start();
+                            });
+                        }
+                    }
+                    else{
+                        Toast.makeText(getContext(), "Incompatible file type", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            } else {
+            }
+            else {
                 Toast.makeText(getContext(), "Please select an image", Toast.LENGTH_SHORT).show();
             }
         }
@@ -69,6 +103,7 @@ public class AddItemFragment extends TAAMSFragment {
         addImageButton = view.findViewById(R.id.imagesearch);
         buttonAdd = view.findViewById(R.id.addItemButton);
         imageView = view.findViewById(R.id.imageView2);
+        videoView = view.findViewById(R.id.videoView);
 
 
         // Set up the spinner with categories
@@ -87,7 +122,6 @@ public class AddItemFragment extends TAAMSFragment {
             @Override
             public void onClick(View v) {
                 addItem();
-                uploadImage(image);
             }
         });
 
@@ -95,11 +129,11 @@ public class AddItemFragment extends TAAMSFragment {
         addImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
+                intent.setType("*/*");
+                String[] mimeTypes = {"image/*", "video/*"};
+                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
                 activityResultLauncher.launch(intent);
-
             }
         });
 
@@ -119,19 +153,34 @@ public class AddItemFragment extends TAAMSFragment {
         }
 
         itemsRef = database.getReference("Items");
-        Item item = new Item(lotNum, name, category, period, description);
 
-        itemsRef.child(lotNum).setValue(item).addOnCompleteListener(task -> {
+        itemsRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
+                if (!(task.getResult().child(lotNum).exists())) {
+                    Item item = new Item(lotNum, name, category, period, description);
+
+                    itemsRef.child(lotNum).setValue(item).addOnCompleteListener(addTask -> {
+                        if (addTask.isSuccessful()) {
+                            Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
+
+                            if (contentDisplay != null) uploadImage(contentDisplay);
+                            getParentFragmentManager().popBackStackImmediate();
+                        } else {
+                            Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(getContext(), "Item with Lot# already exists!", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Failed to access database", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void uploadImage(Uri image){
-        storageRef = storageReference.child(name);
+        storageRef = storageReference.child(lotNum);
         storageRef.putFile(image);
     }
 

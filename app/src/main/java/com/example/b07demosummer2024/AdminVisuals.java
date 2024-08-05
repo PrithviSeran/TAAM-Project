@@ -1,13 +1,17 @@
 package com.example.b07demosummer2024;
 
+import android.annotation.SuppressLint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +19,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,27 +36,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AdminVisuals#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AdminVisuals extends TAAMSFragment {
-
-
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://login-taam-bo7-default-rtdb.firebaseio.com/");
-    private DatabaseReference itemsRef;
+public class AdminVisuals extends TAAMSFragment implements ViewItemsTable{
 
     private TableRow tableRow1;
 
-    private TextView textView1;
+    private TextView textView1, textView2;
     private CheckBox checkBox;
     private Button viewItem;
-    private Button deleteButton;
-    private Button addItem;
+    private Button deleteButton;    //make local
+    private Button addItem;         //make local
+    private TableLayout tableLayout1;
+    private Button searchItem;
 
     private HashMap<CheckBox, String> leftOfCheckBoxes = new HashMap<CheckBox, String>();
-    private ArrayList<String> itemsToDelete = new ArrayList<String>();
+    private HashMap<String, String> nameToLotNum = new HashMap<String, String>();
+    private ArrayList<String> nameofItemsToDelete = new ArrayList<String>();
+    private ArrayList<String> lotNumsofItemsToDelete = new ArrayList<String>();
 
     @Nullable
     @Override
@@ -58,71 +65,46 @@ public class AdminVisuals extends TAAMSFragment {
 
         View view = inflater.inflate(R.layout.fragment_admin_visuals, container, false);
 
-        TableLayout tableLayout1 = view.findViewById(R.id.tableLayout);
+        tableLayout1 = view.findViewById(R.id.tableLayout);
 
         itemsRef = database.getReference("Items");
+
+        searchItem = view.findViewById(R.id.button12);
 
         deleteButton = view.findViewById(R.id.button10);
         addItem = view.findViewById(R.id.addItemButton);
 
-        itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-
-                    leftOfCheckBoxes.clear();
-
-                    Log.d("Class", String.valueOf(task.getResult().getValue().getClass()));
-
-                    for (Object entry1 : ((HashMap)task.getResult().getValue()).entrySet()) {
-                        tableRow1 = new TableRow(getActivity());
-                        checkBox = new CheckBox(getActivity());
-
-                        leftOfCheckBoxes.put(checkBox, String.valueOf(((Map.Entry)entry1).getKey()));
-
-                        tableRow1.addView(checkBox);
-
-                        textView1 = new TextView(getActivity());
-                        textView1.setText(String.valueOf(((Map.Entry)entry1).getKey()));
-
-                        tableRow1.addView(textView1);
-
-                        viewItem = new Button(getActivity());
-                        viewItem.setText("View Item");
-
-                        viewItem.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Handle the button click
-                                loadFragment(new ViewItem(String.valueOf(((Map.Entry)entry1).getKey())));
-                            }
-                        });
-
-                        tableRow1.addView(viewItem);
-
-                        tableLayout1.addView(tableRow1);
-                    }
-                }
-            }
-        });
+        displayItems();
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
+
+                    nameofItemsToDelete.clear();
+                    lotNumsofItemsToDelete.clear();
+
                     for (Object box : leftOfCheckBoxes.entrySet()) {
 
                         if (((CheckBox)((Map.Entry) box).getKey()).isChecked()){
-                            System.out.println(String.valueOf(((Map.Entry) box).getValue()));
-                            itemsToDelete.add(String.valueOf(((Map.Entry) box).getValue()));
+                            nameofItemsToDelete.add(String.valueOf(((Map.Entry) box).getValue()));
                         }
                     }
-                    loadFragment(new DeleteItemFragment(itemsToDelete));
+
+                    for (String name : nameofItemsToDelete) {
+                        lotNumsofItemsToDelete.add(nameToLotNum.get(name));
+                    }
+
+                    loadFragment(new DeleteItemFragment(nameofItemsToDelete, lotNumsofItemsToDelete));
                 }
             }
         );
+
+        searchItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFragment(new SearchFragment());
+            }
+        });
 
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,4 +117,66 @@ public class AdminVisuals extends TAAMSFragment {
         return view;
 
     }
+
+    @Override
+    public void displayItems(){
+
+        leftOfCheckBoxes.clear();
+        nameToLotNum.clear();
+
+        itemsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                    Toast.makeText(getContext(), "Unexpected Error", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+                    Log.d("Class", String.valueOf(task.getResult().getValue().getClass()));
+
+                    for (DataSnapshot entry1 : (task.getResult().getChildren())) {
+                        tableRow1 = new TableRow(getActivity());
+                        checkBox = new CheckBox(getActivity());
+
+                        tableRow1.addView(checkBox);
+
+                        textView1 = new TextView(getActivity());
+                        textView1.setText(String.valueOf(entry1.child("lotNum").getValue()));
+                        setTextViewStyle(textView1);
+                        textView1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
+                        tableRow1.addView(textView1);
+
+                        textView2 = new TextView(getActivity());
+                        textView2.setText(String.valueOf(entry1.child("name").getValue()));// Change to get name
+                        leftOfCheckBoxes.put(checkBox, String.valueOf(entry1.child("name").getValue()));
+                        nameToLotNum.put(String.valueOf(entry1.child("name").getValue()), String.valueOf(entry1.child("lotNum").getValue()));
+                        textView2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
+                        setTextViewStyle(textView2);
+                        tableRow1.addView(textView2);
+
+                        viewItem = new Button(getActivity());
+                        viewItem.setText("View");
+                        setButtonStyle(viewItem);
+
+                        viewItem.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // Handle the button click
+                                loadFragment(new ViewItem(String.valueOf(entry1.getKey())));
+                            }
+                        });
+
+                        tableRow1.addView(viewItem);
+                        tableLayout1.addView(tableRow1);
+                    }
+                }
+            }
+        });
+
+    }
+
 }
+
+
+

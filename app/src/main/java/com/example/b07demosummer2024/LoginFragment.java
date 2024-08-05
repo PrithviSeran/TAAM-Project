@@ -22,79 +22,61 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class LoginFragment extends TAAMSFragment {
+public class LoginFragment extends TAAMSFragment implements ILoginView {
 
-    private FirebaseAuth mAuth;
+    private Button loginButton;     // make local
+    private TextView email;
+    private TextView password;
+    private LoginPresenter loginPresenter;
+    private LoginModel loginModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_login, container, false);
 
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+        loginButton = view.findViewById(R.id.button);
 
-        Button loginButton = view.findViewById(R.id.button);
+        email = view.findViewById(R.id.usernameEditText);
 
-        TextView email = view.findViewById(R.id.usernameEditText);
+        password = view.findViewById(R.id.passwordEditText);
 
-        TextView password = view.findViewById(R.id.passwordEditText);
+        loginModel = new LoginModel();
+
+        loginPresenter = new LoginPresenter(this, loginModel) ;
 
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                LoginAdmin(email.getText().toString(), password.getText().toString());
+
+                if (email.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()){
+                    showLoginEmptyFields();
+                    return;
+                }
+
+                loginPresenter.authenticateUser(email.getText().toString(), password.getText().toString());
             }
         });
 
         return view;
     }
 
-    private void RegisterAdmin(String name, String email, String password ){
-        mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        user = mAuth.getCurrentUser();
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(name)
-                            .build();
+    @Override
+    public void showLoginSuccesful(String name){
 
-                        user.updateProfile(profileUpdates)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        System.out.println("Account Created!");
-                                    }
-                                }
-                            });
+        loadFragment(new HomeFragment(name));
 
-                    } else {
-                       System.out.println("Error Occurred");
-                    }
-                }
-            });
+        Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
     }
 
-    private void LoginAdmin(String email, String password){
-        mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        user = mAuth.getCurrentUser();
-                        System.out.println("User is Signed In!");
-                        loadFragment(new HomeFragment());
+    @Override
+    public void showLoginNotSuccesful(){
+        Toast.makeText(getContext(), "Email or Password incorrect", Toast.LENGTH_SHORT).show();
+    }
 
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        System.out.println("Nope!");
-                    }
-                }
-            });
+    @Override
+    public void showLoginEmptyFields(){
+        Toast.makeText(getContext(), "Please fill our all fields!", Toast.LENGTH_SHORT).show();
+
     }
 }

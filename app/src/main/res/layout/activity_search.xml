@@ -60,11 +60,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/lato_bold"
+
         android:text="@string/name"
         android:textColor="@color/gold"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="@+id/lotNumber"
         app:layout_constraintTop_toBottomOf="@+id/lotNumber" />
+
 
     <EditText
         android:id="@+id/editTextLotNumber"
@@ -81,8 +83,9 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/lotNumber" />
 
-    <EditText
-        android:id="@+id/editTextName"
+
+    <Spinner
+        android:id="@+id/periodSpinner"
         android:layout_width="210dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
@@ -111,6 +114,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/extraLayout" />
 
+
     <Spinner
         android:id="@+id/categorySpinner"
         android:layout_width="210dp"
@@ -137,6 +141,7 @@
         app:layout_constraintStart_toStartOf="@+id/lotNumber"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
@@ -161,6 +166,26 @@
         app:layout_constraintStart_toStartOf="@+id/editTextLotNumber"
         app:layout_constraintTop_toTopOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.0" />
+
+
+
+    <Button
+        android:id="@+id/keywordSearch"
+        android:layout_width="207dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/gold"
+        android:fontFamily="@font/lato_bold"
+        android:text="Search by Keyword"
+        android:textAllCaps="false"
+        android:textColor="@color/shaded_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextLotNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/homeTittle"
+        app:layout_constraintTop_toBottomOf="@+id/searchActivityTitle"
+        app:layout_constraintVertical_bias="0.66" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

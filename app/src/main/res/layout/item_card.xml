@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="6dp"
+    android:elevation="6dp"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="120dp"
+            android:layout_height="110dp">
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemNameText"
+            android:text="Item Name"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@id/item_image"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lotNumText"
+            android:text="Lot #"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_below="@+id/itemNameText"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@id/item_image"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/periodText"
+            android:text="Period"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_below="@+id/lotNumText"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@id/item_image"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/categoryText"
+            android:text="Category"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_below="@+id/periodText"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@id/item_image"
+            />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

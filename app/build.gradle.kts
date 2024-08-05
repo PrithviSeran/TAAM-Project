@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.b07demosummer2024"
-        minSdk = 24
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -22,10 +22,6 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
-    }
-
-    buildFeatures{
-        viewBinding = true
     }
 
     compileOptions {
@@ -43,10 +39,20 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.functions)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.squareup.picasso:picasso:2.8")
+    //testImplementation("junit:junit:4.13")
+    //androidTestImplementation("org.mockito:mockito-core:3.5.13")
     implementation(libs.firebase.auth)
     implementation(libs.firebase.storage)
     testImplementation(libs.junit)
+
+    //testImplementation("org.mockito:mockito-inline:")  // includes "core"
+    //testImplementation("org.mockito:mockito-junit-jupiter:")
+    testImplementation("org.mockito:mockito-core:4.0.0")
+    androidTestImplementation("org.mockito:mockito-android:4.0.0")
+    testImplementation("net.bytebuddy:byte-buddy:1.12.9")
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit.junit)
 }

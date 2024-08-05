@@ -18,15 +18,16 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
-public class SearchResult extends user_table_view {
+public class SearchResult extends TAAMSFragment implements ViewItemsTable {
     private TableRow tableRow1;
 
-    private TextView textView1, textView2, textView3, textView4;
+    private TextView textView1, textView2;
     private CheckBox checkBox;
     private Button viewItem;
-    private Button backButton;
     private List<Item> items;
+    private TableLayout tableLayout1;
 
     public SearchResult(List<Item> items) {
         this.items = items;
@@ -36,8 +37,13 @@ public class SearchResult extends user_table_view {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_user_table_view, container, false);
+        tableLayout1 = view.findViewById(R.id.tableLayout);
+        displayItems();
+        return view;
+    }
 
-        TableLayout tableLayout1 = view.findViewById(R.id.tableLayout);
+    @Override
+    public void displayItems(){
 
         for (Item item: items) {
             tableRow1 = new TableRow(getActivity());
@@ -46,12 +52,20 @@ public class SearchResult extends user_table_view {
             tableRow1.addView(checkBox);
 
             textView1 = new TextView(getActivity());
-            textView1.setText(item.getName());
-
+            textView1.setText(item.getLotNum());
+            setTextViewStyle(textView1);
+            textView1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
             tableRow1.addView(textView1);
 
+            textView2 = new TextView(getActivity());
+            textView2.setText(item.getName());
+            textView2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
+            setTextViewStyle(textView2);
+            tableRow1.addView(textView2);
+
             viewItem = new Button(getActivity());
-            viewItem.setText("View Item");
+            viewItem.setText("View");
+            setButtonStyle(viewItem);
 
             viewItem.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,14 +79,6 @@ public class SearchResult extends user_table_view {
             tableLayout1.addView(tableRow1);
         }
 
-        return view;
-    }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
 }

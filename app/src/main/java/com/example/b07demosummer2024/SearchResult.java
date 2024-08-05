@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,18 +56,16 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
             tableRow1 = new TableRow(getActivity());
             checkBox = new CheckBox(getActivity());
 
+            tableRow1.setPadding(0,10,0,10);
+
             tableRow1.addView(checkBox);
 
             textView1 = new TextView(getActivity());
-            textView1.setText(item.getLotNum());
-            setTextViewStyle(textView1);
-            textView1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
+            initializeTextView(textView1, item.getLotNum(), 1.5f);
             tableRow1.addView(textView1);
 
             textView2 = new TextView(getActivity());
-            textView2.setText(item.getName());
-            textView2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f));
-            setTextViewStyle(textView2);
+            initializeTextView(textView2, item.getName(), 3f);
             tableRow1.addView(textView2);
 
             viewItem = new Button(getActivity());
@@ -86,6 +85,14 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
         }
 
     }
+    private void initializeTextView(TextView textView, String initialText, float initialWeight) {
+        textView.setText(initialText);
+        textView.setSingleLine(true);
+        textView.setEllipsize(TextUtils.TruncateAt.END);
+        setTextViewStyle(textView);
+        textView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, initialWeight));
+    }
+
 
 }
 

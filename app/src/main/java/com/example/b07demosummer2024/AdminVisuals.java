@@ -130,6 +130,7 @@ public class AdminVisuals extends user_table_view implements ViewItemsTable{
                 for (Item item : results) {
                     selectItemCheckbox = new CheckBox(getActivity());
                     TableRow newRow = AdminVisuals.super.getItemTableRow(item);
+                    newRow.setPadding(0,10,0,10);
                     leftOfCheckBoxes.put(selectItemCheckbox, item.getName());
                     nameToLotNum.put(item.getName(), item.getLotNum());
                     mainTable.addView(newRow);

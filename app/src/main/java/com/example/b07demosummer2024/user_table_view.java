@@ -84,6 +84,7 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
     protected TableRow getItemTableRow(Item item) {
         newRow = new TableRow(getActivity());
+        newRow.setPadding(0,10,0,10);
 
         lotText = new TextView(getActivity());
         initializeTextView(lotText, item.getLotNum(), 1.5f);

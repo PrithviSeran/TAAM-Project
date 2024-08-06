@@ -28,7 +28,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -113,16 +112,15 @@ public class ReportFragment extends SearchFragment {
                     submitButton.setEnabled(false);
 
                     report.addPageGeneratedListener(updateOnPageGenerated(totalPages));
-                    report.generatePdf().addOnSuccessListener((Void) -> {
-                        try {
-                            report.savePDF();
-                            getOpenGeneratedPdfPopup(report.getUriOfSavePath()).show();
-                        } catch (IOException e) {
-                            Toast.makeText(getContext(), "Could not save report, try again",
-                                    Toast.LENGTH_SHORT).show();
-                        }
+                    report.generatePdf().addOnSuccessListener((generateCompleted) -> {
+                        report.savePDF().addOnCompleteListener((saveCompleted) -> {
+                            Task<Uri> getUriTask = report.getUriOfSavePath();
+                            getUriTask.addOnSuccessListener((uri -> {
+                                getOpenGeneratedPdfPopup(uri).show();
+                            }));
+                        });
                     });
-                    submitButton.postDelayed(() -> submitButton.setEnabled(true), 5000);
+                    submitButton.postDelayed(() -> submitButton.setEnabled(true), 4500);
                 } else {
                     CommonUtils.logError("SearchError", "No items found");
                     Toast.makeText(getContext(), "No items found", Toast.LENGTH_SHORT).show();
@@ -132,23 +130,6 @@ public class ReportFragment extends SearchFragment {
             @Override
             public void onFirebaseFailure(String message) {
                 // show error dialog
-            }
-        };
-    }
-
-    private PropertyChangeListener updateOnPageGenerated(int totalPages) {
-        return evt -> {
-            int generatedPages = (Integer) evt.getNewValue();
-            // if totalPages == 1, generatedPages is 2 > 1
-            if (generatedPages <= totalPages || totalPages == 1) {
-                double proportion = generatedPages / (double) totalPages;
-                pdfGenerationProgressBar.setProgress((int) (proportion * 100));
-                if (generatedPages == totalPages || totalPages == 1) {
-                    pdfGenerationProgressBar.postDelayed(() -> {
-                        pdfGenerationProgressBar.setVisibility(View.GONE);
-                        pdfGenerationProgressBar.setProgress(0);
-                    }, 50);
-                }
             }
         };
     }
@@ -165,5 +146,19 @@ public class ReportFragment extends SearchFragment {
                     });
         }
         return openFilePopup;
+    }
+
+    private PropertyChangeListener updateOnPageGenerated(int totalPages) {
+        return evt -> {
+            int generatedPages = (Integer) evt.getNewValue();
+            double proportion = generatedPages / (double) totalPages;
+            pdfGenerationProgressBar.setProgress((int) (proportion * 100));
+            if (generatedPages == totalPages || totalPages == 1) {
+                pdfGenerationProgressBar.postDelayed(() -> {
+                    pdfGenerationProgressBar.setVisibility(View.GONE);
+                    pdfGenerationProgressBar.setProgress(0);
+                }, 50);
+            }
+        };
     }
 }

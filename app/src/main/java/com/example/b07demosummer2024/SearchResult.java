@@ -1,3 +1,7 @@
+/*
+ * SearchResultFragment.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024;
 
 import android.os.Bundle;
@@ -21,6 +25,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
+/**
+ * Class used to create display for the <code>fragment_user_table_view.xml</code>
+ * file after a call for <code>SearchFragment</code> has been made and a successful
+ * search has been completed.
+ * <p>
+ * Extends <code>TAAMSFragment</code> to use <code>loadFragment</code> and standardized
+ * button and text. Implements <code>ViewItemsTable</code> to use interface
+ * <code>displayItems</code> method.
+ */
 public class SearchResult extends TAAMSFragment implements ViewItemsTable {
     private TableRow tableRow1;
 
@@ -29,10 +42,31 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
     private List<Item> items;
     private TableLayout tableLayout1;
 
+    /**
+     * Constructor for <code>SearchResult</code>.
+     * Requires list of <code>Items</code> to be called.
+     *
+     * @param items     List of items created from searching.
+     */
     public SearchResult(List<Item> items) {
         this.items = items;
     }
 
+    /**
+     * Called to have SearchResult instantiate its user interface view.
+     * This view is created from the <code>fragment_user_table_view.xml</code> file.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in SearchResult,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  SearchResult should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, SearchResult is being re-constructed
+     * from a previous saved state as given here. savedInstanceState is not used in this
+     * onCreateView method.
+     *
+     * @return Return the View for SearchResult's UI, or null.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -48,6 +82,16 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
         return view;
     }
 
+    /**
+     * Called to display items from database in a table view.
+     * Since <code>items</code> is always non empty and contains correct data
+     * from database, when called, displayItems will always return immediately
+     * and successfully.
+     *<p>
+     * method has an <code>onClick</code> method, which will call
+     * <code>loadFragment</code> on <code>ViewItem</code> when the <code>viewItem</code>
+     * button is clicked.
+     */
     @Override
     public void displayItems(){
 

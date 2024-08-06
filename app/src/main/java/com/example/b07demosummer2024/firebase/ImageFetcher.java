@@ -1,3 +1,7 @@
+/*
+ * ImageFetcher.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024.firebase;
 
 import android.graphics.drawable.Drawable;
@@ -12,6 +16,10 @@ import com.squareup.picasso.Target;
 
 import java.util.Objects;
 
+/**
+ * Class dedicated to fetching images from Firebase database.
+ *
+ */
 public class ImageFetcher {
     private static final StorageReference storageRoot = FirebaseStorage.getInstance(
             "gs://login-taam-bo7.appspot.com").getReference();
@@ -29,10 +37,27 @@ public class ImageFetcher {
         );
     }
 
+    /**
+     * Returns <code>Task</code> of attempting to retrieve image from
+     * Firebase.
+     *
+     * @param imageId       Id of image being queried on Firebase.
+     * @return              Task of retrieving image by id from Firebase.
+     */
     public static Task<Uri> requestImageUriFromId(String imageId) {
         return getStorageReferenceAtId(imageId).getDownloadUrl();
     }
 
+    /**
+     * Requests an image from Firebase database to be downloaded and
+     * used by <code>picasso</code> and <code>Bitmap</code>.
+     *
+     * @param imageId           Id of image being queried on Firebase
+     * @param picasso           instance of <code>Picasso</code> class being used to
+     *                          download image.
+     * @param listener          Target location of image to be loaded onto.
+     * @param errorDrawable     Error image to be drawn if any exceptions occur.
+     */
     public static void requestImage(String imageId,
                                     Picasso picasso,
                                     Target listener,

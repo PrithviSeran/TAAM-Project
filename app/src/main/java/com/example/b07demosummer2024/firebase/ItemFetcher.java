@@ -1,3 +1,7 @@
+/*
+ * ItemFetcher.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024.firebase;
 
 import com.example.b07demosummer2024.Item;
@@ -11,6 +15,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.BiPredicate;
 
+/**
+ * Class dedicated to fetching items from Firebase database.
+ * Items can be queried, through the <code>searchItems</code>
+ * method, or all Items can be returned at once.
+ */
 public class ItemFetcher {
     private static final DatabaseReference databaseRoot = FirebaseReferences.DATABASE_ROOT;
 
@@ -21,10 +30,10 @@ public class ItemFetcher {
      * otherwise False. Note that queries that exceed the number of properties
      * of Item excluding Description will be ignored.
      *
-     * @param callback the function that handles the results of the search
-     * @param compareFunction the function that checks if the item's value matches with the query.
-     *                        The inputs are compareFunction(ith query, Item.toArray()[i])
-     * @param queries the values of Item (lot num, name, ..., period) that we want to search for
+     * @param callback          the function that handles the results of the search
+     * @param compareFunction   the function that checks if the item's value matches with the query.
+     *                          The inputs are compareFunction(ith query, Item.toArray()[i])
+     * @param queries           the values of Item (lot num, name, ..., period) that we want to search for
      * @see Item
      * @see Item#toArray()
      */

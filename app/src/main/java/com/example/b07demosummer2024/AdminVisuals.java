@@ -1,3 +1,7 @@
+/*
+ * AdminVisualsFragment.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024;
 
 import android.os.Bundle;
@@ -29,6 +33,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class used to display <code>fragment_admin_visuals.xml</code>, and
+ * compiling proper information for the view.
+ * <p>
+ * AdminVisualsFragment creates a view for the xml file and display the list
+ * of all items under the "Items" reference stored in Firebase Database.
+ * It also gives functionality to multiple buttons allowing for adding, deleting,
+ * reporting, and searching items displayed on screen, through other classes.
+ * <p>
+ * Extends <code>user_table_view</code> due to similar view layouts. Implements
+ * <code>ViewItemsTable</code> to use interface <code>displayItems</code> method.
+ */
 public class AdminVisuals extends user_table_view implements ViewItemsTable{
 
     private TableRow newRow;
@@ -47,6 +63,26 @@ public class AdminVisuals extends user_table_view implements ViewItemsTable{
     private ArrayList<String> nameofItemsToDelete = new ArrayList<String>();
     private ArrayList<String> lotNumsofItemsToDelete = new ArrayList<String>();
 
+    /**
+     * Called to instantiate <code>fragment_admin_visuals.xml</code> view.
+     * <p>
+     * Calls <code>onClick</code> for <code>deleteButton</code> and is used
+     * to call <code>loadFragment</code> for <code>DeleteItemFragment</code>.
+     * <p>
+     * Calls <code>onClick</code> for <code>AddItemFragment</code> and <code>SearchFragment</code>
+     * with their corresponding buttons.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in <code>fragment_admin_visuals.xml</code>,
+     * @param container This is the parent view that the fragment's
+     * UI should be attached to. <code>fragment_admin_visuals.xml</code> should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, <code>fragment_admin_visuals.xml</code> is being re-constructed
+     * from a previous saved state as given here. savedInstanceState is note used in this instance of
+     * <code>onCreateView</code>
+     *
+     * @return Return the View for <code>fragment_admin_visuals.xml</code>'s UI, or null.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

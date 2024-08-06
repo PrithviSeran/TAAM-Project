@@ -1,3 +1,7 @@
+/*
+ * ReportDataPage.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024.report;
 
 import android.content.Context;
@@ -18,6 +22,11 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+/**
+ * Class used to generate 1 page and associated view for
+ * the report pdf. Extends <code>AbstractReportPage</code> for
+ * <code>ViewCompletedCallback</code> checks.
+ */
 public class ReportDataPage extends AbstractReportPage {
 
     private Item item;

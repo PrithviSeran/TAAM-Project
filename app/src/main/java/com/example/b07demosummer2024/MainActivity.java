@@ -1,3 +1,7 @@
+/*
+ * MainActivity.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024;
 
 import android.os.Bundle;
@@ -9,8 +13,20 @@ import android.view.MenuItem;
 
 import java.util.Objects;
 
+/**
+ * Class used to make checks and load <code>HomeFragment</code>.
+ * MainActivity is expected to be the first class called when app
+ * is starting.
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Called to display main activity.
+     * Loads <code>HomeFragment</code> if <code>savedInstanceState</code> is null.
+     *
+     * @param savedInstanceState    The past state of MainActivity. savedInstanceState is
+     * expected to be null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +39,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method transitions screen from the current fragment to <code>fragment</code>.
+     * Using the <code>FragmentTransaction</code> class, it replaces the current displayed
+     * fragment with parameter <code>fragment</code>.
+     *
+     * <p>
+     * <code>fragment</code> should not be null. Generally, <code>fragment</code> is defined
+     * in the method call.
+     *
+     * @param fragment      fragment is the new instantiated class of the corresponding
+     *                      xml file. fragment is always instantiated in the method call.
+     */
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
@@ -39,6 +67,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Throws <code>RuntimeException</code> if id of menuItem does not
+     * match home id, else returns true.
+     * @param item      A previously created menuItem
+     * @return          True if item id matches home id, calls super class
+     * <code>onOptionsItemSelected</code> otherwise, which only <code>RuntimeException</code>.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

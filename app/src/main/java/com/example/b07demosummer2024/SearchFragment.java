@@ -1,3 +1,7 @@
+/*
+ * SearchFragment.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024;
 
 import android.os.Bundle;
@@ -29,6 +33,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class is used to create the view for the <code>activity_search.xml</code> file, and
+ * allow user to search for items in Firebase Database.
+ */
 public class SearchFragment extends Fragment {
 
 
@@ -48,8 +56,10 @@ public class SearchFragment extends Fragment {
     private final String blankOption = "Not selected";
 
     /**
-     * Creates a new SearchFragment with title "title".
-     * @param title the title for this fragment
+     * Constructor of SearchFragment. Assigns <code>activityTitle</code> and
+     * <code>String</code> based on parameters.
+     * @param title             String representing activity title.
+     * @param submitText        An instance of the <code>SearchResultCallback</code> interface.
      */
     protected SearchFragment(String title, String submitText) {
         this.activityTitle = title;
@@ -57,8 +67,12 @@ public class SearchFragment extends Fragment {
     }
 
     /**
-     * Creates a new SearchFragment with default title "title". Sets the submission
-     * listener to by default graphically display the search results.
+     * Default constructor of SearchFragment. Creates new <code>SearchFragment</code>
+     * with <code>activityTitle</code> as "Search Collection".
+     * Runs the <code>setSubmissionListener</code> method.
+     * <p>
+     * Contains the <code>setSubmissionListener</code> method, which loads <code>SearchResult</code>
+     * fragment on success and displays an error popup on failure.
      */
     public SearchFragment() {
         this("Search collection", "Search");
@@ -76,8 +90,22 @@ public class SearchFragment extends Fragment {
             }
         });
     }
-    
 
+    /**
+     * Called to instantiate SearchFragment view.
+     * This view is created from the <code>activity_search.xml</code> file.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in SearchFragment,
+     * @param container This is the parent view that SearchFragment's
+     * UI should be attached to. SearchFragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, SearchFragment is being re-constructed
+     * from a previous saved state as given here. savedInstanceState is not used in this instance of
+     * <code>onCreateView</code>.
+     *
+     * @return Return the View for activity_search's UI, or null.
+     */
     @Nullable
     @Override
     public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -85,6 +113,17 @@ public class SearchFragment extends Fragment {
         return inflater.inflate(R.layout.activity_search, container, false);
     }
 
+    /**
+     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
+     * has returned, but before any saved state has been restored in to the view.
+     * This allows SearchFragment to instantiate all necessary variables using the
+     * successfully generated <code>view</code>.
+     *
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here. savedInstanceState is not used in this
+     * method.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // Title
@@ -146,7 +185,6 @@ public class SearchFragment extends Fragment {
         ItemFetcher.searchItems(onSearchCompleted, this::compare, lotNum, name, category, period);
 
     }
-
 
     private void initializeSpinner(int arrayId, Spinner spinner) {
         List<CharSequence> resList = new ArrayList<>(Arrays.asList(getResources().getStringArray(arrayId)));

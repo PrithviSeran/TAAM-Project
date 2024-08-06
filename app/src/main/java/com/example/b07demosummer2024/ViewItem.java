@@ -1,3 +1,7 @@
+/*
+ * ViewItemFragment.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024;
 
 import android.net.Uri;
@@ -33,6 +37,16 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to display <code>fragment_view_popup</code>, and
+ * compiling proper information for the view.
+ * <p>
+ * ViewItemFragment creates a view for the xml file, and retrieves the
+ * designated item from Firebase Database.
+ * <p>
+ * Extends <code>TAAMSFragment</code> to use Firebase database, and
+ * <code>Fragment</code>'s <code>onCreateView</code> method.
+ */
 public class ViewItem extends TAAMSFragment {
 
     private String itemID;
@@ -55,6 +69,13 @@ public class ViewItem extends TAAMSFragment {
 
     // CHANGE: Added item constructor because SearchResult calls this class, and it already
     // has the item info, we do not need to query Firebase again
+
+    /**
+     * Constructor for <code>ViewItemFragment</code>, which assigns a value to <code>item</code>
+     * and uses lot number of the <code>item</code> to define <code>itemID</code>.
+     *
+     * @param item      Item being displayed.
+     */
     public ViewItem(Item item) {
         this.item = item;
         this.itemID = item.getLotNum();
@@ -78,6 +99,16 @@ public class ViewItem extends TAAMSFragment {
 
     }
 
+    /**
+     * Called to get the identified reference from database and use
+     * it to set values for all item information.
+     *
+     * <p>Successful task sets <code>itemName</code>, <code>itemCategory</code>,
+     * <code>itemPeriod</code>, <code>itemDescription</code>, and <code>itemLotNum</code>, to
+     * the values stored in database.
+     * Failed task results in error popup and error message logged, and a popup with
+     * no item information will appear.
+     */
     private void popUp() {
         itemsRef = database.getReference("Items/" + itemID);
 
@@ -101,6 +132,14 @@ public class ViewItem extends TAAMSFragment {
 
     }
 
+    /**
+     * Called to load image from database into view.
+     *
+     * <p>Successful will save the image or video and load
+     * it with its corresponding methods.
+     * Failed task results in error popup and error message logged.
+     * View will still be loaded but with no image.
+     */
     private void retrieveFromStorage() {
 
         StorageReference fileRef = storageReference.child(itemID);

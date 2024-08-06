@@ -1,3 +1,7 @@
+/*
+ * Report.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024.report;
 
 import android.content.Context;
@@ -29,6 +33,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+/**
+ * Class used to generate report pdf, generate view for pdf, and
+ * save pdf to app files.
+ */
 public class Report {
     public static final int PAGE_WIDTH = 2000;
     public static final int PAGE_HEIGHT = 2000;

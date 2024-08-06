@@ -1,3 +1,7 @@
+/*
+ * UserTableViewFragment.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024;
 
 import android.os.Bundle;
@@ -23,6 +27,18 @@ import com.google.firebase.database.DataSnapshot;
 
 import java.util.List;
 
+/**
+ * Class used to display <code>fragment_user_table_view.xml</code>, and
+ * compiling proper information for the view.
+ * <p>
+ * user_table_view creates a view for the xml file and display the list
+ * of all items under the "Items" reference stored in Firebase Database.
+ * It also adds functionality to a button which allows for searching
+ * through displayed items, through <code>SearchFragment</code>.
+ * <p>
+ * Extends <code>TAAMSFragment</code> to use Firebase database. Implements
+ * <code>ViewItemsTable</code> to use interface <code>displayItems</code> method.
+ */
 public class user_table_view extends TAAMSFragment implements ViewItemsTable{
 
     private TableRow newRow;
@@ -31,7 +47,24 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
     private TableLayout mainTable;
     private Button searchItem;
 
-
+    /**
+     * Called to instantiate user_table_view view.
+     * This view is created from the <code>fragment_user_table_view.xml</code> file.
+     * <p>
+     * Calls <code>onClick</code> for <code>searchItem</code> and is used
+     * to call <code>loadFragment</code> for <code>SearchFragment</code>.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in user_table_view,
+     * @param container This is the parent view that user_table_view's
+     * UI should be attached to. user_table_view should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, user_table_view is being re-constructed
+     * from a previous saved state as given here. savedInstanceState is not used in this instance of
+     * <code>onCreateView</code>.
+     *
+     * @return Return the View for user_table_view's UI, or null.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,6 +115,16 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
         textView.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, initialWeight));
     }
 
+    /**
+     * Reads the information associated with a given item and converts it
+     * into a <code>TableRow</code>.
+     * <p>
+     * Contains an <code>onClickListener</code> to call the <code>ViewItem</code>
+     * class to display item on screen.
+     *
+     * @param item      Information of this parameter is used in the <code>TableRow</code>
+     * @return          Returns <code>TableRow</code> the lot number and name of the item.
+     */
     protected TableRow getItemTableRow(Item item) {
         newRow = new TableRow(getActivity());
         newRow.setPadding(0,10,0,10);

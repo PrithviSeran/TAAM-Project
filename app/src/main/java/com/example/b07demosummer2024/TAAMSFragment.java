@@ -1,3 +1,7 @@
+/*
+ * TAAMSFragment.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024;
 
 import android.annotation.SuppressLint;
@@ -19,6 +23,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 
+/**
+ * TAAMSFragment is the abstract parent class for almost all Fragment classes in the
+ * <code>com.example.TAAM_collection_management</code> package that require displaying
+ * an xml file.
+ * <p>
+ * TAAMSFragment allows for subclasses to load other fragments as needed and
+ * standardizes text and buttons generated in certain views.
+ * <p>
+ * Includes references to Firebase Database and storage reference.
+ */
 public class TAAMSFragment extends Fragment {
     protected FirebaseDatabase database = FirebaseReferences.DATABASE;
     protected DatabaseReference itemsRef;
@@ -26,6 +40,17 @@ public class TAAMSFragment extends Fragment {
     protected StorageReference storageRef;
     protected static FirebaseUser user;
 
+    /**
+     * This method transitions screen from the current fragment to <code>fragment</code>.
+     * Using the <code>FragmentTransaction</code> class, it replaces the current displayed
+     * fragment with parameter <code>fragment</code>.
+     * <p>
+     * <code>fragment</code> should not be null. Generally, <code>fragment</code> is defined
+     * in the method call.
+     *
+     * @param fragment      fragment is the new instantiated class of the corresponding
+     *                      xml file. fragment is always instantiated in the method call.
+     */
     protected void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);

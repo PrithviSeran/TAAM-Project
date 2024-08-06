@@ -1,10 +1,16 @@
+/*
+ * ReportFragment.java     1.0     2024/08/07
+ */
+
 package com.example.b07demosummer2024.report;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -25,16 +31,45 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Class used to display report entry page and compile proper information
+ * for view.
+ * <p>
+ * ReportFragment creates a view for the xml file and displays the report
+ * item page. The Fragment allows user to enter information on an entry to
+ * be reported, and allows user to generate report.
+ * <p>
+ * Extends <code>SearchFragment</code> to use search methods to
+ * find items to generate report on, and fragment methods to display view.
+ */
 public class ReportFragment extends SearchFragment {
     private CheckBox confirmOnlyIncludeDescriptionAndPicture;
     private ProgressBar pdfGenerationProgressBar;
     private Snackbar openFilePopup = null;
 
+    /**
+     * Default constructor of <code>ReportFragment</code>. Creates
+     * an <code>activityTitle</code> "Generate report" and <code>submitText</code>
+     * "Generate".
+     */
     public ReportFragment() {
         super("Generate report", "Generate");
         setSubmissionListener(generateAndSaveReport());
     }
 
+    /**
+     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
+     * has returned, but before any saved state has been restored in to the view.
+     * This allows <code>ReportFragment</code> to create another view for "show only description
+     * and picture" <code>Checkbox</code> and a progress bar. Also sets <code>keywordSearch</code>
+     * to "gone" so that user cannot interact with the button.
+     *
+     * @param view                  The View returned by
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} from <code>SearchFragment</code>.
+     * @param savedInstanceState    If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here. savedInstanceState is not used in this
+     * method.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -59,6 +94,13 @@ public class ReportFragment extends SearchFragment {
         pdfGenerationProgressBar = view.findViewById(R.id.extraProgressBar);
     }
 
+    /**
+     * Generates a report with the list of items queried by user specifications
+     * for generating report and saves it in app directory.
+     *
+     * @return      <code>FirebaseCallback</code> which attempts to generates and save
+     *              a pdf of the report.
+     */
     private FirebaseCallback<List<Item>> generateAndSaveReport() {
         return new FirebaseCallback<List<Item>>() {
             @Override

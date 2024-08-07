@@ -77,7 +77,6 @@ public class TAAMSFragment extends Fragment {
     @SuppressLint("UseCompatLoadingForDrawables")
     protected void setButtonStyle(Button button){
 
-        Typeface typeface = ResourcesCompat.getFont(requireActivity(), R.font.lato);
         button.setAllCaps(false);
         button.setBackground(getResources().getDrawable(R.drawable.button_view));
 

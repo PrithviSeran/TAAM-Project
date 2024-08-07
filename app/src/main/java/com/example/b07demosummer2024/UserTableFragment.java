@@ -6,10 +6,7 @@ package com.example.b07demosummer2024;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +14,9 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.b07demosummer2024.firebase.FirebaseCallback;
 import com.example.b07demosummer2024.firebase.ItemFetcher;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
 
 import java.util.List;
 
@@ -31,7 +24,7 @@ import java.util.List;
  * Class used to display <code>fragment_user_table_view.xml</code>, and
  * compiling proper information for the view.
  * <p>
- * user_table_view creates a view for the xml file and display the list
+ * UserTableFragment creates a view for the xml file and display the list
  * of all items under the "Items" reference stored in Firebase Database.
  * It also adds functionality to a button which allows for searching
  * through displayed items, through <code>SearchFragment</code>.
@@ -39,7 +32,7 @@ import java.util.List;
  * Extends <code>TAAMSFragment</code> to use Firebase database. Implements
  * <code>ViewItemsTable</code> to use interface <code>displayItems</code> method.
  */
-public class user_table_view extends TAAMSFragment implements ViewItemsTable{
+public class UserTableFragment extends TAAMSFragment implements ViewItemsTable{
 
     private TableRow newRow;
     private TextView lotText, nameText;
@@ -48,22 +41,22 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
     private Button searchItem;
 
     /**
-     * Called to instantiate user_table_view view.
+     * Called to instantiate UserTableFragment view.
      * This view is created from the <code>fragment_user_table_view.xml</code> file.
      * <p>
      * Calls <code>onClick</code> for <code>searchItem</code> and is used
      * to call <code>loadFragment</code> for <code>SearchFragment</code>.
      *
      * @param inflater The LayoutInflater object that can be used to inflate
-     * any views in user_table_view,
-     * @param container This is the parent view that user_table_view's
-     * UI should be attached to. user_table_view should not add the view itself,
+     * any views in UserTableFragment,
+     * @param container This is the parent view that UserTableFragment's
+     * UI should be attached to. UserTableFragment should not add the view itself,
      * but this can be used to generate the LayoutParams of the view.
-     * @param savedInstanceState If non-null, user_table_view is being re-constructed
+     * @param savedInstanceState If non-null, UserTableFragment is being re-constructed
      * from a previous saved state as given here. savedInstanceState is not used in this instance of
      * <code>onCreateView</code>.
      *
-     * @return Return the View for user_table_view's UI, or null.
+     * @return Return the View for UserTableFragment's UI, or null.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -147,7 +140,7 @@ public class user_table_view extends TAAMSFragment implements ViewItemsTable{
             @Override
             public void onClick(View v) {
                 // Handle the button click
-                loadFragment(new ViewItem(item));
+                loadFragment(new ViewItemFragment(item));
             }
         });
 

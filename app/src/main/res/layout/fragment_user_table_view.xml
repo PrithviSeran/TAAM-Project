@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:scaleX="1"
     android:scaleY="1"
-    tools:context=".user_table_view">
+    tools:context=".UserTableFragment">
 
     <ImageView
         android:id="@+id/imageView"

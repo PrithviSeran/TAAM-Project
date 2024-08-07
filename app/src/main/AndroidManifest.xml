@@ -16,9 +16,6 @@
             android:name=".Item"
             android:exported="false" />
         <activity
-            android:name=".SpinnerFragment"
-            android:exported="false" />
-        <activity
             android:name=".HomeFragment"
             android:exported="false" />
         <activity

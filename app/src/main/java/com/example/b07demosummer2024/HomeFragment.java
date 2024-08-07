@@ -16,8 +16,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.b07demosummer2024.report.ReportFragment;
-
 /**
  * Class used to display <code>activity_home_fragment.xml</code>, and
  * compiling proper information for the view.
@@ -143,10 +141,10 @@ public class HomeFragment extends TAAMSFragment {
             public void onClick(View v) {
 
                 if (user != null){
-                    loadFragment(new AdminVisuals());
+                    loadFragment(new AdminTableFragment());
                 }
                 else{
-                    loadFragment(new user_table_view());
+                    loadFragment(new UserTableFragment());
                 }
             }
         });

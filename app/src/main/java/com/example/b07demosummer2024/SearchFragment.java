@@ -75,7 +75,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onFirebaseSuccess(List<Item> results) {
                 // search result here
-                loadFragment(new SearchResult(results));
+                loadFragment(new SearchResultFragment(results));
             }
 
             @Override

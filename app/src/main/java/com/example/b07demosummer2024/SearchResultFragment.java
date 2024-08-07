@@ -6,24 +6,16 @@ package com.example.b07demosummer2024;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
 
 /**
  * Class used to create display for the <code>fragment_user_table_view.xml</code>
@@ -34,7 +26,7 @@ import java.util.Map;
  * button and text. Implements <code>ViewItemsTable</code> to use interface
  * <code>displayItems</code> method.
  */
-public class SearchResult extends TAAMSFragment implements ViewItemsTable {
+public class SearchResultFragment extends TAAMSFragment implements ViewItemsTable {
     private TableRow tableRow1;
 
     private TextView textView1, textView2;
@@ -43,29 +35,29 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
     private TableLayout tableLayout1;
 
     /**
-     * Constructor for <code>SearchResult</code>.
+     * Constructor for <code>SearchResultFragment</code>.
      * Requires list of <code>Items</code> to be called.
      *
      * @param items     List of items created from searching.
      */
-    public SearchResult(List<Item> items) {
+    public SearchResultFragment(List<Item> items) {
         this.items = items;
     }
 
     /**
-     * Called to have SearchResult instantiate its user interface view.
+     * Called to have SearchResultFragment instantiate its user interface view.
      * This view is created from the <code>fragment_user_table_view.xml</code> file.
      *
      * @param inflater The LayoutInflater object that can be used to inflate
-     * any views in SearchResult,
+     * any views in SearchResultFragment,
      * @param container If non-null, this is the parent view that the fragment's
-     * UI should be attached to.  SearchResult should not add the view itself,
+     * UI should be attached to.  SearchResultFragment should not add the view itself,
      * but this can be used to generate the LayoutParams of the view.
-     * @param savedInstanceState If non-null, SearchResult is being re-constructed
+     * @param savedInstanceState If non-null, SearchResultFragment is being re-constructed
      * from a previous saved state as given here. savedInstanceState is not used in this
      * onCreateView method.
      *
-     * @return Return the View for SearchResult's UI, or null.
+     * @return Return the View for SearchResultFragment's UI, or null.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,7 +108,7 @@ public class SearchResult extends TAAMSFragment implements ViewItemsTable {
                 @Override
                 public void onClick(View v) {
                     // Handle the button click
-                    loadFragment(new ViewItem(item));
+                    loadFragment(new ViewItemFragment(item));
                 }
             });
 

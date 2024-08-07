@@ -18,24 +18,14 @@ import android.widget.VideoView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.b07demosummer2024.firebase.FirebaseCallback;
-import com.example.b07demosummer2024.firebase.ImageFetcher;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.squareup.picasso.Picasso;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 
 /**
  * Class used to display <code>fragment_view_popup</code>, and
@@ -47,7 +37,7 @@ import java.util.ArrayList;
  * Extends <code>TAAMSFragment</code> to use Firebase database, and
  * <code>Fragment</code>'s <code>onCreateView</code> method.
  */
-public class ViewItem extends TAAMSFragment {
+public class ViewItemFragment extends TAAMSFragment {
 
     private String itemID;
     private Item item = null;
@@ -58,17 +48,11 @@ public class ViewItem extends TAAMSFragment {
     private TextView itemLotNum;
     private ImageView viewItemPic;
     private VideoView viewItemVid;
-    private Uri imageURI;
-  
 
-    private ImageView viewImage;
 
-    public ViewItem(String itemID){
+    public ViewItemFragment(String itemID){
         this.itemID = itemID;
     }
-
-    // CHANGE: Added item constructor because SearchResult calls this class, and it already
-    // has the item info, we do not need to query Firebase again
 
     /**
      * Constructor for <code>ViewItemFragment</code>, which assigns a value to <code>item</code>
@@ -76,7 +60,7 @@ public class ViewItem extends TAAMSFragment {
      *
      * @param item      Item being displayed.
      */
-    public ViewItem(Item item) {
+    public ViewItemFragment(Item item) {
         this.item = item;
         this.itemID = item.getLotNum();
     }
@@ -148,7 +132,6 @@ public class ViewItem extends TAAMSFragment {
             @Override
             public void onSuccess(Uri uri) {
 
-                imageURI = uri;
                 fileRef.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
 
                     @Override

@@ -1,5 +1,5 @@
 /*
- * AdminVisualsFragment.java     1.0     2024/08/07
+ * AdminTableFragment.java     1.0     2024/08/07
  */
 
 package com.example.b07demosummer2024;
@@ -8,9 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +16,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.b07demosummer2024.firebase.FirebaseCallback;
 import com.example.b07demosummer2024.firebase.ItemFetcher;
 import com.example.b07demosummer2024.report.ReportFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,21 +30,17 @@ import java.util.Map;
  * Class used to display <code>fragment_admin_visuals.xml</code>, and
  * compiling proper information for the view.
  * <p>
- * AdminVisualsFragment creates a view for the xml file and display the list
+ * AdminTableFragment creates a view for the xml file and display the list
  * of all items under the "Items" reference stored in Firebase Database.
  * It also gives functionality to multiple buttons allowing for adding, deleting,
  * reporting, and searching items displayed on screen, through other classes.
  * <p>
- * Extends <code>user_table_view</code> due to similar view layouts. Implements
+ * Extends <code>UserTableFragment</code> due to similar view layouts. Implements
  * <code>ViewItemsTable</code> to use interface <code>displayItems</code> method.
  */
-public class AdminVisuals extends user_table_view implements ViewItemsTable{
+public class AdminTableFragment extends UserTableFragment implements ViewItemsTable{
 
-    private TableRow newRow;
-
-    private TextView lotText, nameText;
     private CheckBox selectItemCheckbox;
-    private Button viewItem;
     private Button deleteButton;    //make local
     private Button addItem;         //make local
     private TableLayout mainTable;
@@ -165,7 +154,7 @@ public class AdminVisuals extends user_table_view implements ViewItemsTable{
             public void onFirebaseSuccess(List<Item> results) {
                 for (Item item : results) {
                     selectItemCheckbox = new CheckBox(getActivity());
-                    TableRow newRow = AdminVisuals.super.getItemTableRow(item);
+                    TableRow newRow = AdminTableFragment.super.getItemTableRow(item);
                     newRow.setPadding(0,10,0,10);
                     newRow.addView(selectItemCheckbox, 0);
 

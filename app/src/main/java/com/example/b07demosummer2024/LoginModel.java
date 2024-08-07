@@ -4,15 +4,13 @@
 
 package com.example.b07demosummer2024;
 
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
 
 /**
  * Class used to authenticate user using <code>FirebaseAuth</code>.
@@ -23,10 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginModel extends TAAMSFragment{
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-    //public LoginModel(FirebaseAuth mAuth){
-      //  super.mAuth = mAuth;
-    //}
 
     /**
      * Method used to authenticate and store user information.

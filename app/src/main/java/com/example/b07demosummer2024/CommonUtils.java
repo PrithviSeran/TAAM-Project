@@ -22,6 +22,7 @@ public class CommonUtils {
      * @param type      Type of error being logged.
      * @param message   Message to write to <code>Log</code>.
      */
+
     public static void logError(@NonNull String type, @Nullable String message) {
         Log.e(type, message == null ? "No message" : message);
     }

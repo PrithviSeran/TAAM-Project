@@ -5,7 +5,6 @@
 package com.example.b07demosummer2024;
 
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +21,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.b07demosummer2024.firebase.FirebaseCallback;
-import com.example.b07demosummer2024.firebase.FirebaseReferences;
 import com.example.b07demosummer2024.firebase.ItemFetcher;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * This class is used to create the view for the <code>activity_search.xml</code> file, and

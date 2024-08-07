@@ -99,7 +99,6 @@ public class LoginFragment extends TAAMSFragment implements ILoginView {
 
     @Override
     public void showLoginSuccesful(String name){
-
         loadFragment(new HomeFragment(name));
 
         Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();

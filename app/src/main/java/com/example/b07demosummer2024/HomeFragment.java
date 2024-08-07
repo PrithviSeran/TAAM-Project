@@ -134,6 +134,7 @@ public class HomeFragment extends TAAMSFragment {
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
                 intent.setData(Uri.parse("https://taam.ca/index.php/en/"));
                 startActivity(intent);
+//                loadFragment(new ReportFragment());
             }
         });
 

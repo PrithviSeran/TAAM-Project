@@ -17,8 +17,6 @@ import com.example.b07demosummer2024.CommonUtils;
 import com.example.b07demosummer2024.Item;
 import com.example.b07demosummer2024.R;
 import com.example.b07demosummer2024.firebase.ImageFetcher;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -45,37 +43,32 @@ public class ReportDataPage extends AbstractReportPage {
     }
 
     /**
-     * Gets the View associated with this page, with "callback" being called when
+     * Gets asynchronously the View associated with this page, with "callback" being called when
      * the View is completed. The View is completed when all data fields are populated
      * and the image has been inserted.
      * @param callback the listener that operates on the completed View
-     * @return the Task that when completed means the provided "callback" has completed its work
      * @see ViewCompletedCallback
      */
-    protected Task<Void> asyncGetAssociatedView(ViewCompletedCallback callback) {
-        LayoutInflater inf = LayoutInflater.from(super.context);
-
+    protected void asyncGetAssociatedView(ViewCompletedCallback callback) {
+        LayoutInflater inflator = LayoutInflater.from(context);
         View itemView;
+
         if (showDetailedInfo) {
-            itemView = inf.inflate(R.layout.pdf_report_data_page, null);
-            getAndSetTextView(itemView, R.id.itemLotNum, item.getLotNum());
-            getAndSetTextView(itemView, R.id.itemName, item.getName());
-            getAndSetTextView(itemView, R.id.itemCategory, item.getCategory());
-            getAndSetTextView(itemView, R.id.itemPeriod, item.getPeriod());
+            itemView = inflator.inflate(R.layout.pdf_report_data_page, null);
+            addAdditionalInfoToView(itemView);
         } else {
-            itemView = inf.inflate(R.layout.pdf_report_lite_data_page, null);
+            itemView = inflator.inflate(R.layout.pdf_report_lite_data_page, null);
         }
-        ImageView itemImage = itemView.findViewById(R.id.itemImage);
         getAndSetTextView(itemView, R.id.itemDescription, item.getDescription());
 
-        TaskCompletionSource<Void> pageCompletionTaskProvider = new TaskCompletionSource<>();
+        ImageView itemImage = itemView.findViewById(R.id.itemImage);
         Drawable errorDrawable = AppCompatResources.getDrawable(super.context, R.drawable.image_not_found);
         ImageFetcher.requestImage(item.getLotNum(), Picasso.get(), new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 itemImage.setImageBitmap(bitmap);
 
-                notifyListenersAndPropagateFeedback(callback, pageCompletionTaskProvider, itemView);
+                notifyListenersOfCreatedView(callback, itemView);
             }
 
             @Override
@@ -83,13 +76,19 @@ public class ReportDataPage extends AbstractReportPage {
                 CommonUtils.logError("InvalidBitmapError", e.getMessage());
                 itemImage.setImageDrawable(picassoErrorDrawable);
 
-                notifyListenersAndPropagateFeedback(callback, pageCompletionTaskProvider, itemView);
+                notifyListenersOfCreatedView(callback, itemView);
             }
 
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {}
 
         }, errorDrawable);
-        return pageCompletionTaskProvider.getTask();
+    }
+
+    private void addAdditionalInfoToView(View itemView) {
+        getAndSetTextView(itemView, R.id.itemLotNum, item.getLotNum());
+        getAndSetTextView(itemView, R.id.itemName, item.getName());
+        getAndSetTextView(itemView, R.id.itemCategory, item.getCategory());
+        getAndSetTextView(itemView, R.id.itemPeriod, item.getPeriod());
     }
 }

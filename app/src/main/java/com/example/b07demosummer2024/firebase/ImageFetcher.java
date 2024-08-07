@@ -62,32 +62,33 @@ public class ImageFetcher {
                                     Picasso picasso,
                                     Target listener,
                                     Drawable errorDrawable) {
-        getStorageReferenceAtId(imageId).getMetadata().addOnSuccessListener((metadata) -> {
-            String contentType = metadata.getContentType();
-            String errorMessage;
 
-            if (contentType == null) {
-                errorMessage = String.format("Content type for image id %s is null", imageId);
-                listener.onBitmapFailed(new NullPointerException(errorMessage), errorDrawable);
-            } else if (!contentType.contains("image")) {
-                errorMessage = String.format("Content type for image id %s is %s, not image", imageId, contentType);
-                listener.onBitmapFailed(new RuntimeException(errorMessage), errorDrawable);
-            } else {
-                requestImageUriFromId(imageId)
-                        .addOnSuccessListener((uri) ->
-                                picasso.load(uri).noFade().error(errorDrawable).into(listener))
-                        .addOnFailureListener(e -> {
-                                    CommonUtils.logError("FirebaseError", e.getMessage());
-                                    listener.onBitmapFailed(e, errorDrawable);
-                                }
-                        );
-            }
-        }).addOnFailureListener(e -> {
-            CommonUtils.logError("FirebaseError", e.getMessage());
-            listener.onBitmapFailed(e, errorDrawable);
-        });
+        getStorageReferenceAtId(imageId)
+                .getMetadata()
+                .addOnSuccessListener((metadata) -> {
+                    String contentType = metadata.getContentType();
+                    String errorMessage;
 
-
+                    if (contentType == null) {
+                        errorMessage = String.format("Content type for image id %s is null", imageId);
+                        listener.onBitmapFailed(new NullPointerException(errorMessage), errorDrawable);
+                    } else if (!contentType.contains("image")) {
+                        errorMessage = String.format("Content type for image id %s is %s, not image", imageId, contentType);
+                        listener.onBitmapFailed(new RuntimeException(errorMessage), errorDrawable);
+                    } else {
+                        requestImageUriFromId(imageId)
+                                .addOnSuccessListener((uri) -> {
+                                    picasso.load(uri).noFade().error(errorDrawable).into(listener);
+                                }).addOnFailureListener(e -> {
+                                        CommonUtils.logError("FirebaseError", e.getMessage());
+                                        listener.onBitmapFailed(e, errorDrawable);
+                                    }
+                                );
+                    }
+                }).addOnFailureListener(e -> {
+                    CommonUtils.logError("FirebaseError", e.getMessage());
+                    listener.onBitmapFailed(e, errorDrawable);
+                });
     }
 
     private static StorageReference getStorageReferenceAtId(String imageId) {
